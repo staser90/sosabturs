@@ -11,18 +11,7 @@
 </head>
 <body data-whatsapp="2389991144">
 
-<header class="navbar flex justify-between items-center p-5">
-  <h1 class="text-orange-500 font-bold text-xl"><a href="{% url 'home' %}">SO SAB</a></h1>
-  <nav class="flex gap-6 items-center">
-    {% include 'includes/language_switcher.html' %}
-    <a href="{% url 'catalogo' %}">{% trans "Packs" %}</a>
-    <a href="{% url 'transfers' %}">{% trans "Transfer & Excursões" %}</a>
-    <a href="{% url 'galeria' %}">{% trans "Galeria" %}</a>
-    <a href="{% url 'contacto' %}">{% trans "Contacto" %}</a>
-    <a href="{% url 'profile' %}" class="px-4 py-2 rounded border border-orange-500">{% trans "Perfil" %}</a>
-    <a href="{% url 'logout_redirect' %}" class="px-4 py-2 rounded bg-red-600">{% trans "Sair" %}</a>
-  </nav>
-</header>
+{% include 'includes/navbar.html' with variant='dashboard' %}
 
 <section class="pt-24 pb-20 px-6">
   <div class="max-w-4xl mx-auto">
@@ -111,7 +100,7 @@
         var isCancelled = (status === 'cancelled' || status === 'Cancelada');
         var subject = encodeURIComponent('Pedido de cancelamento - Reserva #' + id);
         var body = encodeURIComponent('Bom dia,\n\nPeço o cancelamento da seguinte reserva:\n\nN.º da reserva: #' + id + '\nPack: ' + pack + '\nData do tour: ' + dateDisplay + '\n\nObrigado.');
-        var cancelLink = isCancelled ? '' : '<a href="mailto:info@dilantours.cv?subject=' + subject + '&body=' + body + '" class="reserva-cancel-email inline-block px-3 py-2 rounded bg-slate-600 hover:bg-slate-500 text-white text-sm whitespace-nowrap">{% trans "Solicitar cancelamento (email)" %}</a>';
+        var cancelLink = isCancelled ? '' : '<a href="mailto:sosabtours@gmail.com?subject=' + subject + '&body=' + body + '" class="reserva-cancel-email inline-block px-3 py-2 rounded bg-slate-600 hover:bg-slate-500 text-white text-sm whitespace-nowrap">{% trans "Solicitar cancelamento (email)" %}</a>';
         return '<div class="reserva-item bg-slate-900 p-4 rounded-xl flex justify-between items-center flex-wrap gap-4" data-booking-id="' + id + '">' +
           '<div class="flex-1 min-w-0">' +
             '<div class="font-semibold text-orange-500">' + esc(pack) + '</div>' +

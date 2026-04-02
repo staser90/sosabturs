@@ -1,18 +1,215 @@
-body{
-  font-family: system-ui;
-  background:#020617;
-  color:white;
+/* SO SAB — estilos base + responsivo mobile */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-.navbar{
-  position:fixed;
-  top:0;
-  width:100%;
-  background:rgba(0,0,0,0.7);
-  backdrop-filter:blur(10px);
-  z-index:50;
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
-.hero{
-  height:90vh;
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #020617;
+  color: #fff;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+img,
+video,
+svg,
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 100vw;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  z-index: 50;
+}
+
+/* Sem backdrop em mobile: evita que #nav-menu fixed fique preso ao header (links invisíveis). */
+@media (max-width: 767px) {
+  .navbar {
+    backdrop-filter: none;
+  }
+  /* Garantir painel visível quando o JS abre o menu (reforço). */
+  #nav-menu.nav-menu--open {
+    display: flex !important;
+    flex-direction: column;
+  }
+}
+
+/* Altura do hero da página inicial controlada por Tailwind (.hero-home) */
+.hero:not(.hero-home) {
+  min-height: 280px;
+}
+
+/* Carrinho (catálogo): largura total em telemóvel */
+.cart-sidebar {
+  max-width: min(400px, 100vw);
+}
+
+/* ========== Mobile (max-width: 768px) ========== */
+@media (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+
+  body {
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+
+  /* Barra: sem wrap (layout no template com flex-nowrap + grupo direito). */
+  .navbar {
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  .navbar h1,
+  .navbar h1 a {
+    font-size: 1.1rem !important;
+    flex-shrink: 0;
+  }
+
+  .navbar #auth-buttons,
+  .navbar #user-menu {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  /* Títulos Tailwind mais pequenos no mobile */
+  .text-5xl {
+    font-size: 1.75rem !important;
+    line-height: 1.2 !important;
+  }
+  .text-4xl {
+    font-size: 1.5rem !important;
+    line-height: 1.25 !important;
+  }
+  .text-3xl {
+    font-size: 1.35rem !important;
+    line-height: 1.3 !important;
+  }
+  .text-2xl {
+    font-size: 1.2rem !important;
+    line-height: 1.35 !important;
+  }
+  .text-xl {
+    font-size: 1.05rem !important;
+  }
+  .text-lg {
+    font-size: 1rem !important;
+  }
+
+  /* Secções: menos padding-top (navbar fixa) */
+  section.pt-32,
+  section[class*="pt-32"] {
+    padding-top: 7rem !important;
+  }
+
+  section.pt-24,
+  section[class*="pt-24"] {
+    padding-top: 5.5rem !important;
+  }
+
+  section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .hero:not(.hero-home) {
+    min-height: 55vh;
+    height: auto;
+    padding: 6rem 1rem 2.5rem !important;
+  }
+
+  .hero h2 {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    word-break: break-word;
+  }
+
+  .flex.flex-wrap {
+    flex-wrap: wrap !important;
+    justify-content: center;
+    gap: 0.75rem !important;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Botões e CTAs: cabem no ecrã */
+  button,
+  [type="submit"],
+  .btn,
+  a.bg-orange-500,
+  a[class*="bg-orange"],
+  a[class*="border-orange"],
+  a[class*="px-6"],
+  a[class*="py-3"] {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .hero:not(.hero-home) a[class*="rounded"],
+  .hero:not(.hero-home) button {
+    min-width: 0;
+    max-width: min(100%, 20rem);
+  }
+
+  .grid {
+    gap: 1rem !important;
+  }
+
+  .max-w-6xl,
+  .max-w-4xl,
+  .max-w-2xl,
+  .max-w-xl {
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Imagens em cards / grelha */
+  .h-72 {
+    height: auto !important;
+    min-height: 180px;
+    max-height: 240px;
+  }
+
+  /* Carrinho lateral: ecrã inteiro */
+  .cart-sidebar {
+    width: 100% !important;
+    max-width: 100vw !important;
+    right: -100% !important;
+  }
+
+  .cart-sidebar.open {
+    right: 0 !important;
+  }
+
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /* Tabelas / overflow genérico */
+  .overflow-x-auto {
+    max-width: 100vw;
+  }
 }

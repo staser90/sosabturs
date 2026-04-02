@@ -1,0 +1,67 @@
+{% load static %}{% load i18n %}
+{# variant: home | catalog | login | dashboard | contact | transfers | galeria | standard | minimal #}
+{# z-index abaixo do header (z-50): se estiver acima, cobre o painel e os toques vão ao backdrop em vez dos links. #}
+<div id="nav-backdrop" class="fixed inset-0 z-40 bg-black/50 transition-opacity duration-200 md:hidden hidden" aria-hidden="true"></div>
+
+<header class="navbar w-full">
+  <div class="relative flex w-full flex-nowrap items-center justify-between gap-4 px-4 py-3 md:px-5">
+    {% if variant == 'home' %}
+      <h1 class="shrink-0 text-lg font-bold text-orange-500 md:text-xl">SO SAB</h1>
+    {% else %}
+      <h1 class="shrink-0 text-lg font-bold text-orange-500 md:text-xl"><a href="{% url 'home' %}">SO SAB</a></h1>
+    {% endif %}
+
+    <div class="flex min-w-0 flex-1 items-center justify-end gap-3 md:gap-6">
+    {# flex + flex-col base: visível ao remover max-md:hidden no JS. Desktop: links alinhados à direita. #}
+    <nav id="nav-menu" class="nav-menu-panel flex flex-col max-md:fixed max-md:inset-0 max-md:z-[60] max-md:gap-4 max-md:overflow-y-auto max-md:bg-slate-950 max-md:px-5 max-md:pb-8 max-md:pt-20 max-md:shadow-xl max-md:hidden md:relative md:inset-auto md:z-auto md:ml-0 md:max-h-none md:min-w-0 md:flex-1 md:flex-row md:flex-wrap md:items-center md:justify-center md:gap-4 md:gap-x-6 md:bg-transparent md:p-0 md:shadow-none lg:gap-6">
+      <div class="mb-4 flex items-center justify-between border-b border-slate-700 pb-3 md:hidden">
+        <span class="text-sm font-semibold text-orange-400">{% trans "Menu" %}</span>
+        <button type="button" class="nav-close rounded p-1 text-gray-400 hover:text-white md:hidden" aria-label="{% trans 'Fechar' %}">✕</button>
+      </div>
+
+      <div class="flex w-full flex-col gap-2 md:flex-row md:flex-wrap md:items-center md:justify-center md:gap-4 lg:gap-6">
+        {% include 'includes/language_switcher.html' %}
+
+        {% if variant == 'galeria' %}
+          <a href="{% url 'catalogo' %}" class="rounded px-2 py-2 hover:bg-white/5 md:py-1">{% trans "Packs" %}</a>
+          <a href="{% url 'contacto' %}" class="rounded px-2 py-2 hover:bg-white/5 md:py-1">{% trans "Contacto" %}</a>
+        {% elif variant == 'minimal' %}
+          <a href="{% url 'catalogo' %}" class="rounded px-2 py-2 hover:bg-white/5 md:py-1">{% trans "Packs" %}</a>
+          <a href="{% url 'transfers' %}" class="rounded px-2 py-2 hover:bg-white/5 md:py-1">{% trans "Transfer & Excursões" %}</a>
+        {% else %}
+          <a href="{% url 'catalogo' %}" class="rounded px-2 py-2 hover:bg-white/5 md:py-1 {% if variant == 'catalog' %}text-orange-400 font-semibold{% endif %}">{% trans "Packs" %}</a>
+          <a href="{% url 'transfers' %}" class="rounded px-2 py-2 hover:bg-white/5 md:py-1 {% if variant == 'transfers' %}text-orange-400 font-semibold{% endif %}">{% trans "Transfer & Excursões" %}</a>
+          <a href="{% url 'galeria' %}" class="rounded px-2 py-2 hover:bg-white/5 md:py-1">{% trans "Galeria" %}</a>
+          <a href="{% url 'contacto' %}" class="rounded px-2 py-2 hover:bg-white/5 md:py-1 {% if variant == 'contact' %}text-orange-400 font-semibold{% endif %}">{% trans "Contacto" %}</a>
+        {% endif %}
+
+        {% if variant == 'catalog' %}
+          <button type="button" id="cart-toggle" class="relative mt-2 w-full rounded bg-orange-500 px-4 py-3 text-left hover:bg-orange-600 md:mt-0 md:w-auto md:py-2 md:text-center">
+            🛒 {% trans "Carrinho" %}
+            <span id="cart-count" class="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">0</span>
+          </button>
+        {% elif variant == 'login' %}
+          <a href="{% url 'register' %}" class="mt-2 rounded bg-orange-500 px-4 py-3 text-center hover:bg-orange-600 md:mt-0 md:py-2">{% trans "Registro" %}</a>
+        {% elif variant == 'dashboard' %}
+          <a href="{% url 'profile' %}" class="mt-2 rounded border border-orange-500 px-4 py-3 text-center hover:bg-orange-500/10 md:mt-0 md:py-2">{% trans "Perfil" %}</a>
+          <a href="{% url 'logout_redirect' %}" class="rounded bg-red-600 px-4 py-3 text-center hover:bg-red-700 md:py-2">{% trans "Sair" %}</a>
+        {% elif variant == 'home' or variant == 'galeria' %}
+          <div id="auth-buttons" class="mt-3 flex flex-col gap-2 border-t border-slate-700 pt-3 md:mt-0 md:flex-row md:items-center md:gap-3 md:border-0 md:pt-0">
+            <a href="{% url 'login' %}" class="rounded border border-orange-500 px-4 py-2 text-center">{% trans "Login" %}</a>
+            <a href="{% url 'register' %}" class="rounded bg-orange-500 px-4 py-2 text-center">{% trans "Registro" %}</a>
+          </div>
+          <div id="user-menu" class="mt-3 hidden flex flex-col gap-2 border-t border-slate-700 pt-3 md:mt-0 md:flex-row md:gap-3 md:border-0 md:pt-0">
+            <a href="{% url 'dashboard' %}" class="rounded border border-orange-500 px-4 py-2 text-center">{% trans "Dashboard" %}</a>
+            <button type="button" id="logout-btn" class="rounded bg-red-600 px-4 py-2">{% trans "Sair" %}</button>
+          </div>
+        {% endif %}
+      </div>
+    </nav>
+
+    <button type="button" id="nav-toggle" class="shrink-0 rounded-lg border border-white/20 p-2 text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-orange-500 md:hidden" aria-expanded="false" aria-controls="nav-menu" aria-label="{% trans 'Menu' %}">
+      <span class="block text-2xl leading-none" aria-hidden="true">☰</span>
+    </button>
+    </div>
+  </div>
+</header>
+<script src="{% static 'js/navbar.js' %}" defer></script>

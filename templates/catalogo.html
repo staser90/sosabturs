@@ -37,24 +37,21 @@
     .cart-overlay.show {
       display: block;
     }
+    @media (max-width: 768px) {
+      .cart-sidebar {
+        width: 100% !important;
+        max-width: 100vw;
+        right: -100%;
+      }
+      .cart-sidebar.open {
+        right: 0;
+      }
+    }
   </style>
 </head>
 <body data-whatsapp="2389991144">
 
-<header class="navbar flex justify-between items-center p-5">
-  <h1 class="text-orange-500 font-bold text-xl"><a href="{% url 'home' %}">SO SAB</a></h1>
-  <nav class="flex gap-6 items-center">
-    {% include 'includes/language_switcher.html' %}
-    <a href="{% url 'catalogo' %}">{% trans "Packs" %}</a>
-    <a href="{% url 'transfers' %}">{% trans "Transfer & Excursões" %}</a>
-    <a href="{% url 'galeria' %}">{% trans "Galeria" %}</a>
-    <a href="{% url 'contacto' %}">{% trans "Contacto" %}</a>
-    <button id="cart-toggle" class="relative bg-orange-500 px-4 py-2 rounded hover:bg-orange-600 transition">
-      🛒 {% trans "Carrinho" %}
-      <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
-    </button>
-  </nav>
-</header>
+{% include 'includes/navbar.html' with variant='catalog' %}
 
 <!-- Overlay para fechar carrinho -->
 <div id="cart-overlay" class="cart-overlay"></div>

@@ -10,14 +10,7 @@
 </head>
 <body>
 
-<header class="navbar flex justify-between items-center p-5">
-  <h1 class="text-orange-500 font-bold text-xl"><a href="{% url 'home' %}">SO SAB</a></h1>
-  <nav class="flex gap-6 items-center">
-    {% include 'includes/language_switcher.html' %}
-    <a href="{% url 'catalogo' %}">{% trans "Packs" %}</a>
-    <a href="{% url 'transfers' %}">{% trans "Transfer & Excursões" %}</a>
-  </nav>
-</header>
+{% include 'includes/navbar.html' with variant='minimal' %}
 
 <section class="pt-32 max-w-xl mx-auto px-6 text-center">
   <div class="bg-slate-900 p-8 rounded-xl">

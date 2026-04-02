@@ -165,22 +165,7 @@
 </head>
 <body data-whatsapp="2389991144">
 
-<header class="navbar flex justify-between items-center p-5">
-  <h1 class="text-orange-500 font-bold text-xl"><a href="{% url 'home' %}">SO SAB</a></h1>
-  <nav class="flex gap-6 items-center">
-    {% include 'includes/language_switcher.html' %}
-    <a href="{% url 'catalogo' %}">{% trans "Packs" %}</a>
-    <a href="{% url 'contacto' %}">{% trans "Contacto" %}</a>
-    <div id="auth-buttons" class="flex gap-3">
-      <a href="{% url 'login' %}" class="px-4 py-2 rounded border border-orange-500">{% trans "Login" %}</a>
-      <a href="{% url 'register' %}" class="bg-orange-500 px-4 py-2 rounded">{% trans "Registro" %}</a>
-    </div>
-    <div id="user-menu" class="hidden flex gap-3 items-center">
-      <a href="{% url 'dashboard' %}" class="px-4 py-2 rounded border border-orange-500">{% trans "Dashboard" %}</a>
-      <a href="{% url 'logout_redirect' %}" class="px-4 py-2 rounded bg-red-600">{% trans "Sair" %}</a>
-    </div>
-  </nav>
-</header>
+{% include 'includes/navbar.html' with variant='galeria' %}
 
 <section class="pt-32 px-6 pb-20">
   <div class="max-w-7xl mx-auto">

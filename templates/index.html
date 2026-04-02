@@ -9,47 +9,46 @@
   <link rel="stylesheet" href="{% static 'base.css' %}">
   <link rel="stylesheet" href="{% static 'css/whatsapp-widget.css' %}">
   <style>
-    .hero {
+    /* Fundo: cobre o ecrã sem faixa vazia em baixo; posição suaviza o “corte” do cover. */
+    .hero-home {
       background-image:
         linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.5)),
         url("{% static 'images/galeria/IMG_7402.JPG' %}");
+      background-repeat: no-repeat;
       background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      min-height: 70vh;
+      background-position: center 38%;
+      min-height: calc(100dvh - 4rem);
+      min-height: calc(100svh - 4rem);
     }
-    @media (max-width: 768px) {
-      .hero { background-attachment: scroll; }
+    @media (min-width: 768px) {
+      .hero-home {
+        background-attachment: fixed;
+        background-position: center 35%;
+      }
+    }
+    @media (max-width: 767px) {
+      .hero-home { background-attachment: scroll; }
     }
   </style>
 </head>
 <body data-whatsapp="2389991144">
 
-<header class="navbar flex justify-between items-center p-5">
-  <h1 class="text-orange-500 font-bold text-xl">SO SAB</h1>
-  <nav class="flex gap-6 items-center">
-    {% include 'includes/language_switcher.html' %}
-    <a href="{% url 'catalogo' %}">{% trans "Packs" %}</a>
-    <a href="{% url 'transfers' %}">{% trans "Transfer & Excursões" %}</a>
-    <a href="{% url 'galeria' %}">{% trans "Galeria" %}</a>
-    <a href="{% url 'contacto' %}">{% trans "Contacto" %}</a>
-    <div id="auth-buttons" class="flex gap-3">
-      <a href="{% url 'login' %}" class="px-4 py-2 rounded border border-orange-500">{% trans "Login" %}</a>
-      <a href="{% url 'register' %}" class="bg-orange-500 px-4 py-2 rounded">{% trans "Registro" %}</a>
-    </div>
-    <div id="user-menu" class="hidden flex gap-3 items-center">
-      <a href="{% url 'dashboard' %}" class="px-4 py-2 rounded border border-orange-500">{% trans "Dashboard" %}</a>
-      <button id="logout-btn" class="px-4 py-2 rounded bg-red-600">{% trans "Sair" %}</button>
-    </div>
-  </nav>
-</header>
+{% include 'includes/navbar.html' with variant='home' %}
 
-<section class="hero flex flex-col justify-center items-center text-center">
-  <h2 class="text-5xl font-bold mb-4">{% trans "Explore a Ilha do Sal" %}</h2>
-  <p class="text-xl mb-8 text-gray-300">{% trans "Aventuras inesquecíveis esperam por si" %}</p>
-  <div class="flex gap-4">
-    <a href="{% url 'catalogo' %}" class="bg-orange-500 px-6 py-3 rounded hover:bg-orange-600 transition">{% trans "Reservar Tour" %}</a>
-    <a href="{% url 'galeria' %}" class="bg-transparent border-2 border-orange-500 px-6 py-3 rounded hover:bg-orange-500/10 transition">{% trans "Ver Galeria" %}</a>
+<section class="hero hero-home flex flex-col justify-center items-center text-center w-full px-4 sm:px-8 md:px-12 lg:px-16 pt-24 pb-6 sm:pt-28 sm:pb-8 md:pt-28 md:pb-12 md:gap-6 gap-4 sm:gap-5">
+  <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-balance max-w-4xl md:max-w-6xl mx-auto px-1">
+    {% trans "Explore a Ilha do Sal" %}
+  </h2>
+  <p class="text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl md:max-w-3xl mx-auto leading-relaxed px-1">
+    {% trans "Aventuras inesquecíveis esperam por si" %}
+  </p>
+  <div class="flex flex-col md:flex-row gap-2.5 md:gap-4 justify-center items-center mt-1">
+    <a href="{% url 'catalogo' %}" class="inline-flex justify-center items-center bg-orange-500 px-5 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-base rounded-lg hover:bg-orange-600 transition w-auto max-w-[11rem] sm:max-w-none md:px-6 md:py-3">
+      {% trans "Reservar Tour" %}
+    </a>
+    <a href="{% url 'galeria' %}" class="inline-flex justify-center items-center bg-transparent border-2 border-orange-500 px-5 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-base rounded-lg hover:bg-orange-500/10 transition w-auto max-w-[11rem] sm:max-w-none md:px-6 md:py-3">
+      {% trans "Ver Galeria" %}
+    </a>
   </div>
 </section>
 

@@ -11,17 +11,7 @@
 </head>
 <body data-whatsapp="2389991144">
 
-<header class="navbar flex justify-between items-center p-5">
-  <h1 class="text-orange-500 font-bold text-xl"><a href="{% url 'home' %}">SO SAB</a></h1>
-  <nav class="flex gap-6 items-center">
-    {% include 'includes/language_switcher.html' %}
-    <a href="{% url 'catalogo' %}">{% trans "Packs" %}</a>
-    <a href="{% url 'transfers' %}">{% trans "Transfer & Excursões" %}</a>
-    <a href="{% url 'galeria' %}">{% trans "Galeria" %}</a>
-    <a href="{% url 'contacto' %}">{% trans "Contacto" %}</a>
-    <a href="{% url 'register' %}" class="bg-orange-500 px-4 py-2 rounded">{% trans "Registro" %}</a>
-  </nav>
-</header>
+{% include 'includes/navbar.html' with variant='login' %}
 
 <section class="pt-24 pb-20 px-6">
   <div class="max-w-md mx-auto">
