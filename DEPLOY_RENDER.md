@@ -1,5 +1,9 @@
 # Deploy no Render (Django)
 
+## Versão do Python no Render
+
+Serviços criados após fevereiro de 2026 usam **Python 3.14** por defeito; pacotes antigos (ex.: Pillow 10.2) podem falhar ao compilar. O repositório inclui **`.python-version`** (`3.12.8`) e **`runtime.txt`** para forçar **Python 3.12**. No painel do serviço podes também definir **`PYTHON_VERSION`** = `3.12.8` (tem precedência se precisares).
+
 ## O que foi preparado
 
 - **Gunicorn** + **WhiteNoise** para servir estáticos em produção.

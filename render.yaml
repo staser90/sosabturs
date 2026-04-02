@@ -9,7 +9,7 @@ services:
     startCommand: gunicorn tours_saas.wsgi:application --bind 0.0.0.0:$PORT
     envVars:
       - key: PYTHON_VERSION
-        value: "3.10.12"
+        value: "3.12.8"
       - key: DEBUG
         value: "False"
       - key: SECURE_SSL_REDIRECT
