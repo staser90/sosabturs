@@ -1,0 +1,157 @@
+{% load static %}{% load i18n %}
+<!DOCTYPE html>
+<html lang="{{ request.LANGUAGE_CODE|default:'pt' }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% trans "Checkout" %} - SO SAB</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="{% static 'base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/whatsapp-widget.css' %}">
+</head>
+<body data-whatsapp="2389991144">
+
+<header class="navbar flex justify-between items-center p-5">
+  <h1 class="text-orange-500 font-bold text-xl"><a href="{% url 'home' %}">SO SAB</a></h1>
+  <nav class="flex gap-6 items-center">
+    {% include 'includes/language_switcher.html' %}
+    <a href="{% url 'catalogo' %}">{% trans "Packs" %}</a>
+    <a href="{% url 'transfers' %}">{% trans "Transfer & Excursões" %}</a>
+    <a href="{% url 'galeria' %}">{% trans "Galeria" %}</a>
+    <a href="{% url 'contacto' %}">{% trans "Contacto" %}</a>
+  </nav>
+</header>
+
+<section class="pt-24 pb-20 px-6">
+  <div class="max-w-2xl mx-auto">
+    <h2 class="text-3xl mb-8 text-center">{% trans "Finalizar Compra" %}</h2>
+
+    <div id="checkout-empty" class="hidden bg-slate-900 p-8 rounded-xl text-center">
+      <p class="text-gray-400 mb-6">{% trans "O carrinho está vazio." %}</p>
+      <a href="{% url 'catalogo' %}" class="inline-block bg-orange-500 px-6 py-3 rounded hover:bg-orange-600 transition">{% trans "Ver Packs" %}</a>
+    </div>
+
+    <div id="checkout-login" class="hidden bg-slate-900 p-8 rounded-xl text-center">
+      <p class="text-gray-400 mb-6">{% trans "Tem de iniciar sessão para finalizar a compra." %}</p>
+      <a href="{% url 'login' %}?next={% url 'checkout' %}" class="inline-block bg-orange-500 px-6 py-3 rounded hover:bg-orange-600 transition">{% trans "Entrar" %}</a>
+    </div>
+
+    <div id="checkout-content" class="space-y-6">
+      <div id="checkout-items" class="bg-slate-900 p-6 rounded-xl space-y-3"></div>
+      <div class="bg-slate-900 p-6 rounded-xl flex justify-between items-center">
+        <span class="text-xl font-bold">{% trans "Total:" %}</span>
+        <span id="checkout-total" class="text-2xl text-orange-500 font-bold">€0.00</span>
+      </div>
+      <div class="bg-slate-900 p-6 rounded-xl">
+        <label class="block text-sm text-gray-400 mb-2">{% trans "Data do tour (opcional)" %}</label>
+        <input type="date" id="booking-date" class="w-full p-3 rounded bg-slate-800 border border-slate-700 focus:border-orange-500 focus:outline-none">
+      </div>
+      <button type="button" id="pay-btn" class="w-full bg-orange-500 py-4 rounded-xl hover:bg-orange-600 transition font-bold text-lg">
+        {% trans "Pagar com Cartão" %}
+      </button>
+      <p id="checkout-error" class="hidden text-red-400 text-sm text-center"></p>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  var cart = [];
+  try {
+    var raw = localStorage.getItem('checkout_cart');
+    if (raw) cart = JSON.parse(raw);
+  } catch (e) {}
+
+  var emptyEl = document.getElementById('checkout-empty');
+  var loginEl = document.getElementById('checkout-login');
+  var contentEl = document.getElementById('checkout-content');
+  var itemsEl = document.getElementById('checkout-items');
+  var totalEl = document.getElementById('checkout-total');
+  var payBtn = document.getElementById('pay-btn');
+  var errorEl = document.getElementById('checkout-error');
+  var token = localStorage.getItem('access_token');
+
+  if (!cart.length) {
+    emptyEl.classList.remove('hidden');
+    contentEl.classList.add('hidden');
+    return;
+  }
+
+  if (!token) {
+    loginEl.classList.remove('hidden');
+    contentEl.classList.add('hidden');
+    return;
+  }
+
+  var total = 0;
+  itemsEl.innerHTML = cart.map(function(item) {
+    total += Number(item.price) || 0;
+    return '<div class="flex justify-between py-2 border-b border-slate-700 last:border-0">' +
+      '<span class="text-orange-500 font-semibold">' + (item.name || '') + '</span>' +
+      '<span>' + (item.duration || '') + ' — €' + (Number(item.price) || 0).toFixed(2) + '</span>' +
+      '</div>';
+  }).join('');
+  totalEl.textContent = '€' + total.toFixed(2);
+
+  payBtn.addEventListener('click', function() {
+    errorEl.classList.add('hidden');
+    errorEl.textContent = '';
+    payBtn.disabled = true;
+    payBtn.textContent = '{% trans "A processar..." %}';
+
+    var bookingDate = document.getElementById('booking-date').value || '';
+
+    var items = cart.map(function(item) {
+      return {
+        packName: item.name || '',
+        packPrice: Number(item.price) || 0,
+        duration: item.duration || ''
+      };
+    });
+
+    fetch('/api/stripe/create-booking-checkout/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify({
+        items: items,
+        bookingDate: bookingDate || undefined
+      })
+    })
+    .then(function(r) {
+      return r.json().then(function(data) {
+        return { ok: r.ok, status: r.status, data: data };
+      }).catch(function() {
+        return { ok: r.ok, status: r.status, data: {} };
+      });
+    })
+    .then(function(res) {
+      if (res.ok && res.data.url) {
+        localStorage.removeItem('checkout_cart');
+        window.location.href = res.data.url;
+        return;
+      }
+      payBtn.disabled = false;
+      payBtn.textContent = '{% trans "Pagar com Cartão" %}';
+      var err = res.data.error || '{% trans "Erro ao iniciar pagamento." %}';
+      errorEl.textContent = err;
+      var isConfigError = (err.toLowerCase().indexOf('chave') !== -1 || err.toLowerCase().indexOf('não configurad') !== -1) && err.toLowerCase().indexOf('customer') === -1;
+      if (isConfigError) {
+        errorEl.innerHTML = err + '<br><span class="text-gray-400 text-xs mt-2 block">{% trans "Verifique o ficheiro .env na raiz do projeto (STRIPE_SECRET_KEY) e reinicie o servidor Django." %}</span>';
+      }
+      errorEl.classList.remove('hidden');
+    })
+    .catch(function() {
+      payBtn.disabled = false;
+      payBtn.textContent = '{% trans "Pagar com Cartão" %}';
+      errorEl.textContent = '{% trans "Erro de ligação." %}';
+      errorEl.classList.remove('hidden');
+    });
+  });
+})();
+</script>
+{% include 'includes/tawk_widget.html' %}
+</body>
+</html>

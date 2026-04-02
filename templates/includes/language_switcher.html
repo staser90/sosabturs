@@ -1,0 +1,55 @@
+{% load i18n %}
+<div class="language-switcher relative inline-block">
+  <button type="button" class="flex items-center gap-1.5 px-3 py-2 rounded border border-slate-600 hover:border-orange-500 hover:bg-slate-800 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')" aria-haspopup="true" aria-expanded="false">
+    <span class="lang-flag text-lg" data-lang="{{ request.LANGUAGE_CODE|default:'pt' }}">{% if request.LANGUAGE_CODE == 'es' %}🇪🇸{% elif request.LANGUAGE_CODE == 'fr' %}🇫🇷{% elif request.LANGUAGE_CODE == 'en' %}🇬🇧{% elif request.LANGUAGE_CODE == 'it' %}🇮🇹{% else %}🇵🇹{% endif %}</span>
+    <span class="text-gray-300">{{ request.LANGUAGE_CODE|upper|default:"PT" }}</span>
+    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+  </button>
+  <div class="lang-dropdown hidden absolute right-0 mt-1 py-1 w-44 bg-slate-800 border border-slate-600 rounded-lg shadow-xl z-50">
+    <form method="post" action="{% url 'set_language' %}" class="block">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.path }}">
+      <button type="submit" name="language" value="pt" class="lang-option w-full px-4 py-2 text-left text-sm hover:bg-slate-700 flex items-center gap-2">
+        <span>🇵🇹</span> Português
+      </button>
+    </form>
+    <form method="post" action="{% url 'set_language' %}" class="block">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.path }}">
+      <button type="submit" name="language" value="es" class="lang-option w-full px-4 py-2 text-left text-sm hover:bg-slate-700 flex items-center gap-2">
+        <span>🇪🇸</span> Español
+      </button>
+    </form>
+    <form method="post" action="{% url 'set_language' %}" class="block">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.path }}">
+      <button type="submit" name="language" value="fr" class="lang-option w-full px-4 py-2 text-left text-sm hover:bg-slate-700 flex items-center gap-2">
+        <span>🇫🇷</span> Français
+      </button>
+    </form>
+    <form method="post" action="{% url 'set_language' %}" class="block">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.path }}">
+      <button type="submit" name="language" value="en" class="lang-option w-full px-4 py-2 text-left text-sm hover:bg-slate-700 flex items-center gap-2">
+        <span>🇬🇧</span> English
+      </button>
+    </form>
+    <form method="post" action="{% url 'set_language' %}" class="block">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.path }}">
+      <button type="submit" name="language" value="it" class="lang-option w-full px-4 py-2 text-left text-sm hover:bg-slate-700 flex items-center gap-2">
+        <span>🇮🇹</span> Italiano
+      </button>
+    </form>
+  </div>
+</div>
+<script>
+(function() {
+  var wrapper = document.querySelector('.language-switcher');
+  var dropdown = wrapper && wrapper.querySelector('.lang-dropdown');
+  if (!wrapper || !dropdown) return;
+  document.addEventListener('click', function(e) {
+    if (!wrapper.contains(e.target)) dropdown.classList.add('hidden');
+  });
+})();
+</script>

@@ -1,0 +1,15 @@
+{
+  "name": "tours-saas",
+  "version": "1.0.0",
+  "description": "SaaS Django para gestão de tours com checkout Stripe",
+  "main": "manage.py",
+  "type": "module",
+  "scripts": {
+    "start": "echo 'Use Django: python manage.py runserver'",
+    "dev": "echo 'Use Django: python manage.py runserver'"
+  },
+  "keywords": ["django", "stripe", "tours"],
+  "author": "",
+  "license": "ISC",
+  "note": "This project uses Django backend. Node.js dependencies are not needed."
+}

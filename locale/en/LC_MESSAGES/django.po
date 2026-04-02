@@ -1,0 +1,193 @@
+# SO SAB - English
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-16 12:00+0000\n"
+"PO-Revision-Date: 2025-02-16 12:00+0000\n"
+"Last-Translator: \n"
+"Language: en\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Explore a Ilha do Sal"
+msgstr "Explore Sal Island"
+
+msgid "Packs"
+msgstr "Packs"
+
+msgid "Transfer & Excursões"
+msgstr "Transfer & Tours"
+
+msgid "Galeria"
+msgstr "Gallery"
+
+msgid "Contacto"
+msgstr "Contact"
+
+msgid "Login"
+msgstr "Login"
+
+msgid "Registro"
+msgstr "Register"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Sair"
+msgstr "Logout"
+
+msgid "Reservar Tour"
+msgstr "Book Tour"
+
+msgid "Ver Galeria"
+msgstr "View Gallery"
+
+msgid "Aventuras inesquecíveis esperam por si"
+msgstr "Unforgettable adventures await you"
+
+msgid "Catálogo"
+msgstr "Catalogue"
+
+msgid "Carrinho"
+msgstr "Cart"
+
+msgid "Carrinho de Compras"
+msgstr "Shopping Cart"
+
+msgid "O carrinho está vazio"
+msgstr "Your cart is empty"
+
+msgid "Total:"
+msgstr "Total:"
+
+msgid "* Fato de mergulho incluído (obrigatório)"
+msgstr "* Wetsuit included (mandatory)"
+
+msgid "Finalizar Compra"
+msgstr "Checkout"
+
+msgid "Adicionar ao Carrinho"
+msgstr "Add to Cart"
+
+msgid "Tarifário por veículo e tipo de serviço"
+msgstr "Rates per vehicle and service type"
+
+msgid "Envie-nos uma mensagem"
+msgstr "Send us a message"
+
+msgid "Nome"
+msgstr "Name"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Assunto"
+msgstr "Subject"
+
+msgid "Mensagem"
+msgstr "Message"
+
+msgid "Enviar mensagem"
+msgstr "Send message"
+
+msgid "Galeria de Fotos"
+msgstr "Photo Gallery"
+
+msgid "Explore os nossos tours e aventuras na Ilha do Sal"
+msgstr "Explore our tours and adventures on Sal Island"
+
+msgid "Início"
+msgstr "Home"
+
+msgid "Email ou Username"
+msgstr "Email or Username"
+
+msgid "Senha"
+msgstr "Password"
+
+msgid "Esqueci a senha"
+msgstr "Forgot password"
+
+msgid "Entrar"
+msgstr "Sign in"
+
+msgid "Criar Conta"
+msgstr "Create Account"
+
+msgid "Username"
+msgstr "Username"
+
+msgid "Mínimo 6 caracteres"
+msgstr "Minimum 6 characters"
+
+msgid "Confirmar Senha"
+msgstr "Confirm Password"
+
+msgid "Já tem conta?"
+msgstr "Already have an account?"
+
+msgid "Faça login"
+msgstr "Sign in"
+
+msgid "Painel de Gestão"
+msgstr "Management Panel"
+
+msgid "Checkout"
+msgstr "Checkout"
+
+msgid "Finalizar Reserva"
+msgstr "Complete Booking"
+
+msgid "Você precisa estar logado para fazer uma reserva."
+msgstr "You need to be logged in to make a booking."
+
+msgid "O carrinho está vazio."
+msgstr "Your cart is empty."
+
+msgid "Sucesso"
+msgstr "Success"
+
+msgid "A confirmar reserva..."
+msgstr "Confirming booking..."
+
+msgid "Pagamento Realizado com Sucesso!"
+msgstr "Payment Successful!"
+
+msgid "Obrigado pela sua compra. A sua reserva foi confirmada."
+msgstr "Thank you for your purchase. Your booking has been confirmed."
+
+msgid "Pagamento Realizado"
+msgstr "Payment Received"
+
+msgid "O seu pagamento foi processado. A reserva será confirmada em breve."
+msgstr "Your payment has been processed. The booking will be confirmed shortly."
+
+msgid "Ver Minhas Reservas"
+msgstr "View My Bookings"
+
+msgid "Ver Mais Tours"
+msgstr "View More Tours"
+
+msgid "Meu Perfil"
+msgstr "My Profile"
+
+msgid "Informações Pessoais"
+msgstr "Personal Information"
+
+msgid "Apelido"
+msgstr "Surname"
+
+msgid "Ver site"
+msgstr "View site"
+
+msgid "Reservas"
+msgstr "Bookings"
+
+msgid "Avaliações"
+msgstr "Reviews"
+
+msgid "Mensagens de contacto"
+msgstr "Contact messages"

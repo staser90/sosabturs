@@ -1,0 +1,354 @@
+{% load static %}{% load i18n %}
+<!DOCTYPE html>
+<html lang="{{ request.LANGUAGE_CODE|default:'pt' }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% trans "Galeria" %} - SO SAB</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="{% static 'base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/whatsapp-widget.css' %}">
+  <style>
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      cursor: pointer;
+      aspect-ratio: 4/3;
+      background: #1e293b;
+    }
+    
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+    
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .gallery-item:hover::after {
+      opacity: 1;
+    }
+    
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    
+    .lightbox.active {
+      display: flex;
+    }
+    
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+    }
+    
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    
+    .lightbox-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    
+    .lightbox-close:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      transition: background 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .lightbox-nav:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    
+    .lightbox-prev {
+      left: -70px;
+    }
+    
+    .lightbox-next {
+      right: -70px;
+    }
+    
+    .lightbox-counter {
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 14px;
+    }
+    
+    @media (max-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+      }
+      
+      .lightbox-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+      }
+      
+      .lightbox-prev {
+        left: 10px;
+      }
+      
+      .lightbox-next {
+        right: 10px;
+      }
+    }
+  </style>
+</head>
+<body data-whatsapp="2389991144">
+
+<header class="navbar flex justify-between items-center p-5">
+  <h1 class="text-orange-500 font-bold text-xl"><a href="{% url 'home' %}">SO SAB</a></h1>
+  <nav class="flex gap-6 items-center">
+    {% include 'includes/language_switcher.html' %}
+    <a href="{% url 'catalogo' %}">{% trans "Packs" %}</a>
+    <a href="{% url 'contacto' %}">{% trans "Contacto" %}</a>
+    <div id="auth-buttons" class="flex gap-3">
+      <a href="{% url 'login' %}" class="px-4 py-2 rounded border border-orange-500">{% trans "Login" %}</a>
+      <a href="{% url 'register' %}" class="bg-orange-500 px-4 py-2 rounded">{% trans "Registro" %}</a>
+    </div>
+    <div id="user-menu" class="hidden flex gap-3 items-center">
+      <a href="{% url 'dashboard' %}" class="px-4 py-2 rounded border border-orange-500">{% trans "Dashboard" %}</a>
+      <a href="{% url 'logout_redirect' %}" class="px-4 py-2 rounded bg-red-600">{% trans "Sair" %}</a>
+    </div>
+  </nav>
+</header>
+
+<section class="pt-32 px-6 pb-20">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-4xl mb-4 text-center font-bold">{% trans "Galeria de Fotos" %}</h2>
+    <p class="text-center text-gray-400 mb-10">{% trans "Explore os nossos tours e aventuras na Ilha do Sal" %}</p>
+    
+    <div class="gallery-grid" id="gallery-grid">
+      <!-- Imagens serão carregadas via JavaScript -->
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close">×</button>
+  <button class="lightbox-nav lightbox-prev" id="lightbox-prev">‹</button>
+  <div class="lightbox-content">
+    <img id="lightbox-image" src="" alt="">
+    <div class="lightbox-counter">
+      <span id="lightbox-current">1</span> / <span id="lightbox-total">1</span>
+    </div>
+  </div>
+  <button class="lightbox-nav lightbox-next" id="lightbox-next">›</button>
+</div>
+
+<script src="{% static 'js/auth.js' %}"></script>
+<script src="{% static 'js/whatsapp-chatbot.js' %}"></script>
+<script>
+  let galleryImages = [];
+  let currentImageIndex = 0;
+
+  // Carregar imagens da API
+  async function loadGalleryImages() {
+    try {
+      const response = await fetch('/api/bookings/gallery-images/');
+      const data = await response.json();
+      
+      if (data.images && data.images.length > 0) {
+        galleryImages = data.images.map(img => img.url);
+        renderGallery();
+      } else {
+        // Fallback: usar imagens estáticas conhecidas
+        galleryImages = [
+          '{% static "images/galeria/IMG_7402.JPG" %}',
+          '{% static "images/galeria/IMG_5192.JPG" %}',
+          '{% static "images/galeria/IMG_7357.JPG" %}',
+          '{% static "images/galeria/IMG_5405.JPG" %}',
+          '{% static "images/galeria/IMG_7920.JPG" %}',
+          '{% static "images/galeria/IMG_5644.JPG" %}',
+          '{% static "images/galeria/IMG_5977.JPG" %}',
+          '{% static "images/galeria/IMG_5957.JPG" %}',
+          '{% static "images/galeria/IMG_5883.JPG" %}',
+          '{% static "images/galeria/IMG_8790.JPG" %}',
+          '{% static "images/galeria/IMG_7872.JPG" %}',
+        ].filter(Boolean);
+        renderGallery();
+      }
+    } catch (error) {
+      console.error('Erro ao carregar imagens:', error);
+      // Fallback para imagens estáticas
+      galleryImages = [
+        '{% static "images/galeria/IMG_7402.JPG" %}',
+        '{% static "images/galeria/IMG_5192.JPG" %}',
+        '{% static "images/galeria/IMG_7357.JPG" %}',
+        '{% static "images/galeria/IMG_5405.JPG" %}',
+        '{% static "images/galeria/IMG_7920.JPG" %}',
+        '{% static "images/galeria/IMG_5644.JPG" %}',
+        '{% static "images/galeria/IMG_5977.JPG" %}',
+        '{% static "images/galeria/IMG_5957.JPG" %}',
+        '{% static "images/galeria/IMG_5883.JPG" %}',
+        '{% static "images/galeria/IMG_8790.JPG" %}',
+        '{% static "images/galeria/IMG_7872.JPG" %}',
+      ].filter(Boolean);
+      renderGallery();
+    }
+  }
+
+  // Renderizar galeria
+  function renderGallery() {
+    const galleryGrid = document.getElementById('gallery-grid');
+    galleryGrid.innerHTML = ''; // Limpar
+    
+    if (galleryImages.length === 0) {
+      galleryGrid.innerHTML = '<p class="text-gray-400 text-center col-span-full">Nenhuma imagem encontrada na galeria.</p>';
+      return;
+    }
+    
+    galleryImages.forEach((imageSrc, index) => {
+      const item = document.createElement('div');
+      item.className = 'gallery-item';
+      item.setAttribute('data-index', index);
+      
+      const img = document.createElement('img');
+      img.src = imageSrc;
+      img.alt = `Foto ${index + 1} - SO SAB`;
+      img.loading = 'lazy';
+      img.onerror = function() {
+        this.style.display = 'none';
+      };
+      
+      item.appendChild(img);
+      item.addEventListener('click', () => openLightbox(index));
+      galleryGrid.appendChild(item);
+    });
+  }
+
+  // Abrir lightbox
+  function openLightbox(index) {
+    currentImageIndex = index;
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxCurrent = document.getElementById('lightbox-current');
+    const lightboxTotal = document.getElementById('lightbox-total');
+    
+    lightboxImage.src = galleryImages[index];
+    lightboxCurrent.textContent = index + 1;
+    lightboxTotal.textContent = galleryImages.length;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Fechar lightbox
+  function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Navegação do lightbox
+  function showNextImage() {
+    currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+    openLightbox(currentImageIndex);
+  }
+
+  function showPrevImage() {
+    currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+    openLightbox(currentImageIndex);
+  }
+
+  // Event listeners
+  document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+  document.getElementById('lightbox-next').addEventListener('click', showNextImage);
+  document.getElementById('lightbox-prev').addEventListener('click', showPrevImage);
+  
+  // Fechar com ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeLightbox();
+    } else if (e.key === 'ArrowRight') {
+      showNextImage();
+    } else if (e.key === 'ArrowLeft') {
+      showPrevImage();
+    }
+  });
+
+  // Fechar ao clicar fora da imagem
+  document.getElementById('lightbox').addEventListener('click', (e) => {
+    if (e.target.id === 'lightbox') {
+      closeLightbox();
+    }
+  });
+
+  // Verificar autenticação
+  checkAuth();
+
+  // Carregar galeria
+  loadGalleryImages();
+</script>
+
+</body>
+</html>

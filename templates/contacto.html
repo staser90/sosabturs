@@ -1,0 +1,100 @@
+{% load static %}{% load i18n %}
+<!DOCTYPE html>
+<html lang="{{ request.LANGUAGE_CODE|default:'pt' }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% trans "Contacto" %} - SO SAB</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="{% static 'base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/whatsapp-widget.css' %}">
+</head>
+<body data-whatsapp="2389991144">
+
+<header class="navbar flex justify-between items-center p-5">
+  <h1 class="text-orange-500 font-bold text-xl"><a href="{% url 'home' %}">SO SAB</a></h1>
+  <nav class="flex gap-6 items-center">
+    {% include 'includes/language_switcher.html' %}
+    <a href="{% url 'catalogo' %}">{% trans "Packs" %}</a>
+    <a href="{% url 'transfers' %}">{% trans "Transfer & Excursões" %}</a>
+    <a href="{% url 'galeria' %}">{% trans "Galeria" %}</a>
+    <a href="{% url 'contacto' %}" class="text-orange-400 font-semibold">{% trans "Contacto" %}</a>
+  </nav>
+</header>
+
+<section class="pt-32 pb-20 px-6">
+  <h2 class="text-3xl mb-6 text-center">{% trans "Contacto" %}</h2>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="max-w-xl mx-auto mb-6 p-4 rounded-xl {% if message.tags == 'success' %}bg-green-900/50 border border-green-500 text-green-200{% else %}bg-slate-800 text-gray-200{% endif %}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-10 items-start">
+    <!-- Informação e mapa -->
+    <div>
+      <div class="space-y-4 mb-8">
+        <p class="text-xl">📍 Santa Maria - Ilha do Sal</p>
+        <p class="text-xl">📞 +238 979 45 37</p>
+        <p class="text-xl">✉️ info@dilantours.cv</p>
+      </div>
+      <div class="rounded-xl overflow-hidden">
+        <iframe
+          class="w-full"
+          height="280"
+          src="https://www.google.com/maps?q=Santa%20Maria%20Sal%20Cape%20Verde&output=embed">
+        </iframe>
+      </div>
+    </div>
+
+    <!-- Formulário -->
+    <div class="bg-slate-900 p-6 rounded-xl">
+      <h3 class="text-xl font-bold mb-4">{% trans "Envie-nos uma mensagem" %}</h3>
+      <form method="post" action="{% url 'contacto' %}" class="space-y-4">
+        {% csrf_token %}
+        {% if errors %}
+          <div class="bg-red-900/50 border border-red-500 text-red-200 p-3 rounded text-sm space-y-1">
+            {% for error in errors %}<p>{{ error }}</p>{% endfor %}
+          </div>
+        {% endif %}
+        <div>
+          <label for="id_name" class="block mb-2 text-sm text-gray-400">{% trans "Nome" %} *</label>
+          <input type="text" name="name" id="id_name" required
+                 value="{{ form_data.name|default:'' }}"
+                 class="w-full p-3 rounded bg-slate-800 border border-slate-700 focus:border-orange-500 focus:outline-none"
+                 placeholder="O seu nome">
+        </div>
+        <div>
+          <label for="id_email" class="block mb-2 text-sm text-gray-400">{% trans "Email" %} *</label>
+          <input type="email" name="email" id="id_email" required
+                 value="{{ form_data.email|default:'' }}"
+                 class="w-full p-3 rounded bg-slate-800 border border-slate-700 focus:border-orange-500 focus:outline-none"
+                 placeholder="seu@email.com">
+        </div>
+        <div>
+          <label for="id_subject" class="block mb-2 text-sm text-gray-400">{% trans "Assunto" %}</label>
+          <input type="text" name="subject" id="id_subject"
+                 value="{{ form_data.subject|default:'' }}"
+                 class="w-full p-3 rounded bg-slate-800 border border-slate-700 focus:border-orange-500 focus:outline-none"
+                 placeholder="Ex: Reserva, Informação...">
+        </div>
+        <div>
+          <label for="id_message" class="block mb-2 text-sm text-gray-400">{% trans "Mensagem" %} *</label>
+          <textarea name="message" id="id_message" rows="4" required
+                    class="w-full p-3 rounded bg-slate-800 border border-slate-700 focus:border-orange-500 focus:outline-none resize-none"
+                    placeholder="Escreva a sua mensagem...">{{ form_data.message|default:'' }}</textarea>
+        </div>
+        <button type="submit" class="w-full bg-orange-500 py-3 rounded hover:bg-orange-600 transition font-bold">
+          {% trans "Enviar mensagem" %}
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script src="{% static 'js/whatsapp-chatbot.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+# SO SAB - Portuguese (source)
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-16 12:00+0000\n"
+"PO-Revision-Date: 2025-02-16 12:00+0000\n"
+"Last-Translator: \n"
+"Language: pt\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Explore a Ilha do Sal"
+msgstr "Explore a Ilha do Sal"
+
+msgid "Packs"
+msgstr "Packs"
+
+msgid "Transfer & Excursões"
+msgstr "Transfer & Excursões"
+
+msgid "Galeria"
+msgstr "Galeria"
+
+msgid "Contacto"
+msgstr "Contacto"
+
+msgid "Login"
+msgstr "Login"
+
+msgid "Registro"
+msgstr "Registro"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Sair"
+msgstr "Sair"
+
+msgid "Reservar Tour"
+msgstr "Reservar Tour"
+
+msgid "Ver Galeria"
+msgstr "Ver Galeria"
+
+msgid "Aventuras inesquecíveis esperam por si"
+msgstr "Aventuras inesquecíveis esperam por si"
+
+msgid "Catálogo"
+msgstr "Catálogo"
+
+msgid "Carrinho"
+msgstr "Carrinho"
+
+msgid "Carrinho de Compras"
+msgstr "Carrinho de Compras"
+
+msgid "O carrinho está vazio"
+msgstr "O carrinho está vazio"
+
+msgid "Total:"
+msgstr "Total:"
+
+msgid "* Fato de mergulho incluído (obrigatório)"
+msgstr "* Fato de mergulho incluído (obrigatório)"
+
+msgid "Finalizar Compra"
+msgstr "Finalizar Compra"
+
+msgid "Adicionar ao Carrinho"
+msgstr "Adicionar ao Carrinho"
+
+msgid "Tarifário por veículo e tipo de serviço"
+msgstr "Tarifário por veículo e tipo de serviço"
+
+msgid "Envie-nos uma mensagem"
+msgstr "Envie-nos uma mensagem"
+
+msgid "Nome"
+msgstr "Nome"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Assunto"
+msgstr "Assunto"
+
+msgid "Mensagem"
+msgstr "Mensagem"
+
+msgid "Enviar mensagem"
+msgstr "Enviar mensagem"
+
+msgid "Galeria de Fotos"
+msgstr "Galeria de Fotos"
+
+msgid "Explore os nossos tours e aventuras na Ilha do Sal"
+msgstr "Explore os nossos tours e aventuras na Ilha do Sal"
+
+msgid "Início"
+msgstr "Início"
+
+msgid "Email ou Username"
+msgstr "Email ou Username"
+
+msgid "Senha"
+msgstr "Senha"
+
+msgid "Esqueci a senha"
+msgstr "Esqueci a senha"
+
+msgid "Entrar"
+msgstr "Entrar"
+
+msgid "Criar Conta"
+msgstr "Criar Conta"
+
+msgid "Username"
+msgstr "Username"
+
+msgid "Mínimo 6 caracteres"
+msgstr "Mínimo 6 caracteres"
+
+msgid "Confirmar Senha"
+msgstr "Confirmar Senha"
+
+msgid "Já tem conta?"
+msgstr "Já tem conta?"
+
+msgid "Faça login"
+msgstr "Faça login"
+
+msgid "Painel de Gestão"
+msgstr "Painel de Gestão"
+
+msgid "Checkout"
+msgstr "Checkout"
+
+msgid "Finalizar Reserva"
+msgstr "Finalizar Reserva"
+
+msgid "Você precisa estar logado para fazer uma reserva."
+msgstr "Você precisa estar logado para fazer uma reserva."
+
+msgid "O carrinho está vazio."
+msgstr "O carrinho está vazio."
+
+msgid "Sucesso"
+msgstr "Sucesso"
+
+msgid "A confirmar reserva..."
+msgstr "A confirmar reserva..."
+
+msgid "Pagamento Realizado com Sucesso!"
+msgstr "Pagamento Realizado com Sucesso!"
+
+msgid "Obrigado pela sua compra. A sua reserva foi confirmada."
+msgstr "Obrigado pela sua compra. A sua reserva foi confirmada."
+
+msgid "Pagamento Realizado"
+msgstr "Pagamento Realizado"
+
+msgid "O seu pagamento foi processado. A reserva será confirmada em breve."
+msgstr "O seu pagamento foi processado. A reserva será confirmada em breve."
+
+msgid "Ver Minhas Reservas"
+msgstr "Ver Minhas Reservas"
+
+msgid "Ver Mais Tours"
+msgstr "Ver Mais Tours"
+
+msgid "Meu Perfil"
+msgstr "Meu Perfil"
+
+msgid "Informações Pessoais"
+msgstr "Informações Pessoais"
+
+msgid "Apelido"
+msgstr "Apelido"
+
+msgid "Ver site"
+msgstr "Ver site"
+
+msgid "Reservas"
+msgstr "Reservas"
+
+msgid "Avaliações"
+msgstr "Avaliações"
+
+msgid "Mensagens de contacto"
+msgstr "Mensagens de contacto"

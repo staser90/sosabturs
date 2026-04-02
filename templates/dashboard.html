@@ -1,0 +1,174 @@
+{% load static %}{% load i18n %}
+<!DOCTYPE html>
+<html lang="{{ request.LANGUAGE_CODE|default:'pt' }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% trans "Dashboard" %} - SO SAB</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="{% static 'base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/whatsapp-widget.css' %}">
+</head>
+<body data-whatsapp="2389991144">
+
+<header class="navbar flex justify-between items-center p-5">
+  <h1 class="text-orange-500 font-bold text-xl"><a href="{% url 'home' %}">SO SAB</a></h1>
+  <nav class="flex gap-6 items-center">
+    {% include 'includes/language_switcher.html' %}
+    <a href="{% url 'catalogo' %}">{% trans "Packs" %}</a>
+    <a href="{% url 'transfers' %}">{% trans "Transfer & Excursões" %}</a>
+    <a href="{% url 'galeria' %}">{% trans "Galeria" %}</a>
+    <a href="{% url 'contacto' %}">{% trans "Contacto" %}</a>
+    <a href="{% url 'profile' %}" class="px-4 py-2 rounded border border-orange-500">{% trans "Perfil" %}</a>
+    <a href="{% url 'logout_redirect' %}" class="px-4 py-2 rounded bg-red-600">{% trans "Sair" %}</a>
+  </nav>
+</header>
+
+<section class="pt-24 pb-20 px-6">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-3xl mb-8">{% trans "As minhas reservas" %}</h2>
+
+    <div id="dashboard-login-required" class="hidden bg-slate-900 p-6 rounded-xl text-center">
+      <p class="text-gray-400 mb-4">{% trans "Tem de iniciar sessão para ver as suas reservas." %}</p>
+      <a href="{% url 'login' %}" class="inline-block bg-orange-500 px-6 py-2 rounded hover:bg-orange-600 transition">{% trans "Entrar" %}</a>
+    </div>
+
+    <div id="dashboard-content" class="space-y-4">
+      <div id="reservas-loading" class="text-gray-400">{% trans "A carregar..." %}</div>
+      <div id="reservas-list" class="space-y-3 hidden"></div>
+      <div id="reservas-empty" class="hidden bg-slate-900 p-6 rounded-xl text-gray-400 text-center">
+        {% trans "Ainda não tem reservas." %}
+        <a href="{% url 'catalogo' %}" class="block mt-4 text-orange-500 hover:underline">{% trans "Reservar um tour" %}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  var token = localStorage.getItem('access_token');
+  var loginRequired = document.getElementById('dashboard-login-required');
+  var content = document.getElementById('dashboard-content');
+  var loading = document.getElementById('reservas-loading');
+  var list = document.getElementById('reservas-list');
+  var empty = document.getElementById('reservas-empty');
+
+  if (!token) {
+    loginRequired.classList.remove('hidden');
+    content.classList.add('hidden');
+    return;
+  }
+
+  function getHiddenIds() {
+    try {
+      var raw = localStorage.getItem('hidden_booking_ids');
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) { return []; }
+  }
+  function addHiddenId(id) {
+    var ids = getHiddenIds();
+    if (ids.indexOf(id) === -1) { ids.push(id); localStorage.setItem('hidden_booking_ids', JSON.stringify(ids)); }
+  }
+
+  fetch('/api/bookings/', {
+    headers: { 'Authorization': 'Bearer ' + token }
+  })
+  .then(function(r) {
+    if (!r.ok) {
+      if (r.status === 401) {
+        loginRequired.classList.remove('hidden');
+        content.classList.add('hidden');
+        return;
+      }
+      throw new Error('Erro ao carregar');
+    }
+    return r.json();
+  })
+  .then(function(data) {
+    function esc(s) {
+      if (s == null || s === undefined) return '';
+      var el = document.createElement('span');
+      el.textContent = String(s);
+      return el.innerHTML;
+    }
+    loading.classList.add('hidden');
+    var rawResults = data.results || data || [];
+    var hiddenIds = getHiddenIds();
+    var results = Array.isArray(rawResults) ? rawResults.filter(function(b) {
+      var bid = b.id;
+      return hiddenIds.indexOf(bid) === -1 && hiddenIds.indexOf(String(bid)) === -1;
+    }) : [];
+    if (results.length > 0) {
+      list.classList.remove('hidden');
+      list.innerHTML = results.map(function(b) {
+        var id = b.id;
+        var dateStr = b.booking_date || b.date || null;
+        var dateDisplay = dateStr ? (String(dateStr).length >= 10 ? dateStr.split('-').reverse().join('/') : dateStr) : 'A definir';
+        var pack = (b.pack_name || b.pack || '-').replace(/\bnull\b/gi, '').replace(/\s+/g, ' ').trim() || '-';
+        var total = b.total_amount != null ? (b.total_amount + ' €') : (b.amount != null ? b.amount + ' €' : (b.pack_price != null ? b.pack_price + ' €' : '-'));
+        var status = b.status || b.payment_status || '';
+        var statusLabel = (status === 'cancelled' || status === 'Cancelada') ? 'Cancelada' : (status === 'confirmed' || status === 'Confirmada') ? 'Confirmada' : status;
+        var isCancelled = (status === 'cancelled' || status === 'Cancelada');
+        var subject = encodeURIComponent('Pedido de cancelamento - Reserva #' + id);
+        var body = encodeURIComponent('Bom dia,\n\nPeço o cancelamento da seguinte reserva:\n\nN.º da reserva: #' + id + '\nPack: ' + pack + '\nData do tour: ' + dateDisplay + '\n\nObrigado.');
+        var cancelLink = isCancelled ? '' : '<a href="mailto:info@dilantours.cv?subject=' + subject + '&body=' + body + '" class="reserva-cancel-email inline-block px-3 py-2 rounded bg-slate-600 hover:bg-slate-500 text-white text-sm whitespace-nowrap">{% trans "Solicitar cancelamento (email)" %}</a>';
+        return '<div class="reserva-item bg-slate-900 p-4 rounded-xl flex justify-between items-center flex-wrap gap-4" data-booking-id="' + id + '">' +
+          '<div class="flex-1 min-w-0">' +
+            '<div class="font-semibold text-orange-500">' + esc(pack) + '</div>' +
+            '<div class="text-sm text-gray-400 mt-1">Data do tour: ' + esc(dateDisplay) + '</div>' +
+          '</div>' +
+          '<div class="flex items-center gap-4 shrink-0">' +
+            '<div class="text-right">' +
+              '<div class="font-bold text-white">' + esc(total) + '</div>' +
+              '<div class="text-sm text-gray-400">' + esc(statusLabel) + '</div>' +
+            '</div>' +
+            '<div class="flex items-center gap-2">' +
+              '<button type="button" class="reserva-print-btn px-3 py-2 rounded bg-orange-500 hover:bg-orange-600 text-white text-sm whitespace-nowrap" data-booking-id="' + id + '" title="Imprimir / Guardar PDF">🖨️ Imprimir</button>' +
+              cancelLink +
+              '<button type="button" class="reserva-delete-btn px-3 py-2 rounded bg-red-600 hover:bg-red-700 text-white text-sm whitespace-nowrap" data-booking-id="' + id + '" title="Remover da lista">{% trans "Eliminar" %}</button>' +
+            '</div>' +
+          '</div>' +
+          '</div>';
+      }).join('');
+      list.querySelectorAll('.reserva-print-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var id = this.getAttribute('data-booking-id');
+          var t = localStorage.getItem('access_token');
+          fetch('/api/bookings/' + id + '/receipt/', { headers: { 'Authorization': 'Bearer ' + t } })
+            .then(function(r) { return r.text(); })
+            .then(function(html) {
+              var w = window.open('', '_blank');
+              w.document.write(html);
+              w.document.close();
+              w.focus();
+            })
+            .catch(function() { alert('Erro ao abrir recibo.'); });
+        });
+      });
+      list.querySelectorAll('.reserva-delete-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(ev) {
+          if (!confirm('{% trans "Remover esta reserva da sua lista? Deixará de aparecer em \"As minhas reservas\"." %}')) return;
+          var row = ev.target.closest('.reserva-item');
+          var id = row ? row.getAttribute('data-booking-id') : (ev.target && ev.target.getAttribute('data-booking-id'));
+          if (!id) return;
+          addHiddenId(Number(id));
+          addHiddenId(String(id));
+          if (row) row.remove();
+          var items = list.querySelectorAll('.reserva-item');
+          if (items.length === 0) { list.classList.add('hidden'); empty.classList.remove('hidden'); }
+        });
+      });
+    } else {
+      empty.classList.remove('hidden');
+    }
+  })
+  .catch(function() {
+    loading.classList.add('hidden');
+    empty.classList.remove('hidden');
+    empty.innerHTML = '{% trans "Erro ao carregar reservas." %} <a href="{% url "catalogo" %}" class="block mt-4 text-orange-500 hover:underline">{% trans "Ver catálogo" %}</a>';
+  });
+})();
+</script>
+{% include 'includes/tawk_widget.html' %}
+</body>
+</html>

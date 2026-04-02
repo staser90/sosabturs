@@ -1,0 +1,193 @@
+# SO SAB - Italiano
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-16 12:00+0000\n"
+"PO-Revision-Date: 2025-02-16 12:00+0000\n"
+"Last-Translator: \n"
+"Language: it\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Explore a Ilha do Sal"
+msgstr "Esplora l'isola di Sal"
+
+msgid "Packs"
+msgstr "Pacchetti"
+
+msgid "Transfer & Excursões"
+msgstr "Transfer e Escursioni"
+
+msgid "Galeria"
+msgstr "Galleria"
+
+msgid "Contacto"
+msgstr "Contatto"
+
+msgid "Login"
+msgstr "Accedi"
+
+msgid "Registro"
+msgstr "Registrati"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Sair"
+msgstr "Esci"
+
+msgid "Reservar Tour"
+msgstr "Prenota Tour"
+
+msgid "Ver Galeria"
+msgstr "Vedi Galleria"
+
+msgid "Aventuras inesquecíveis esperam por si"
+msgstr "Avventure indimenticabili vi aspettano"
+
+msgid "Catálogo"
+msgstr "Catalogo"
+
+msgid "Carrinho"
+msgstr "Carrello"
+
+msgid "Carrinho de Compras"
+msgstr "Carrello acquisti"
+
+msgid "O carrinho está vazio"
+msgstr "Il carrello è vuoto"
+
+msgid "Total:"
+msgstr "Totale:"
+
+msgid "* Fato de mergulho incluído (obrigatório)"
+msgstr "* Muta da sub inclusa (obbligatoria)"
+
+msgid "Finalizar Compra"
+msgstr "Completa acquisto"
+
+msgid "Adicionar ao Carrinho"
+msgstr "Aggiungi al carrello"
+
+msgid "Tarifário por veículo e tipo de serviço"
+msgstr "Tariffe per veicolo e tipo di servizio"
+
+msgid "Envie-nos uma mensagem"
+msgstr "Inviaci un messaggio"
+
+msgid "Nome"
+msgstr "Nome"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Assunto"
+msgstr "Oggetto"
+
+msgid "Mensagem"
+msgstr "Messaggio"
+
+msgid "Enviar mensagem"
+msgstr "Invia messaggio"
+
+msgid "Galeria de Fotos"
+msgstr "Galleria fotografica"
+
+msgid "Explore os nossos tours e aventuras na Ilha do Sal"
+msgstr "Esplora i nostri tour e avventure sull'isola di Sal"
+
+msgid "Início"
+msgstr "Home"
+
+msgid "Email ou Username"
+msgstr "Email o nome utente"
+
+msgid "Senha"
+msgstr "Password"
+
+msgid "Esqueci a senha"
+msgstr "Password dimenticata"
+
+msgid "Entrar"
+msgstr "Accedi"
+
+msgid "Criar Conta"
+msgstr "Crea account"
+
+msgid "Username"
+msgstr "Nome utente"
+
+msgid "Mínimo 6 caracteres"
+msgstr "Minimo 6 caratteri"
+
+msgid "Confirmar Senha"
+msgstr "Conferma password"
+
+msgid "Já tem conta?"
+msgstr "Hai già un account?"
+
+msgid "Faça login"
+msgstr "Accedi"
+
+msgid "Painel de Gestão"
+msgstr "Pannello di gestione"
+
+msgid "Checkout"
+msgstr "Pagamento"
+
+msgid "Finalizar Reserva"
+msgstr "Completa prenotazione"
+
+msgid "Você precisa estar logado para fazer uma reserva."
+msgstr "Devi effettuare l'accesso per prenotare."
+
+msgid "O carrinho está vazio."
+msgstr "Il carrello è vuoto."
+
+msgid "Sucesso"
+msgstr "Successo"
+
+msgid "A confirmar reserva..."
+msgstr "Conferma prenotazione..."
+
+msgid "Pagamento Realizado com Sucesso!"
+msgstr "Pagamento riuscito!"
+
+msgid "Obrigado pela sua compra. A sua reserva foi confirmada."
+msgstr "Grazie per l'acquisto. La tua prenotazione è stata confermata."
+
+msgid "Pagamento Realizado"
+msgstr "Pagamento ricevuto"
+
+msgid "O seu pagamento foi processado. A reserva será confirmada em breve."
+msgstr "Il pagamento è stato elaborato. La prenotazione sarà confermata a breve."
+
+msgid "Ver Minhas Reservas"
+msgstr "Vedi le mie prenotazioni"
+
+msgid "Ver Mais Tours"
+msgstr "Vedi altri tour"
+
+msgid "Meu Perfil"
+msgstr "Il mio profilo"
+
+msgid "Informações Pessoais"
+msgstr "Informazioni personali"
+
+msgid "Apelido"
+msgstr "Cognome"
+
+msgid "Ver site"
+msgstr "Vedi sito"
+
+msgid "Reservas"
+msgstr "Prenotazioni"
+
+msgid "Avaliações"
+msgstr "Recensioni"
+
+msgid "Mensagens de contacto"
+msgstr "Messaggi di contatto"

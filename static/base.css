@@ -1,0 +1,18 @@
+body{
+  font-family: system-ui;
+  background:#020617;
+  color:white;
+}
+
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(10px);
+  z-index:50;
+}
+
+.hero{
+  height:90vh;
+}

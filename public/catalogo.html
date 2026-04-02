@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo - Dilan Tours</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://js.stripe.com/v3/"></script>
+  <link rel="stylesheet" href="/base.css">
+</head>
+<body>
+
+<header class="navbar flex justify-between items-center p-5">
+  <h1 class="text-orange-500 font-bold text-xl"><a href="/">Dilan Tours</a></h1>
+  <nav class="flex gap-6">
+    <a href="/galeria.html">Galeria</a>
+    <a href="/contacto.html">Contacto</a>
+    <a href="/pricing.html">Planos</a>
+  </nav>
+</header>
+
+<section class="pt-32 px-6 pb-20">
+  <h2 class="text-3xl mb-10 text-center">Escolha o Seu Pack</h2>
+
+  <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+    <!-- BUGGY 2H -->
+    <div class="bg-slate-900 p-5 rounded-xl text-center hover:scale-105 transition">
+      <img src="/images/card.png" class="h-40 mx-auto object-contain">
+      <h3 class="text-orange-500 mt-3 font-bold">CF Buggy 550cc</h3>
+      <p class="text-gray-400">2 Horas</p>
+      <p class="text-xl text-orange-400 font-bold mt-2">100€</p>
+      <a href="/checkout.html?pack=buggy-2h" class="bg-orange-500 px-5 py-2 rounded block mt-3 hover:bg-orange-600 transition">Selecionar</a>
+    </div>
+
+    <!-- BUGGY 3H -->
+    <div class="bg-slate-900 p-5 rounded-xl text-center hover:scale-105 transition">
+      <img src="/images/card4.png" class="h-40 mx-auto object-contain">
+      <h3 class="text-orange-500 font-bold">CF Buggy 550cc</h3>
+      <p class="text-gray-400">3 Horas</p>
+      <p class="text-xl text-orange-400 font-bold mt-2">150€</p>
+      <a href="/checkout.html?pack=buggy-3h" class="bg-orange-500 px-5 py-2 rounded block mt-3 hover:bg-orange-600 transition">Selecionar</a>
+    </div>
+
+    <!-- MOTO 2H -->
+    <div class="bg-slate-900 p-5 rounded-xl text-center hover:scale-105 transition">
+      <img src="/images/card.png" class="h-40 mx-auto object-contain">
+      <h3 class="text-orange-500 font-bold">CF Moto 550cc</h3>
+      <p class="text-gray-400">2 Horas</p>
+      <p class="text-xl text-orange-400 font-bold mt-2">90€</p>
+      <a href="/checkout.html?pack=moto-2h" class="bg-orange-500 px-5 py-2 rounded block mt-3 hover:bg-orange-600 transition">Selecionar</a>
+    </div>
+
+    <!-- ZFORCE 1000cc 3PAX -->
+    <div class="bg-slate-900 p-5 rounded-xl text-center hover:scale-105 transition">
+      <img src="/images/card4.png" class="h-40 mx-auto object-contain">
+      <h3 class="text-orange-500 font-bold">Zforce 1000cc</h3>
+      <p class="text-gray-400">2 Horas • 3 Pessoas</p>
+      <p class="text-xl text-orange-400 font-bold mt-2">180€</p>
+      <a href="/checkout.html?pack=zforce-2h-3" class="bg-orange-500 px-5 py-2 rounded block mt-3 hover:bg-orange-600 transition">Selecionar</a>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

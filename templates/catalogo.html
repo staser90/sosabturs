@@ -1,0 +1,439 @@
+{% load static %}{% load i18n %}
+<!DOCTYPE html>
+<html lang="{{ request.LANGUAGE_CODE|default:'pt' }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% trans "Catálogo" %} - SO SAB</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="{% static 'base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/whatsapp-widget.css' %}">
+  <style>
+    .cart-sidebar {
+      position: fixed;
+      right: -400px;
+      top: 0;
+      width: 400px;
+      height: 100vh;
+      background: #0f172a;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.5);
+      transition: right 0.3s ease;
+      z-index: 1000;
+      overflow-y: auto;
+    }
+    .cart-sidebar.open {
+      right: 0;
+    }
+    .cart-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 999;
+      display: none;
+    }
+    .cart-overlay.show {
+      display: block;
+    }
+  </style>
+</head>
+<body data-whatsapp="2389991144">
+
+<header class="navbar flex justify-between items-center p-5">
+  <h1 class="text-orange-500 font-bold text-xl"><a href="{% url 'home' %}">SO SAB</a></h1>
+  <nav class="flex gap-6 items-center">
+    {% include 'includes/language_switcher.html' %}
+    <a href="{% url 'catalogo' %}">{% trans "Packs" %}</a>
+    <a href="{% url 'transfers' %}">{% trans "Transfer & Excursões" %}</a>
+    <a href="{% url 'galeria' %}">{% trans "Galeria" %}</a>
+    <a href="{% url 'contacto' %}">{% trans "Contacto" %}</a>
+    <button id="cart-toggle" class="relative bg-orange-500 px-4 py-2 rounded hover:bg-orange-600 transition">
+      🛒 {% trans "Carrinho" %}
+      <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+    </button>
+  </nav>
+</header>
+
+<!-- Overlay para fechar carrinho -->
+<div id="cart-overlay" class="cart-overlay"></div>
+
+<!-- Sidebar do Carrinho -->
+<div id="cart-sidebar" class="cart-sidebar">
+  <div class="p-6">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold">{% trans "Carrinho de Compras" %}</h2>
+      <button id="close-cart" class="text-gray-400 hover:text-white">✕</button>
+    </div>
+    <div id="cart-items" class="space-y-4 mb-6">
+      <p class="text-gray-400 text-center">{% trans "O carrinho está vazio" %}</p>
+    </div>
+    <div id="cart-total" class="border-t border-slate-700 pt-4 mb-4">
+      <div class="flex justify-between text-lg font-bold">
+        <span>{% trans "Total:" %}</span>
+        <span id="cart-total-price" class="text-orange-500">€0.00</span>
+      </div>
+      <p class="text-sm text-gray-400 mt-2">{% trans "* Fato de mergulho incluído (obrigatório)" %}</p>
+    </div>
+    <button id="checkout-btn" class="w-full bg-orange-500 py-3 rounded hover:bg-orange-600 transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+      {% trans "Finalizar Compra" %}
+    </button>
+  </div>
+</div>
+
+<section class="pt-32 px-6 pb-20">
+  <h2 class="text-3xl mb-10 text-center">Escolha o Seu Pack</h2>
+
+  <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+    <!-- Zforce 4 1000cc -->
+    <div class="bg-slate-900 p-6 rounded-xl flex flex-col">
+      <div class="w-full h-72 mb-4 overflow-hidden rounded-lg bg-slate-800">
+        <img src="{% static 'images/galeria/Zforce4100.JPG' %}" alt="Zforce 4 1000cc" class="w-full h-full object-cover">
+      </div>
+      <h3 class="text-orange-500 text-xl font-bold mb-4 text-center">Zforce 4 1000cc</h3>
+      <div class="mb-4">
+        <label class="block mb-2 text-sm text-gray-400">Número de Pessoas:</label>
+        <select class="pack-passengers w-full p-2 rounded bg-slate-800 border border-slate-700" data-pack="zforce-4">
+          <option value="3">3 Pessoas</option>
+          <option value="4">4 Pessoas</option>
+        </select>
+      </div>
+      <div class="mb-4">
+        <label class="block mb-2 text-sm text-gray-400">Duração:</label>
+        <select class="pack-duration w-full p-2 rounded bg-slate-800 border border-slate-700" data-pack="zforce-4">
+          <option value="2">2 Horas</option>
+          <option value="3">3 Horas</option>
+          <option value="4">4 Horas</option>
+        </select>
+      </div>
+      <div class="text-center mb-4 flex-grow">
+        <p class="text-2xl font-bold text-orange-400">
+          <span class="pack-price" data-pack="zforce-4" data-passengers="3" data-duration="2">180€</span>
+        </p>
+        <p class="text-xs text-gray-400 mt-1">Pack: <span class="pack-base-price">170€</span> + Fato proteção: 10€</p>
+      </div>
+      <button type="button" class="add-to-cart w-full bg-orange-500 px-5 py-2 rounded hover:bg-orange-600 transition mt-auto cursor-pointer" 
+              data-pack="zforce-4" 
+              data-name="Zforce 4 1000cc"
+              data-image="{% static 'images/galeria/Zforce4100.JPG' %}">
+        {% trans "Adicionar ao Carrinho" %}
+      </button>
+    </div>
+
+    <!-- Zforce 1000cc -->
+    <div class="bg-slate-900 p-6 rounded-xl flex flex-col">
+      <div class="w-full h-72 mb-4 overflow-hidden rounded-lg bg-slate-800">
+        <img src="{% static 'images/galeria/moto1.JPG' %}" alt="Zforce 1000cc" class="w-full h-full object-cover">
+      </div>
+      <h3 class="text-orange-500 text-xl font-bold mb-4 text-center">Zforce 1000cc</h3>
+      <div class="mb-4">
+        <label class="block mb-2 text-sm text-gray-400">Duração:</label>
+        <select class="pack-duration w-full p-2 rounded bg-slate-800 border border-slate-700" data-pack="zforce">
+          <option value="2">2 Horas</option>
+          <option value="3">3 Horas</option>
+          <option value="4">4 Horas</option>
+        </select>
+      </div>
+      <div class="text-center mb-4 flex-grow">
+        <p class="text-2xl font-bold text-orange-400">
+          <span class="pack-price" data-pack="zforce" data-duration="2">125€</span>
+        </p>
+        <p class="text-xs text-gray-400 mt-1">Pack: <span class="pack-base-price">115€</span> + Fato proteção: 10€</p>
+      </div>
+      <button type="button" class="add-to-cart w-full bg-orange-500 px-5 py-2 rounded hover:bg-orange-600 transition mt-auto cursor-pointer" 
+              data-pack="zforce" 
+              data-name="Zforce 1000cc"
+              data-image="{% static 'images/galeria/moto1.JPG' %}">
+        {% trans "Adicionar ao Carrinho" %}
+      </button>
+    </div>
+
+    <!-- CF Moto 550cc -->
+    <div class="bg-slate-900 p-6 rounded-xl flex flex-col">
+      <div class="w-full h-72 mb-4 overflow-hidden rounded-lg bg-slate-800">
+        <img src="{% static 'images/galeria/moto2.JPG' %}" alt="CF Moto 550cc" class="w-full h-full object-cover">
+      </div>
+      <h3 class="text-orange-500 text-xl font-bold mb-4 text-center">CF Moto 550cc</h3>
+      <div class="mb-4">
+        <label class="block mb-2 text-sm text-gray-400">Duração:</label>
+        <select class="pack-duration w-full p-2 rounded bg-slate-800 border border-slate-700" data-pack="cf-moto">
+          <option value="2">2 Horas</option>
+          <option value="3">3 Horas</option>
+          <option value="4">4 Horas</option>
+        </select>
+      </div>
+      <div class="text-center mb-4 flex-grow">
+        <p class="text-2xl font-bold text-orange-400">
+          <span class="pack-price" data-pack="cf-moto" data-duration="2">90€</span>
+        </p>
+        <p class="text-xs text-gray-400 mt-1">Pack: <span class="pack-base-price">80€</span> + Fato proteção: 10€</p>
+      </div>
+      <button type="button" class="add-to-cart w-full bg-orange-500 px-5 py-2 rounded hover:bg-orange-600 transition mt-auto cursor-pointer" 
+              data-pack="cf-moto" 
+              data-name="CF Moto 550cc"
+              data-image="{% static 'images/galeria/moto2.JPG' %}">
+        {% trans "Adicionar ao Carrinho" %}
+      </button>
+    </div>
+
+    <!-- CF Buggy 550cc -->
+    <div class="bg-slate-900 p-6 rounded-xl flex flex-col">
+      <div class="w-full h-72 mb-4 overflow-hidden rounded-lg bg-slate-800">
+        <img src="{% static 'images/galeria/moto3.JPG' %}" alt="CF Buggy 550cc" class="w-full h-full object-cover">
+      </div>
+      <h3 class="text-orange-500 text-xl font-bold mb-4 text-center">CF Buggy 550cc</h3>
+      <div class="mb-4">
+        <label class="block mb-2 text-sm text-gray-400">Duração:</label>
+        <select class="pack-duration w-full p-2 rounded bg-slate-800 border border-slate-700" data-pack="cf-buggy">
+          <option value="2">2 Horas</option>
+          <option value="3">3 Horas</option>
+          <option value="4">4 Horas</option>
+        </select>
+      </div>
+      <div class="text-center mb-4 flex-grow">
+        <p class="text-2xl font-bold text-orange-400">
+          <span class="pack-price" data-pack="cf-buggy" data-duration="2">100€</span>
+        </p>
+        <p class="text-xs text-gray-400 mt-1">Pack: <span class="pack-base-price">90€</span> + Fato proteção: 10€</p>
+      </div>
+      <button type="button" class="add-to-cart w-full bg-orange-500 px-5 py-2 rounded hover:bg-orange-600 transition mt-auto cursor-pointer" 
+              data-pack="cf-buggy" 
+              data-name="CF Buggy 550cc"
+              data-image="{% static 'images/galeria/moto3.JPG' %}">
+        {% trans "Adicionar ao Carrinho" %}
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Preços dos packs (base SEM fato)
+  const PACK_PRICES = {
+    'zforce-4': {
+      '3': { '2': 170, '3': 240, '4': 290 },
+      '4': { '2': 215, '3': 290, '4': 340 }
+    },
+    'zforce': { '2': 115, '3': 170, '4': 230 },
+    'cf-moto': { '2': 80, '3': 100, '4': 140 },
+    'cf-buggy': { '2': 90, '3': 140, '4': 170 }
+  };
+
+  // Fato obrigatório (10€ - será adicionado ao preço)
+  const WETSUIT_PRICE = 10;
+
+  // Carrinho (localStorage)
+  let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+  // Função para atualizar preços
+  function updatePackPrice(select) {
+    const pack = select.getAttribute('data-pack');
+    const card = select.closest('.bg-slate-900');
+    if (!card) return;
+    
+    const duration = card.querySelector('.pack-duration')?.value || '2';
+    const passengers = card.querySelector('.pack-passengers')?.value || null;
+    
+    let basePrice = 0;
+    if (pack === 'zforce-4' && passengers) {
+      basePrice = PACK_PRICES[pack][passengers][duration] || 0;
+    } else if (PACK_PRICES[pack]) {
+      basePrice = PACK_PRICES[pack][duration] || 0;
+    }
+    
+    const totalPrice = basePrice + WETSUIT_PRICE;
+    
+    const priceElement = card.querySelector('.pack-price');
+    const basePriceElement = card.querySelector('.pack-base-price');
+    
+    if (priceElement) {
+      priceElement.textContent = totalPrice + '€';
+      priceElement.setAttribute('data-duration', duration);
+      if (passengers) priceElement.setAttribute('data-passengers', passengers);
+    }
+    
+    if (basePriceElement) {
+      basePriceElement.textContent = basePrice + '€';
+    }
+  }
+
+  // Atualizar UI do carrinho
+  function updateCartUI() {
+    const cartItems = document.getElementById('cart-items');
+    const cartCount = document.getElementById('cart-count');
+    const cartTotal = document.getElementById('cart-total-price');
+    const checkoutBtn = document.getElementById('checkout-btn');
+
+    if (!cartCount) return;
+
+    cartCount.textContent = cart.length;
+
+    if (cart.length === 0) {
+      if (cartItems) cartItems.innerHTML = '<p class="text-gray-400 text-center">O carrinho está vazio</p>';
+      if (checkoutBtn) checkoutBtn.disabled = true;
+      if (cartTotal) cartTotal.textContent = '€0.00';
+    } else {
+      let total = 0;
+      if (cartItems) {
+        cartItems.innerHTML = cart.map(item => {
+          total += item.price;
+          const passengersText = item.passengers ? ` • ${item.passengers} pessoas` : '';
+          return `
+            <div class="bg-slate-800 p-4 rounded-lg">
+              <div class="flex justify-between items-start mb-2">
+                <div class="flex-1">
+                  <h4 class="font-bold text-orange-500">${item.name}</h4>
+                  <p class="text-sm text-gray-400">${item.duration}${passengersText}</p>
+                  <p class="text-sm text-gray-400">Pack: €${(item.basePrice || (item.price - 10)).toFixed(2)} + Fato: €${(item.wetsuitPrice || 10).toFixed(2)}</p>
+                </div>
+                <div class="text-right ml-4">
+                  <p class="font-bold">€${item.price.toFixed(2)}</p>
+                  <button onclick="removeFromCart(${item.id})" class="text-red-400 hover:text-red-300 text-sm mt-2">
+                    Remover
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+      if (checkoutBtn) checkoutBtn.disabled = false;
+      if (cartTotal) cartTotal.textContent = '€' + total.toFixed(2);
+    }
+  }
+
+  // Remover do carrinho (função global para onclick)
+  window.removeFromCart = function(itemId) {
+    cart = cart.filter(item => item.id !== itemId);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartUI();
+    showNotification('Item removido do carrinho');
+  };
+
+  // Notificação (função global)
+  function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'fixed top-20 right-5 bg-green-500 text-white px-6 py-3 rounded shadow-lg z-50';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    setTimeout(() => notification.remove(), 3000);
+  }
+
+  // Inicializar quando DOM estiver pronto
+  document.addEventListener('DOMContentLoaded', function() {
+    // Atualizar preços quando seleção mudar
+    document.querySelectorAll('.pack-duration, .pack-passengers').forEach(select => {
+      select.addEventListener('change', function() {
+        updatePackPrice(this);
+      });
+    });
+
+    // Adicionar ao carrinho
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    console.log('Botões encontrados:', addToCartButtons.length);
+    
+    addToCartButtons.forEach((btn, index) => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        console.log('Botão clicado:', index);
+        
+        const pack = this.getAttribute('data-pack');
+        const packName = this.getAttribute('data-name');
+        const card = this.closest('.bg-slate-900');
+        
+        if (!card) {
+          console.error('Card não encontrado');
+          alert('Erro: Card não encontrado');
+          return;
+        }
+        
+        const duration = card.querySelector('.pack-duration')?.value || '2';
+        const passengers = card.querySelector('.pack-passengers')?.value || null;
+        const priceElement = card.querySelector('.pack-price');
+        
+        if (!priceElement) {
+          console.error('Elemento de preço não encontrado');
+          alert('Erro: Preço não encontrado');
+          return;
+        }
+        
+        const priceText = priceElement.textContent.replace('€', '').replace(',', '.').trim();
+        const totalPrice = parseFloat(priceText);
+        
+        if (isNaN(totalPrice)) {
+          console.error('Preço inválido:', priceText);
+          alert('Erro: Preço inválido');
+          return;
+        }
+        
+        const basePrice = totalPrice - WETSUIT_PRICE;
+        
+        const item = {
+          id: Date.now() + Math.random(),
+          pack: pack,
+          name: packName,
+          duration: duration + 'h',
+          passengers: passengers,
+          basePrice: basePrice,
+          wetsuitPrice: WETSUIT_PRICE,
+          price: totalPrice
+        };
+
+        console.log('Item a adicionar:', item);
+        cart.push(item);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartUI();
+        showNotification('Item adicionado ao carrinho!');
+      });
+    });
+
+
+    // Abrir/fechar carrinho
+    const cartToggle = document.getElementById('cart-toggle');
+    const closeCart = document.getElementById('close-cart');
+    const cartOverlay = document.getElementById('cart-overlay');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    
+    if (cartToggle) {
+      cartToggle.addEventListener('click', () => {
+        document.getElementById('cart-sidebar').classList.add('open');
+        document.getElementById('cart-overlay').classList.add('show');
+      });
+    }
+
+    if (closeCart) {
+      closeCart.addEventListener('click', () => {
+        document.getElementById('cart-sidebar').classList.remove('open');
+        document.getElementById('cart-overlay').classList.remove('show');
+      });
+    }
+
+    if (cartOverlay) {
+      cartOverlay.addEventListener('click', () => {
+        document.getElementById('cart-sidebar').classList.remove('open');
+        document.getElementById('cart-overlay').classList.remove('show');
+      });
+    }
+
+    // Finalizar compra
+    if (checkoutBtn) {
+      checkoutBtn.addEventListener('click', () => {
+        if (cart.length === 0) return;
+        localStorage.setItem('checkout_cart', JSON.stringify(cart));
+        window.location.href = '{% url "checkout" %}';
+      });
+    }
+
+    // Inicializar
+    updateCartUI();
+    document.querySelectorAll('.pack-duration, .pack-passengers').forEach(select => {
+      updatePackPrice(select);
+    });
+  });
+</script>
+<script src="{% static 'js/whatsapp-chatbot.js' %}"></script>
+
+</body>
+</html>

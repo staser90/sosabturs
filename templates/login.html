@@ -1,0 +1,102 @@
+{% load static %}{% load i18n %}
+<!DOCTYPE html>
+<html lang="{{ request.LANGUAGE_CODE|default:'pt' }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% trans "Login" %} - SO SAB</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="{% static 'base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/whatsapp-widget.css' %}">
+</head>
+<body data-whatsapp="2389991144">
+
+<header class="navbar flex justify-between items-center p-5">
+  <h1 class="text-orange-500 font-bold text-xl"><a href="{% url 'home' %}">SO SAB</a></h1>
+  <nav class="flex gap-6 items-center">
+    {% include 'includes/language_switcher.html' %}
+    <a href="{% url 'catalogo' %}">{% trans "Packs" %}</a>
+    <a href="{% url 'transfers' %}">{% trans "Transfer & Excursões" %}</a>
+    <a href="{% url 'galeria' %}">{% trans "Galeria" %}</a>
+    <a href="{% url 'contacto' %}">{% trans "Contacto" %}</a>
+    <a href="{% url 'register' %}" class="bg-orange-500 px-4 py-2 rounded">{% trans "Registro" %}</a>
+  </nav>
+</header>
+
+<section class="pt-24 pb-20 px-6">
+  <div class="max-w-md mx-auto">
+    <h2 class="text-3xl mb-6 text-center">{% trans "Entrar" %}</h2>
+
+    <div id="login-error" class="hidden mb-4 p-4 rounded-lg bg-red-900/50 border border-red-500 text-red-200 text-sm"></div>
+
+    <form id="login-form" class="space-y-4 bg-slate-800/80 p-6 rounded-xl border border-slate-700">
+      {% csrf_token %}
+      <div>
+        <label for="username" class="block text-sm text-gray-400 mb-1">{% trans "Utilizador ou email" %}</label>
+        <input type="text" id="username" name="username" required
+          class="w-full px-4 py-2 rounded bg-slate-900 border border-slate-600 text-white focus:border-orange-500 focus:ring-1 focus:ring-orange-500">
+      </div>
+      <div>
+        <label for="password" class="block text-sm text-gray-400 mb-1">{% trans "Senha" %}</label>
+        <input type="password" id="password" name="password" required
+          class="w-full px-4 py-2 rounded bg-slate-900 border border-slate-600 text-white focus:border-orange-500 focus:ring-1 focus:ring-orange-500">
+      </div>
+      <button type="submit" id="login-btn" class="w-full bg-orange-500 py-3 rounded hover:bg-orange-600 transition font-medium">
+        {% trans "Entrar" %}
+      </button>
+    </form>
+
+    <p class="mt-6 text-center text-gray-400">
+      {% trans "Não tem conta?" %}
+      <a href="{% url 'register' %}" class="text-orange-500 hover:underline">{% trans "Registe-se" %}</a>
+    </p>
+
+    {% if request.path != "/accounts/login/" %}
+    <p class="mt-4 text-center">
+      <a href="{% url 'password_reset' %}" class="text-sm text-gray-500 hover:text-orange-500">{% trans "Recuperar senha" %}</a>
+    </p>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+document.getElementById('login-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  var btn = document.getElementById('login-btn');
+  var err = document.getElementById('login-error');
+  err.classList.add('hidden');
+  btn.disabled = true;
+  btn.textContent = '{% trans "A carregar..." %}';
+  try {
+    var csrfInput = document.querySelector('input[name=csrfmiddlewaretoken]');
+    var csrfToken = csrfInput ? csrfInput.value : '';
+    var headers = { 'Content-Type': 'application/json' };
+    if (csrfToken) headers['X-CSRFToken'] = csrfToken;
+    var r = await fetch('/api/auth/login/', {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        username: document.getElementById('username').value,
+        password: document.getElementById('password').value
+      })
+    });
+    var data = await r.json().catch(function() { return {}; });
+    if (r.ok) {
+      localStorage.setItem('access_token', data.access);
+      localStorage.setItem('refresh_token', data.refresh);
+      window.location.href = '/';
+      return;
+    }
+    err.textContent = data.error || data.detail || 'Erro ao entrar. Tente novamente.';
+    err.classList.remove('hidden');
+  } catch (x) {
+    err.textContent = 'Erro de ligação. Tente novamente.';
+    err.classList.remove('hidden');
+  }
+  btn.disabled = false;
+  btn.textContent = '{% trans "Entrar" %}';
+});
+</script>
+{% include 'includes/tawk_widget.html' %}
+</body>
+</html>
