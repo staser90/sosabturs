@@ -13,8 +13,8 @@
 
 {% include 'includes/navbar.html' with variant='dashboard' %}
 
-<section class="pt-24 pb-20 px-6">
-  <div class="max-w-4xl mx-auto">
+<section class="pt-24 pb-28 sm:pb-20 px-4 sm:px-6">
+  <div class="max-w-4xl mx-auto w-full min-w-0">
     <h2 class="text-3xl mb-8">{% trans "As minhas reservas" %}</h2>
 
     <div id="dashboard-login-required" class="hidden bg-slate-900 p-6 rounded-xl text-center">
@@ -100,21 +100,21 @@
         var isCancelled = (status === 'cancelled' || status === 'Cancelada');
         var subject = encodeURIComponent('Pedido de cancelamento - Reserva #' + id);
         var body = encodeURIComponent('Bom dia,\n\nPeço o cancelamento da seguinte reserva:\n\nN.º da reserva: #' + id + '\nPack: ' + pack + '\nData do tour: ' + dateDisplay + '\n\nObrigado.');
-        var cancelLink = isCancelled ? '' : '<a href="mailto:sosabtours@gmail.com?subject=' + subject + '&body=' + body + '" class="reserva-cancel-email inline-block px-3 py-2 rounded bg-slate-600 hover:bg-slate-500 text-white text-sm whitespace-nowrap">{% trans "Solicitar cancelamento (email)" %}</a>';
-        return '<div class="reserva-item bg-slate-900 p-4 rounded-xl flex justify-between items-center flex-wrap gap-4" data-booking-id="' + id + '">' +
-          '<div class="flex-1 min-w-0">' +
-            '<div class="font-semibold text-orange-500">' + esc(pack) + '</div>' +
+        var cancelLink = isCancelled ? '' : '<a href="mailto:sosabtours@gmail.com?subject=' + subject + '&body=' + body + '" class="reserva-cancel-email flex w-full sm:w-auto min-h-[2.75rem] items-center justify-center px-3 py-2 rounded bg-slate-600 hover:bg-slate-500 text-white text-sm text-center leading-snug">{% trans "Solicitar cancelamento (email)" %}</a>';
+        return '<div class="reserva-item bg-slate-900 p-4 rounded-xl flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-start sm:gap-4 w-full min-w-0 max-w-full" data-booking-id="' + id + '">' +
+          '<div class="min-w-0 w-full sm:flex-1 sm:min-w-0">' +
+            '<div class="font-semibold text-orange-500 break-words">' + esc(pack) + '</div>' +
             '<div class="text-sm text-gray-400 mt-1">Data do tour: ' + esc(dateDisplay) + '</div>' +
           '</div>' +
-          '<div class="flex items-center gap-4 shrink-0">' +
-            '<div class="text-right">' +
+          '<div class="w-full min-w-0 flex flex-col gap-3 sm:w-auto sm:shrink-0 sm:items-end">' +
+            '<div class="sm:text-right">' +
               '<div class="font-bold text-white">' + esc(total) + '</div>' +
               '<div class="text-sm text-gray-400">' + esc(statusLabel) + '</div>' +
             '</div>' +
-            '<div class="flex items-center gap-2">' +
-              '<button type="button" class="reserva-print-btn px-3 py-2 rounded bg-orange-500 hover:bg-orange-600 text-white text-sm whitespace-nowrap" data-booking-id="' + id + '" title="Imprimir / Guardar PDF">🖨️ Imprimir</button>' +
+            '<div class="reserva-actions flex flex-col gap-2 w-full sm:flex-row sm:flex-wrap sm:justify-end sm:max-w-[28rem]">' +
+              '<button type="button" class="reserva-print-btn flex w-full sm:w-auto min-h-[2.75rem] items-center justify-center px-3 py-2 rounded bg-orange-500 hover:bg-orange-600 text-white text-sm" data-booking-id="' + id + '" title="Imprimir / Guardar PDF">🖨️ {% trans "Imprimir" %}</button>' +
               cancelLink +
-              '<button type="button" class="reserva-delete-btn px-3 py-2 rounded bg-red-600 hover:bg-red-700 text-white text-sm whitespace-nowrap" data-booking-id="' + id + '" title="Remover da lista">{% trans "Eliminar" %}</button>' +
+              '<button type="button" class="reserva-delete-btn flex w-full sm:w-auto min-h-[2.75rem] items-center justify-center px-3 py-2 rounded bg-red-600 hover:bg-red-700 text-white text-sm touch-manipulation" data-booking-id="' + id + '" title="Remover da lista">{% trans "Eliminar" %}</button>' +
             '</div>' +
           '</div>' +
           '</div>';
@@ -136,10 +136,11 @@
       });
       list.querySelectorAll('.reserva-delete-btn').forEach(function(btn) {
         btn.addEventListener('click', function(ev) {
-          if (!confirm('{% trans "Remover esta reserva da sua lista? Deixará de aparecer em \"As minhas reservas\"." %}')) return;
-          var row = ev.target.closest('.reserva-item');
-          var id = row ? row.getAttribute('data-booking-id') : (ev.target && ev.target.getAttribute('data-booking-id'));
-          if (!id) return;
+          var el = ev.currentTarget;
+          if (!el || !el.getAttribute('data-booking-id')) return;
+          if (!window.confirm('{% trans "Remover esta reserva da sua lista? Deixará de aparecer em \"As minhas reservas\"." %}')) return;
+          var id = el.getAttribute('data-booking-id');
+          var row = el.closest('.reserva-item');
           addHiddenId(Number(id));
           addHiddenId(String(id));
           if (row) row.remove();
