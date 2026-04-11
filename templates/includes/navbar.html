@@ -1,5 +1,5 @@
 {% load static %}{% load i18n %}
-{# variant: home | catalog | login | dashboard | profile | contact | transfers | galeria | standard | minimal #}
+{# variant: home | catalog | login | register | dashboard | profile | contact | transfers | galeria | standard | minimal #}
 {# z-index abaixo do header (z-50): se estiver acima, cobre o painel e os toques vão ao backdrop em vez dos links. #}
 <div id="nav-backdrop" class="fixed inset-0 z-40 bg-black/50 transition-opacity duration-200 md:hidden hidden" aria-hidden="true"></div>
 
@@ -42,6 +42,8 @@
           </button>
         {% elif variant == 'login' %}
           <a href="{% url 'register' %}" class="mt-2 rounded bg-orange-500 px-4 py-3 text-center hover:bg-orange-600 md:mt-0 md:py-2">{% trans "Registro" %}</a>
+        {% elif variant == 'register' %}
+          <a href="{% url 'login' %}" class="mt-2 rounded border border-orange-500 px-4 py-3 text-center hover:bg-orange-500/10 md:mt-0 md:py-2">{% trans "Entrar" %}</a>
         {% elif variant == 'dashboard' %}
           <a href="{% url 'profile' %}" class="mt-2 rounded border border-orange-500 px-4 py-3 text-center hover:bg-orange-500/10 md:mt-0 md:py-2">{% trans "Perfil" %}</a>
           <a href="{% url 'logout_redirect' %}" class="rounded bg-red-600 px-4 py-3 text-center hover:bg-red-700 md:py-2">{% trans "Sair" %}</a>

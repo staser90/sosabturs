@@ -1,0 +1,130 @@
+{% load static %}{% load i18n %}
+<!DOCTYPE html>
+<html lang="{{ request.LANGUAGE_CODE|default:'pt' }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% trans "Registo" %} - SO SAB</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="{% static 'base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/whatsapp-widget.css' %}">
+</head>
+<body data-whatsapp="2389991144">
+
+{% include 'includes/navbar.html' with variant='register' %}
+
+<section class="pt-24 pb-20 px-6">
+  <div class="max-w-md mx-auto">
+    <h2 class="text-3xl mb-6 text-center">{% trans "Criar conta" %}</h2>
+
+    <div id="register-error" class="hidden mb-4 p-4 rounded-lg bg-red-900/50 border border-red-500 text-red-200 text-sm whitespace-pre-wrap"></div>
+
+    <form id="register-form" class="space-y-4 bg-slate-800/80 p-6 rounded-xl border border-slate-700">
+      {% csrf_token %}
+      <div>
+        <label for="reg_username" class="block text-sm text-gray-400 mb-1">{% trans "Utilizador" %} *</label>
+        <input type="text" id="reg_username" name="username" required autocomplete="username"
+          class="w-full px-4 py-2 rounded bg-slate-900 border border-slate-600 text-white focus:border-orange-500 focus:ring-1 focus:ring-orange-500">
+      </div>
+      <div>
+        <label for="reg_email" class="block text-sm text-gray-400 mb-1">{% trans "Email" %} *</label>
+        <input type="email" id="reg_email" name="email" required autocomplete="email"
+          class="w-full px-4 py-2 rounded bg-slate-900 border border-slate-600 text-white focus:border-orange-500 focus:ring-1 focus:ring-orange-500">
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label for="reg_first_name" class="block text-sm text-gray-400 mb-1">{% trans "Nome" %}</label>
+          <input type="text" id="reg_first_name" name="first_name" autocomplete="given-name"
+            class="w-full px-4 py-2 rounded bg-slate-900 border border-slate-600 text-white focus:border-orange-500 focus:ring-1 focus:ring-orange-500">
+        </div>
+        <div>
+          <label for="reg_last_name" class="block text-sm text-gray-400 mb-1">{% trans "Apelido" %}</label>
+          <input type="text" id="reg_last_name" name="last_name" autocomplete="family-name"
+            class="w-full px-4 py-2 rounded bg-slate-900 border border-slate-600 text-white focus:border-orange-500 focus:ring-1 focus:ring-orange-500">
+        </div>
+      </div>
+      <div>
+        <label for="reg_password" class="block text-sm text-gray-400 mb-1">{% trans "Senha" %} *</label>
+        <input type="password" id="reg_password" name="password" required autocomplete="new-password"
+          class="w-full px-4 py-2 rounded bg-slate-900 border border-slate-600 text-white focus:border-orange-500 focus:ring-1 focus:ring-orange-500">
+      </div>
+      <div>
+        <label for="reg_password_confirm" class="block text-sm text-gray-400 mb-1">{% trans "Confirmar senha" %} *</label>
+        <input type="password" id="reg_password_confirm" name="password_confirm" required autocomplete="new-password"
+          class="w-full px-4 py-2 rounded bg-slate-900 border border-slate-600 text-white focus:border-orange-500 focus:ring-1 focus:ring-orange-500">
+      </div>
+      <button type="submit" id="register-btn" class="w-full bg-orange-500 py-3 rounded hover:bg-orange-600 transition font-medium">
+        {% trans "Registar" %}
+      </button>
+    </form>
+
+    <p class="mt-6 text-center text-gray-400">
+      {% trans "Já tem conta?" %}
+      <a href="{% url 'login' %}" class="text-orange-500 hover:underline">{% trans "Entrar" %}</a>
+    </p>
+  </div>
+</section>
+
+<script>
+function formatRegisterErrors(data) {
+  if (!data || typeof data !== 'object') return '{% trans "Erro ao registar. Tente novamente." %}';
+  if (data.detail) return String(data.detail);
+  var parts = [];
+  for (var k in data) {
+    if (!Object.prototype.hasOwnProperty.call(data, k)) continue;
+    var v = data[k];
+    if (Array.isArray(v)) {
+      v.forEach(function(msg) { parts.push(String(msg)); });
+    } else if (typeof v === 'string') {
+      parts.push(v);
+    } else if (v && typeof v === 'object') {
+      parts.push(JSON.stringify(v));
+    }
+  }
+  return parts.length ? parts.join('\n') : '{% trans "Erro ao registar. Tente novamente." %}';
+}
+
+document.getElementById('register-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  var btn = document.getElementById('register-btn');
+  var err = document.getElementById('register-error');
+  err.classList.add('hidden');
+  btn.disabled = true;
+  btn.textContent = '{% trans "A carregar..." %}';
+  try {
+    var csrfInput = document.querySelector('input[name=csrfmiddlewaretoken]');
+    var csrfToken = csrfInput ? csrfInput.value : '';
+    var headers = { 'Content-Type': 'application/json' };
+    if (csrfToken) headers['X-CSRFToken'] = csrfToken;
+    var r = await fetch('/api/auth/register/', {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        username: document.getElementById('reg_username').value.trim(),
+        email: document.getElementById('reg_email').value.trim(),
+        first_name: document.getElementById('reg_first_name').value.trim(),
+        last_name: document.getElementById('reg_last_name').value.trim(),
+        password: document.getElementById('reg_password').value,
+        password_confirm: document.getElementById('reg_password_confirm').value
+      })
+    });
+    var data = await r.json().catch(function() { return {}; });
+    if (r.ok) {
+      localStorage.setItem('access_token', data.access);
+      localStorage.setItem('refresh_token', data.refresh);
+      window.location.href = '/';
+      return;
+    }
+    err.textContent = formatRegisterErrors(data);
+    err.classList.remove('hidden');
+  } catch (x) {
+    err.textContent = '{% trans "Erro de ligação. Tente novamente." %}';
+    err.classList.remove('hidden');
+  }
+  btn.disabled = false;
+  btn.textContent = '{% trans "Registar" %}';
+});
+</script>
+{% include 'includes/tawk_widget.html' %}
+</body>
+</html>
