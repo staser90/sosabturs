@@ -15,7 +15,7 @@
 
 <section class="pt-24 pb-20 px-6">
   <div class="max-w-2xl mx-auto">
-    <h2 class="text-3xl mb-8 text-center">{% trans "Finalizar Compra" %}</h2>
+    <h2 class="text-3xl mb-8 text-center">{% trans "Finalizar Reserva" %}</h2>
 
     <div id="checkout-empty" class="hidden bg-slate-900 p-8 rounded-xl text-center">
       <p class="text-gray-400 mb-6">{% trans "O carrinho está vazio." %}</p>
@@ -23,7 +23,7 @@
     </div>
 
     <div id="checkout-login" class="hidden bg-slate-900 p-8 rounded-xl text-center">
-      <p class="text-gray-400 mb-6">{% trans "Tem de iniciar sessão para finalizar a compra." %}</p>
+      <p class="text-gray-400 mb-6">{% trans "Tem de iniciar sessão para finalizar a reserva." %}</p>
       <a href="{% url 'login' %}?next={% url 'checkout' %}" class="inline-block bg-orange-500 px-6 py-3 rounded hover:bg-orange-600 transition">{% trans "Entrar" %}</a>
     </div>
 
@@ -38,7 +38,7 @@
         <input type="date" id="booking-date" class="w-full p-3 rounded bg-slate-800 border border-slate-700 focus:border-orange-500 focus:outline-none">
       </div>
       <button type="button" id="pay-btn" class="w-full bg-orange-500 py-4 rounded-xl hover:bg-orange-600 transition font-bold text-lg">
-        {% trans "Pagar com Cartão" %}
+        {% trans "Confirmar Reserva" %}
       </button>
       <p id="checkout-error" class="hidden text-red-400 text-sm text-center"></p>
     </div>
@@ -77,9 +77,10 @@
   var total = 0;
   itemsEl.innerHTML = cart.map(function(item) {
     total += Number(item.price) || 0;
+    var suit = Number(item.protectionSuitPrice || 0) > 0 ? ' + {% trans "Fato de proteção" %}' : '';
     return '<div class="flex justify-between py-2 border-b border-slate-700 last:border-0">' +
       '<span class="text-orange-500 font-semibold">' + (item.name || '') + '</span>' +
-      '<span>' + (item.duration || '') + ' — €' + (Number(item.price) || 0).toFixed(2) + '</span>' +
+      '<span>' + (item.duration || '') + suit + ' — €' + (Number(item.price) || 0).toFixed(2) + '</span>' +
       '</div>';
   }).join('');
   totalEl.textContent = '€' + total.toFixed(2);
@@ -88,27 +89,36 @@
     errorEl.classList.add('hidden');
     errorEl.textContent = '';
     payBtn.disabled = true;
-    payBtn.textContent = '{% trans "A processar..." %}';
+    payBtn.textContent = '{% trans "A enviar..." %}';
 
     var bookingDate = document.getElementById('booking-date').value || '';
 
     var items = cart.map(function(item) {
       return {
         packName: item.name || '',
+        basePrice: Number(item.basePrice) || 0,
+        protectionSuitPrice: Number(item.protectionSuitPrice) || 0,
         packPrice: Number(item.price) || 0,
-        duration: item.duration || ''
+        duration: item.duration || '',
+        passengers: item.passengers || null
       };
     });
 
-    fetch('/api/stripe/create-booking-checkout/', {
+    var packNames = items.map(function(i) { return i.packName; }).filter(Boolean);
+    var packNameCombined = packNames.join(', ');
+    var totalPrice = items.reduce(function(sum, i) { return sum + (Number(i.packPrice) || 0); }, 0);
+
+    fetch('/api/bookings/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token
       },
       body: JSON.stringify({
-        items: items,
-        bookingDate: bookingDate || undefined
+        pack_name: packNameCombined || '{% trans "Reserva" %}',
+        pack_price: totalPrice,
+        booking_date: bookingDate || null,
+        addons: JSON.stringify({ items: items })
       })
     })
     .then(function(r) {
@@ -119,24 +129,20 @@
       });
     })
     .then(function(res) {
-      if (res.ok && res.data.url) {
+      if (res.ok) {
         localStorage.removeItem('checkout_cart');
-        window.location.href = res.data.url;
+        window.location.href = '{% url "success" %}';
         return;
       }
       payBtn.disabled = false;
-      payBtn.textContent = '{% trans "Pagar com Cartão" %}';
-      var err = res.data.error || '{% trans "Erro ao iniciar pagamento." %}';
-      errorEl.textContent = err;
-      var isConfigError = (err.toLowerCase().indexOf('chave') !== -1 || err.toLowerCase().indexOf('não configurad') !== -1) && err.toLowerCase().indexOf('customer') === -1;
-      if (isConfigError) {
-        errorEl.innerHTML = err + '<br><span class="text-gray-400 text-xs mt-2 block">{% trans "Verifique o ficheiro .env na raiz do projeto (STRIPE_SECRET_KEY) e reinicie o servidor Django." %}</span>';
-      }
+      payBtn.textContent = '{% trans "Confirmar Reserva" %}';
+      var err = res.data.error || res.data.detail || '{% trans "Erro ao enviar reserva." %}';
+      errorEl.textContent = (typeof err === 'string') ? err : JSON.stringify(err);
       errorEl.classList.remove('hidden');
     })
     .catch(function() {
       payBtn.disabled = false;
-      payBtn.textContent = '{% trans "Pagar com Cartão" %}';
+      payBtn.textContent = '{% trans "Confirmar Reserva" %}';
       errorEl.textContent = '{% trans "Erro de ligação." %}';
       errorEl.classList.remove('hidden');
     });

@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
+from django.core.mail import send_mail
 import os
 from django.conf import settings
 from .models import Booking, Review
@@ -19,7 +20,42 @@ class BookingListCreateView(generics.ListCreateAPIView):
         return Booking.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        booking = serializer.save(user=self.request.user)
+
+        # Notificar a empresa por email (não bloquear o fluxo se falhar)
+        try:
+            admin_email = getattr(settings, 'BOOKING_NOTIFICATION_EMAIL', '') or ''
+            from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', None)
+            if admin_email and from_email:
+                user = booking.user
+                subject = f'Nova reserva SO SAB #{booking.id}'
+                lines = [
+                    'Nova reserva recebida no site SO SAB',
+                    '',
+                    f'Reserva: #{booking.id}',
+                    f'Data: {booking.created_at.strftime("%d/%m/%Y %H:%M")}',
+                    '',
+                    'Cliente',
+                    f'Nome: {user.get_full_name() or user.username}',
+                    f'Email: {user.email}',
+                    '',
+                    'Detalhes da reserva',
+                    f'Pack(s): {booking.pack_name}',
+                    f'Preço total: €{booking.pack_price}',
+                    f'Data do tour: {booking.booking_date.strftime("%d/%m/%Y") if booking.booking_date else "A definir"}',
+                    f'Extras / detalhes: {booking.addons or "-"}',
+                    '',
+                    f'Status: {booking.status}',
+                ]
+                send_mail(
+                    subject=subject,
+                    message='\n'.join(lines),
+                    from_email=from_email,
+                    recipient_list=[admin_email],
+                    fail_silently=True,
+                )
+        except Exception:
+            pass
 
 
 class BookingDetailView(generics.RetrieveDestroyAPIView):

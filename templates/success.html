@@ -14,24 +14,11 @@
 
 <section class="pt-32 max-w-xl mx-auto px-6 text-center">
   <div class="bg-slate-900 p-8 rounded-xl">
-    <div id="loading" class="mb-4">
-      <div class="text-4xl mb-4">⏳</div>
-      <p class="text-gray-400">{% trans "A confirmar reserva..." %}</p>
-    </div>
-    <div id="success" class="hidden">
-      <div class="text-6xl mb-4">✅</div>
-      <h2 class="text-3xl mb-4 font-bold">{% trans "Pagamento Realizado com Sucesso!" %}</h2>
-      <p class="text-gray-400 mb-6">
-        {% trans "Obrigado pela sua compra. A sua reserva foi confirmada." %}
-      </p>
-    </div>
-    <div id="error" class="hidden">
-      <div class="text-6xl mb-4">⚠️</div>
-      <h2 class="text-3xl mb-4 font-bold text-orange-500">{% trans "Pagamento Realizado" %}</h2>
-      <p class="text-gray-400 mb-6">
-        {% trans "O seu pagamento foi processado. A reserva será confirmada em breve." %}
-      </p>
-    </div>
+    <div class="text-6xl mb-4">✅</div>
+    <h2 class="text-3xl mb-4 font-bold">{% trans "Reserva enviada com sucesso!" %}</h2>
+    <p class="text-gray-400 mb-6">
+      {% trans "Recebemos o seu pedido de reserva. Vamos confirmar consigo o mais breve possível." %}
+    </p>
     <div class="flex gap-4 justify-center">
       <a href="{% url 'dashboard' %}" class="bg-orange-500 px-6 py-3 rounded hover:bg-orange-600 transition">
         {% trans "Ver Minhas Reservas" %}
@@ -42,52 +29,6 @@
     </div>
   </div>
 </section>
-
-<script>
-  const API_BASE = '/api';
-  
-  // Obter session_id da URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const sessionId = urlParams.get('session_id');
-  
-  // Confirmar reserva quando a página carregar
-  if (sessionId) {
-    const token = localStorage.getItem('access_token');
-    
-    if (token) {
-      fetch(`${API_BASE}/stripe/confirm-booking/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ session_id: sessionId })
-      })
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('loading').classList.add('hidden');
-        if (data.message) {
-          document.getElementById('success').classList.remove('hidden');
-        } else {
-          document.getElementById('error').classList.remove('hidden');
-        }
-      })
-      .catch(error => {
-        console.error('Erro ao confirmar reserva:', error);
-        document.getElementById('loading').classList.add('hidden');
-        document.getElementById('error').classList.remove('hidden');
-      });
-    } else {
-      // Sem token - mostrar sucesso mesmo assim
-      document.getElementById('loading').classList.add('hidden');
-      document.getElementById('success').classList.remove('hidden');
-    }
-  } else {
-    // Sem session_id - mostrar sucesso
-    document.getElementById('loading').classList.add('hidden');
-    document.getElementById('success').classList.remove('hidden');
-  }
-</script>
 
 </body>
 </html>

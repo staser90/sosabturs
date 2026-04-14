@@ -283,6 +283,9 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'noreply@dilantours.com')
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
+# Email para receber notificações de novas reservas
+BOOKING_NOTIFICATION_EMAIL = os.getenv('BOOKING_NOTIFICATION_EMAIL', 'toursosab@gmail.com')
+
 # --- Produção (HTTPS atrás do proxy Render) ---
 # No Render, RENDER=true: HTTPS por defeito. Em local com DEBUG=False, define
 # SECURE_SSL_REDIRECT=False para evitar redirecionamento para https://localhost.
