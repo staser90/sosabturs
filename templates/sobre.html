@@ -1,0 +1,112 @@
+{% load static %}{% load i18n %}
+<!DOCTYPE html>
+<html lang="{{ request.LANGUAGE_CODE|default:'pt' }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% trans "Sobre" %} - SO SAB</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="{% static 'base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/whatsapp-widget.css' %}">
+</head>
+<body data-whatsapp="2389991144">
+
+{% include 'includes/navbar.html' with variant='sobre' %}
+
+<section class="pt-24 pb-20 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="bg-slate-900/60 border border-slate-800 rounded-2xl overflow-hidden">
+      <div class="grid md:grid-cols-2 gap-0">
+        <div class="p-8 md:p-10">
+          <h2 class="text-3xl md:text-4xl font-bold leading-tight">
+            {% trans "SO SAB — Empresa de Turismo na Ilha do Sal" %}
+          </h2>
+          <p class="mt-4 text-gray-300 leading-relaxed">
+            {% trans "Organizamos experiências autênticas na Ilha do Sal: Volta à Ilha, excursões, transfers e serviço de táxi, sempre com foco em segurança, pontualidade e boa disposição." %}
+          </p>
+
+          <div class="mt-6 flex flex-col sm:flex-row gap-3">
+            <a href="{% url 'catalogo' %}" class="inline-flex justify-center items-center bg-orange-500 px-6 py-3 rounded-lg hover:bg-orange-600 transition font-semibold">
+              {% trans "Ver Packs" %}
+            </a>
+            <a href="{% url 'contacto' %}" class="inline-flex justify-center items-center border border-orange-500 px-6 py-3 rounded-lg hover:bg-orange-500/10 transition font-semibold">
+              {% trans "Falar connosco" %}
+            </a>
+          </div>
+
+          <div class="mt-6 grid grid-cols-2 gap-4">
+            <div class="bg-slate-950/40 rounded-xl p-4 border border-slate-800">
+              <div class="text-sm text-gray-400">{% trans "Base" %}</div>
+              <div class="font-semibold">{% trans "Santa Maria — Ilha do Sal" %}</div>
+            </div>
+            <div class="bg-slate-950/40 rounded-xl p-4 border border-slate-800">
+              <div class="text-sm text-gray-400">{% trans "Contacto" %}</div>
+              <div class="font-semibold">+238 9991144</div>
+            </div>
+          </div>
+        </div>
+        <div class="relative min-h-[16rem] md:min-h-[22rem] bg-slate-950">
+          <img src="{% static 'images/trasfer.jpg' %}" alt="{% trans 'Transfer SO SAB' %}" class="absolute inset-0 w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/25 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+            <div class="inline-flex items-center gap-2 rounded-full bg-black/40 border border-white/10 px-4 py-2 text-sm text-gray-200 backdrop-blur">
+              <span class="font-semibold">{% trans "Transfers & Táxi" %}</span>
+              <span class="text-gray-400">•</span>
+              <span>{% trans "Aeroporto • Hotel • Passeios" %}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10 grid md:grid-cols-3 gap-6">
+      <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800">
+        <h3 class="text-lg font-bold text-orange-400">{% trans "Volta à Ilha do Sal" %}</h3>
+        <p class="mt-3 text-gray-300 leading-relaxed">
+          {% trans "O clássico imperdível: paisagens, paragens fotográficas e os melhores pontos da ilha, com ritmo confortável e atenção ao grupo." %}
+        </p>
+      </div>
+      <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800">
+        <h3 class="text-lg font-bold text-orange-400">{% trans "Excursões, quad e buggy" %}</h3>
+        <p class="mt-3 text-gray-300 leading-relaxed">
+          {% trans "Tours guiados e experiências com aventura. Equipamento e instruções incluídos para aproveitar com confiança." %}
+        </p>
+      </div>
+      <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800">
+        <h3 class="text-lg font-bold text-orange-400">{% trans "Serviços extra" %}</h3>
+        <ul class="mt-3 text-gray-300 leading-relaxed space-y-2">
+          <li>{% trans "Transfers privados e partilhados" %}</li>
+          <li>{% trans "Serviço de táxi" %}</li>
+          <li>{% trans "Impressões (A4) e apoio ao cliente" %}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-10 bg-slate-900 p-7 rounded-2xl border border-slate-800">
+      <div class="grid md:grid-cols-2 gap-6 items-center">
+        <div>
+          <h3 class="text-xl font-bold">{% trans "Porquê escolher a SO SAB?" %}</h3>
+          <ul class="mt-4 space-y-2 text-gray-300">
+            <li><span class="text-orange-400 font-semibold">{% trans "Pontualidade" %}</span> — {% trans "chegamos a horas e combinamos tudo com clareza." %}</li>
+            <li><span class="text-orange-400 font-semibold">{% trans "Segurança" %}</span> — {% trans "atenção ao percurso e ao bem‑estar de todos." %}</li>
+            <li><span class="text-orange-400 font-semibold">{% trans "Experiência local" %}</span> — {% trans "dicas e paragens que fazem a diferença." %}</li>
+          </ul>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-3 justify-end">
+          <a href="{% url 'transfers' %}" class="inline-flex justify-center items-center bg-slate-800 px-6 py-3 rounded-lg hover:bg-slate-700 transition font-semibold">
+            {% trans "Ver Transfers" %}
+          </a>
+          <a href="{% url 'catalogo' %}" class="inline-flex justify-center items-center bg-orange-500 px-6 py-3 rounded-lg hover:bg-orange-600 transition font-semibold">
+            {% trans "Reservar agora" %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="{% static 'js/whatsapp-chatbot.js' %}"></script>
+{% include 'includes/tawk_widget.html' %}
+</body>
+</html>
+

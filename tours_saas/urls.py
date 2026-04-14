@@ -38,6 +38,7 @@ urlpatterns = [
     path('success.html', TemplateView.as_view(template_name='success.html'), name='success'),
     path('catalogo.html', TemplateView.as_view(template_name='catalogo.html'), name='catalogo'),
     path('transfers.html', TemplateView.as_view(template_name='transfers.html'), name='transfers'),
+    path('sobre.html', TemplateView.as_view(template_name='sobre.html'), name='sobre'),
     path('galeria.html', TemplateView.as_view(template_name='galeria.html'), name='galeria'),
     path('contacto.html', contact_page, name='contacto'),
     path('profile.html', accounts_views.profile_page, name='profile'),
