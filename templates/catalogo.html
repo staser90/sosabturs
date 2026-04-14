@@ -71,7 +71,7 @@
         <span>{% trans "Total:" %}</span>
         <span id="cart-total-price" class="text-orange-500">€0.00</span>
       </div>
-      <p class="text-sm text-gray-400 mt-2">{% trans "* Fato de mergulho incluído (obrigatório)" %}</p>
+      <p class="text-sm text-gray-400 mt-2">{% trans "* Fato de proteção opcional (+10€) — só adiciona ao total se selecionar" %}</p>
     </div>
     <button id="checkout-btn" class="w-full bg-orange-500 py-3 rounded hover:bg-orange-600 transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
       {% trans "Finalizar Compra" %}
@@ -104,11 +104,15 @@
           <option value="4">4 Horas</option>
         </select>
       </div>
+      <label class="mb-4 inline-flex items-center gap-2 text-sm text-gray-300 select-none">
+        <input type="checkbox" class="pack-protection-suit h-4 w-4 accent-orange-500" data-pack="zforce-4">
+        <span>{% trans "Adicionar fato de proteção" %} (+10€)</span>
+      </label>
       <div class="text-center mb-4 flex-grow">
         <p class="text-2xl font-bold text-orange-400">
           <span class="pack-price" data-pack="zforce-4" data-passengers="3" data-duration="2">190€</span>
         </p>
-        <p class="text-xs text-gray-400 mt-1">Pack: <span class="pack-base-price">180€</span> + Fato proteção: 10€</p>
+        <p class="text-xs text-gray-400 mt-1">Pack: <span class="pack-base-price">180€</span> + Fato proteção: 10€ ({% trans "opcional" %})</p>
       </div>
       <button type="button" class="add-to-cart w-full bg-orange-500 px-5 py-2 rounded hover:bg-orange-600 transition mt-auto cursor-pointer" 
               data-pack="zforce-4" 
@@ -132,11 +136,15 @@
           <option value="4">4 Horas</option>
         </select>
       </div>
+      <label class="mb-4 inline-flex items-center gap-2 text-sm text-gray-300 select-none">
+        <input type="checkbox" class="pack-protection-suit h-4 w-4 accent-orange-500" data-pack="zforce">
+        <span>{% trans "Adicionar fato de proteção" %} (+10€)</span>
+      </label>
       <div class="text-center mb-4 flex-grow">
         <p class="text-2xl font-bold text-orange-400">
           <span class="pack-price" data-pack="zforce" data-duration="2">135€</span>
         </p>
-        <p class="text-xs text-gray-400 mt-1">Pack: <span class="pack-base-price">125€</span> + Fato proteção: 10€</p>
+        <p class="text-xs text-gray-400 mt-1">Pack: <span class="pack-base-price">125€</span> + Fato proteção: 10€ ({% trans "opcional" %})</p>
       </div>
       <button type="button" class="add-to-cart w-full bg-orange-500 px-5 py-2 rounded hover:bg-orange-600 transition mt-auto cursor-pointer" 
               data-pack="zforce" 
@@ -160,11 +168,15 @@
           <option value="4">4 Horas</option>
         </select>
       </div>
+      <label class="mb-4 inline-flex items-center gap-2 text-sm text-gray-300 select-none">
+        <input type="checkbox" class="pack-protection-suit h-4 w-4 accent-orange-500" data-pack="cf-moto">
+        <span>{% trans "Adicionar fato de proteção" %} (+10€)</span>
+      </label>
       <div class="text-center mb-4 flex-grow">
         <p class="text-2xl font-bold text-orange-400">
           <span class="pack-price" data-pack="cf-moto" data-duration="2">100€</span>
         </p>
-        <p class="text-xs text-gray-400 mt-1">Pack: <span class="pack-base-price">90€</span> + Fato proteção: 10€</p>
+        <p class="text-xs text-gray-400 mt-1">Pack: <span class="pack-base-price">90€</span> + Fato proteção: 10€ ({% trans "opcional" %})</p>
       </div>
       <button type="button" class="add-to-cart w-full bg-orange-500 px-5 py-2 rounded hover:bg-orange-600 transition mt-auto cursor-pointer" 
               data-pack="cf-moto" 
@@ -188,11 +200,15 @@
           <option value="4">4 Horas</option>
         </select>
       </div>
+      <label class="mb-4 inline-flex items-center gap-2 text-sm text-gray-300 select-none">
+        <input type="checkbox" class="pack-protection-suit h-4 w-4 accent-orange-500" data-pack="cf-buggy">
+        <span>{% trans "Adicionar fato de proteção" %} (+10€)</span>
+      </label>
       <div class="text-center mb-4 flex-grow">
         <p class="text-2xl font-bold text-orange-400">
           <span class="pack-price" data-pack="cf-buggy" data-duration="2">110€</span>
         </p>
-        <p class="text-xs text-gray-400 mt-1">Pack: <span class="pack-base-price">100€</span> + Fato proteção: 10€</p>
+        <p class="text-xs text-gray-400 mt-1">Pack: <span class="pack-base-price">100€</span> + Fato proteção: 10€ ({% trans "opcional" %})</p>
       </div>
       <button type="button" class="add-to-cart w-full bg-orange-500 px-5 py-2 rounded hover:bg-orange-600 transition mt-auto cursor-pointer" 
               data-pack="cf-buggy" 
@@ -216,8 +232,8 @@
     'cf-buggy': { '2': 100, '3': 150, '4': 180 }
   };
 
-  // Fato obrigatório (10€ - será adicionado ao preço)
-  const WETSUIT_PRICE = 10;
+  // Fato de proteção (opcional)
+  const PROTECTION_SUIT_PRICE = 10;
 
   // Carrinho (localStorage)
   let cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -237,8 +253,10 @@
     } else if (PACK_PRICES[pack]) {
       basePrice = PACK_PRICES[pack][duration] || 0;
     }
-    
-    const totalPrice = basePrice + WETSUIT_PRICE;
+
+    const suitChecked = !!card.querySelector('.pack-protection-suit')?.checked;
+    const suitPrice = suitChecked ? PROTECTION_SUIT_PRICE : 0;
+    const totalPrice = basePrice + suitPrice;
     
     const priceElement = card.querySelector('.pack-price');
     const basePriceElement = card.querySelector('.pack-base-price');
@@ -275,13 +293,14 @@
         cartItems.innerHTML = cart.map(item => {
           total += item.price;
           const passengersText = item.passengers ? ` • ${item.passengers} pessoas` : '';
+          const suitText = item.protectionSuitPrice ? ` + {% trans "Fato de proteção" %}: €${Number(item.protectionSuitPrice || 0).toFixed(2)}` : ` + {% trans "Fato de proteção" %}: €0.00`;
           return `
             <div class="bg-slate-800 p-4 rounded-lg">
               <div class="flex justify-between items-start mb-2">
                 <div class="flex-1">
                   <h4 class="font-bold text-orange-500">${item.name}</h4>
                   <p class="text-sm text-gray-400">${item.duration}${passengersText}</p>
-                  <p class="text-sm text-gray-400">Pack: €${(item.basePrice || (item.price - 10)).toFixed(2)} + Fato: €${(item.wetsuitPrice || 10).toFixed(2)}</p>
+                  <p class="text-sm text-gray-400">Pack: €${Number(item.basePrice || item.price || 0).toFixed(2)}${suitText}</p>
                 </div>
                 <div class="text-right ml-4">
                   <p class="font-bold">€${item.price.toFixed(2)}</p>
@@ -325,6 +344,15 @@
       });
     });
 
+    // Atualizar preços quando o cliente seleciona o fato de proteção
+    document.querySelectorAll('.pack-protection-suit').forEach(cb => {
+      cb.addEventListener('change', function() {
+        const card = this.closest('.bg-slate-900');
+        const select = card && (card.querySelector('.pack-duration') || card.querySelector('.pack-passengers'));
+        if (select) updatePackPrice(select);
+      });
+    });
+
     // Adicionar ao carrinho
     const addToCartButtons = document.querySelectorAll('.add-to-cart');
     console.log('Botões encontrados:', addToCartButtons.length);
@@ -356,16 +384,18 @@
           return;
         }
         
-        const priceText = priceElement.textContent.replace('€', '').replace(',', '.').trim();
-        const totalPrice = parseFloat(priceText);
-        
-        if (isNaN(totalPrice)) {
-          console.error('Preço inválido:', priceText);
-          alert('Erro: Preço inválido');
-          return;
+        const suitChecked = !!card.querySelector('.pack-protection-suit')?.checked;
+        const protectionSuitPrice = suitChecked ? PROTECTION_SUIT_PRICE : 0;
+
+        // Calcular preço base a partir da tabela (mais seguro do que ler do texto)
+        let basePrice = 0;
+        if (pack === 'zforce-4' && passengers) {
+          basePrice = (PACK_PRICES[pack] && PACK_PRICES[pack][passengers] && PACK_PRICES[pack][passengers][duration]) || 0;
+        } else if (PACK_PRICES[pack]) {
+          basePrice = PACK_PRICES[pack][duration] || 0;
         }
-        
-        const basePrice = totalPrice - WETSUIT_PRICE;
+
+        const totalPrice = basePrice + protectionSuitPrice;
         
         const item = {
           id: Date.now() + Math.random(),
@@ -374,7 +404,7 @@
           duration: duration + 'h',
           passengers: passengers,
           basePrice: basePrice,
-          wetsuitPrice: WETSUIT_PRICE,
+          protectionSuitPrice: protectionSuitPrice,
           price: totalPrice
         };
 
