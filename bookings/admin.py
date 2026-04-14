@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.db.models import Sum, Count
 from django.conf import settings
 from .models import Booking, Review, ContactMessage
+from .utils import send_booking_update_email
 
 
 def _pack_image_url(pack_name):
@@ -100,19 +101,78 @@ class BookingAdmin(admin.ModelAdmin):
     user_info.short_description = 'Dados do Cliente'
 
     def approve_bookings(self, request, queryset):
-        count = queryset.update(status='confirmed')
-        self.message_user(request, f'{count} reserva(s) aprovada(s) com sucesso.')
+        count = 0
+        for b in queryset:
+            if b.status != 'confirmed':
+                b.status = 'confirmed'
+                b.save(update_fields=['status'])
+                send_booking_update_email(
+                    b,
+                    headline='A sua reserva foi confirmada.',
+                    changed_fields=['Status: Confirmada'],
+                )
+                count += 1
+        self.message_user(request, f'{count} reserva(s) aprovada(s) e notificadas por email.')
     approve_bookings.short_description = '✅ Aprovar reservas selecionadas'
 
     def cancel_bookings(self, request, queryset):
-        count = queryset.update(status='cancelled')
-        self.message_user(request, f'{count} reserva(s) cancelada(s).')
+        count = 0
+        for b in queryset:
+            if b.status != 'cancelled':
+                b.status = 'cancelled'
+                b.save(update_fields=['status'])
+                send_booking_update_email(
+                    b,
+                    headline='A sua reserva foi cancelada.',
+                    changed_fields=['Status: Cancelada'],
+                )
+                count += 1
+        self.message_user(request, f'{count} reserva(s) cancelada(s) e notificadas por email.')
     cancel_bookings.short_description = '❌ Cancelar reservas selecionadas'
 
     def mark_completed(self, request, queryset):
-        count = queryset.update(status='completed')
-        self.message_user(request, f'{count} reserva(s) marcada(s) como concluída(s).')
+        count = 0
+        for b in queryset:
+            if b.status != 'completed':
+                b.status = 'completed'
+                b.save(update_fields=['status'])
+                send_booking_update_email(
+                    b,
+                    headline='A sua reserva foi marcada como concluída. Obrigado!',
+                    changed_fields=['Status: Concluída'],
+                )
+                count += 1
+        self.message_user(request, f'{count} reserva(s) marcada(s) como concluída(s) e notificadas por email.')
     mark_completed.short_description = '✓ Marcar como concluídas'
+
+    def save_model(self, request, obj, form, change):
+        changed = []
+        headline = None
+        if change and obj.pk:
+            try:
+                old = Booking.objects.get(pk=obj.pk)
+                if old.status != obj.status:
+                    changed.append(f'Status: {old.get_status_display()} → {obj.get_status_display()}')
+                if old.booking_date != obj.booking_date:
+                    o = old.booking_date.strftime('%d/%m/%Y') if old.booking_date else 'A definir'
+                    n = obj.booking_date.strftime('%d/%m/%Y') if obj.booking_date else 'A definir'
+                    changed.append(f'Data do tour: {o} → {n}')
+                if old.pack_name != obj.pack_name:
+                    changed.append('Pack(s): atualizado')
+                if old.pack_price != obj.pack_price:
+                    changed.append('Preço total: atualizado')
+                if (old.addons or '') != (obj.addons or ''):
+                    changed.append('Detalhes: atualizado')
+            except Booking.DoesNotExist:
+                pass
+
+            if changed:
+                headline = 'A sua reserva foi atualizada pela nossa equipa.'
+
+        super().save_model(request, obj, form, change)
+
+        if change and changed:
+            send_booking_update_email(obj, headline=headline, changed_fields=changed)
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}

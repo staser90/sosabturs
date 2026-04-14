@@ -36,6 +36,36 @@ def send_booking_confirmation_email(booking):
         return False
 
 
+def send_booking_update_email(booking, headline=None, changed_fields=None):
+    """Enviar email ao cliente quando a reserva é atualizada no admin."""
+    try:
+        subject = f'Atualização da sua reserva #{booking.id} - SO SAB'
+
+        context = {
+            'booking': booking,
+            'user': booking.user,
+            'site_url': settings.FRONTEND_URL,
+            'headline': headline or 'A sua reserva foi atualizada',
+            'changed_fields': changed_fields or [],
+        }
+
+        html_message = render_to_string('emails/booking_update.html', context)
+        plain_message = strip_tags(html_message)
+
+        send_mail(
+            subject=subject,
+            message=plain_message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[booking.user.email],
+            html_message=html_message,
+            fail_silently=True,
+        )
+        return True
+    except Exception as e:
+        print(f'Erro ao enviar email de atualização: {e}')
+        return False
+
+
 def send_booking_receipt_email(booking):
     """Enviar email com recibo da compra"""
     try:
