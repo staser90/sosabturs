@@ -39,6 +39,9 @@ msgstr "Dashboard"
 msgid "Sair"
 msgstr "Esci"
 
+msgid "Sobre"
+msgstr "Chi siamo"
+
 msgid "Reservar Tour"
 msgstr "Prenota Tour"
 

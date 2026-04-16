@@ -13,6 +13,36 @@ from .models import Booking, Review
 from .serializers import BookingSerializer, ReviewSerializer
 
 
+def _admin_addons_note(booking, max_chars=500):
+    """Resumo curto dos extras para o email interno (evita corpo enorme)."""
+    raw = booking.addons or ''
+    if not raw:
+        return ''
+    try:
+        parsed = json.loads(raw) if raw else None
+        items = parsed.get('items') if isinstance(parsed, dict) else None
+        if isinstance(items, list) and items:
+            parts = []
+            for it in items:
+                if not isinstance(it, dict):
+                    continue
+                name = (it.get('packName') or '').strip() or '—'
+                try:
+                    total = f"{float(it.get('packPrice', 0)):.2f}"
+                except (TypeError, ValueError):
+                    total = str(it.get('packPrice', '') or '')
+                parts.append(f'{name} (€{total})')
+            s = '; '.join(parts)
+            if len(s) > max_chars:
+                return s[: max_chars - 1] + '…'
+            return s
+    except Exception:
+        pass
+    if len(raw) > max_chars:
+        return raw[: max_chars - 1] + '…'
+    return raw
+
+
 class BookingListCreateView(generics.ListCreateAPIView):
     serializer_class = BookingSerializer
     permission_classes = [IsAuthenticated]
@@ -23,78 +53,21 @@ class BookingListCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         booking = serializer.save(user=self.request.user)
 
-        # Notificar a empresa por email (não bloquear o fluxo se falhar)
+        # Notificar a empresa por email (corpo curto; detalhe completo no admin)
         try:
             admin_email = getattr(settings, 'BOOKING_NOTIFICATION_EMAIL', '') or ''
             from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', None)
             if admin_email and from_email:
                 user = booking.user
                 subject = f'Nova reserva SO SAB #{booking.id}'
-                # Tentar “embelezar” os addons quando é JSON do checkout
-                pretty_addons = booking.addons or '-'
-                try:
-                    raw = booking.addons or ''
-                    parsed = json.loads(raw) if raw else None
-                    items = parsed.get('items') if isinstance(parsed, dict) else None
-                    if isinstance(items, list) and items:
-                        def _money(v):
-                            try:
-                                return f"{float(v):.2f}"
-                            except Exception:
-                                return "0.00"
-
-                        item_lines = []
-                        for it in items:
-                            if not isinstance(it, dict):
-                                continue
-                            name = (it.get('packName') or '').strip() or '—'
-                            duration = (it.get('duration') or '').strip()
-                            passengers = it.get('passengers')
-                            base = _money(it.get('basePrice', 0))
-                            suit = float(it.get('protectionSuitPrice') or 0)
-                            suit_str = _money(suit)
-                            total = _money(it.get('packPrice', 0))
-                            suit_label = 'Sim' if suit > 0 else 'Não'
-                            pax = f"{passengers} pessoa(s)" if passengers else "—"
-
-                            item_lines.append(
-                                f"- {name}\n"
-                                f"  Duração: {duration or '—'}\n"
-                                f"  Pessoas: {pax}\n"
-                                f"  Fato de proteção: {suit_label} (€{suit_str})\n"
-                                f"  Preço: Pack €{base} + Fato €{suit_str} = €{total}"
-                            )
-                        if item_lines:
-                            pretty_addons = "Itens:\n" + "\n".join(item_lines)
-                except Exception:
-                    pass
-
-                lines = [
-                    'Nova reserva recebida no site SO SAB',
-                    '',
-                    f'Reserva: #{booking.id}',
-                    f'Data: {booking.created_at.strftime("%d/%m/%Y %H:%M")}',
-                    '',
-                    'Cliente',
-                    f'Nome: {user.get_full_name() or user.username}',
-                    f'Email: {user.email}',
-                    '',
-                    'Detalhes da reserva',
-                    f'Pack(s): {booking.pack_name}',
-                    f'Preço total: €{booking.pack_price}',
-                    f'Data do tour: {booking.booking_date.strftime("%d/%m/%Y") if booking.booking_date else "A definir"}',
-                    f'Detalhes:\n{pretty_addons}',
-                    '',
-                    f'Status: {booking.status}',
-                ]
-                # Enviar HTML “bonito” igual ao cliente (com resumo atualizado)
                 from django.utils.html import strip_tags
-                html_message = render_to_string('emails/booking_update.html', {
+
+                addons_note = _admin_addons_note(booking)
+                html_message = render_to_string('emails/booking_admin_notice.html', {
                     'booking': booking,
-                    'user': booking.user,
-                    'site_url': settings.FRONTEND_URL,
-                    'headline': 'Nova reserva recebida no site.',
-                    'changed_fields': [],
+                    'user': user,
+                    'addons_note': addons_note,
+                    'site_url': getattr(settings, 'FRONTEND_URL', '') or '',
                 })
                 send_mail(
                     subject=subject,

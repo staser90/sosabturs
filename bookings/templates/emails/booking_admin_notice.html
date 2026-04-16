@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nova reserva — SO SAB</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, Arial, sans-serif;
+      line-height: 1.5;
+      color: #1e293b;
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 24px;
+      background: #fff;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .header {
+      background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+      color: white;
+      padding: 26px 24px;
+      text-align: center;
+    }
+    .header h1 {
+      margin: 0 0 6px 0;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+    .header .sub { font-size: 13px; opacity: 0.95; margin: 0; }
+    .icon { font-size: 40px; margin-bottom: 8px; }
+    .section { padding: 20px 24px; border-bottom: 1px solid #f1f5f9; }
+    .section:last-of-type { border-bottom: none; }
+    .title {
+      color: #ea580c;
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 0 0 14px 0;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #fed7aa;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+      padding: 8px 0;
+      font-size: 14px;
+    }
+    .label { color: #64748b; font-weight: 600; }
+    .value { color: #0f172a; font-weight: 700; text-align: right; max-width: 62%; word-break: break-word; }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      background: #fff7ed;
+      color: #c2410c;
+      border: 1px solid #fed7aa;
+    }
+    .total {
+      background: #0f172a;
+      color: #fff;
+      padding: 18px 24px;
+      text-align: center;
+    }
+    .total .t1 { font-size: 12px; opacity: .9; text-transform: uppercase; letter-spacing: .08em; }
+    .total .t2 { font-size: 26px; font-weight: 900; margin-top: 4px; }
+    .btn {
+      display: inline-block;
+      padding: 12px 18px;
+      background: #ea580c;
+      color: #fff !important;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 14px;
+      margin: 6px 4px 0 0;
+    }
+    .btn.secondary { background: #334155; }
+    .muted { color: #64748b; font-size: 13px; }
+    .extras { margin: 12px 0 0 0; font-size: 13px; color: #64748b; line-height: 1.45; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <div class="icon">📩</div>
+      <h1>SO SAB</h1>
+      <p class="sub">Nova reserva (notificação interna)</p>
+    </div>
+
+    <div class="section">
+      <h2 class="title">Resumo</h2>
+      <div class="row">
+        <span class="label">N.º da reserva</span>
+        <span class="value">#{{ booking.id }}</span>
+      </div>
+      <div class="row">
+        <span class="label">Cliente</span>
+        <span class="value">{{ user.get_full_name|default:user.username }} · {{ user.email }}</span>
+      </div>
+      <div class="row">
+        <span class="label">Pack(s)</span>
+        <span class="value">{{ booking.pack_name }}</span>
+      </div>
+      <div class="row">
+        <span class="label">Data do tour</span>
+        <span class="value">{% if booking.booking_date %}{{ booking.booking_date|date:"d/m/Y" }}{% else %}A definir{% endif %}</span>
+      </div>
+      <div class="row">
+        <span class="label">Status</span>
+        <span class="value"><span class="badge">{{ booking.get_status_display }}</span></span>
+      </div>
+      {% if addons_note %}
+      <p class="extras"><strong>Extras:</strong> {{ addons_note }}</p>
+      {% endif %}
+      <p class="muted" style="margin:14px 0 0 0;">Registada em {{ booking.created_at|date:"d/m/Y H:i" }} · Detalhe completo no Admin.</p>
+    </div>
+
+    <div class="total">
+      <div class="t1">Total</div>
+      <div class="t2">€{{ booking.pack_price|floatformat:2 }}</div>
+    </div>
+
+    {% if site_url %}
+    <div class="section" style="text-align:center;">
+      <a class="btn" href="{{ site_url }}/dashboard.html">Ver no Dashboard</a>
+      <a class="btn secondary" href="{{ site_url }}/contacto.html">Contactar</a>
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>

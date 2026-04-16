@@ -39,6 +39,9 @@ msgstr "Dashboard"
 msgid "Sair"
 msgstr "Sair"
 
+msgid "Sobre"
+msgstr "Sobre"
+
 msgid "Reservar Tour"
 msgstr "Reservar Tour"
 

@@ -1,23 +1,55 @@
+import json
+
 from django.contrib import admin
 from django.utils.html import format_html
 from django.urls import reverse
 from django.utils import timezone
 from django.db.models import Sum, Count
-from django.conf import settings
 from .models import Booking, Review, ContactMessage
 from .utils import send_booking_update_email
 
+# Mesmas imagens que em templates/catalogo.html (data-image / hero do pack)
+_PACK_GALLERY = {
+    'zforce_4': 'images/galeria/Zforce4100.JPG',
+    'zforce': 'images/galeria/moto2.JPG',
+    'cf_moto': 'images/galeria/moto2.JPG',
+    'cf_buggy': 'images/galeria/moto3.JPG',
+}
 
-def _pack_image_url(pack_name):
-    """Devolve o caminho estático da imagem do pack conforme o nome (catálogo)."""
-    if not pack_name:
-        return None
-    name = (pack_name or '').lower()
-    if 'zforce' in name:
-        return 'images/card2.png'
-    if 'cf moto' in name or 'cf buggy' in name or 'moto' in name or 'buggy' in name:
+
+def _pack_image_url(pack_name, addons_json=None):
+    """Caminho estático da miniatura conforme o pack (catálogo SO SAB)."""
+    name = (pack_name or '').strip()
+    if not name and addons_json:
+        try:
+            parsed = json.loads(addons_json)
+            items = parsed.get('items') if isinstance(parsed, dict) else None
+            if isinstance(items, list) and items:
+                first = items[0] if isinstance(items[0], dict) else {}
+                name = (first.get('packName') or '').strip()
+        except (json.JSONDecodeError, TypeError, ValueError):
+            pass
+    if not name:
         return 'images/card.png'
-    return 'images/card.png'  # placeholder genérico
+
+    # Vários packs no carrinho: usar o primeiro para a miniatura
+    segment = name.split(',')[0].strip().lower()
+    full = name.lower()
+
+    def pick(seg):
+        # Zforce 4 1000cc antes de "zforce" simples
+        if 'zforce 4' in seg or '4 1000' in seg:
+            return _PACK_GALLERY['zforce_4']
+        if 'cf buggy' in seg:
+            return _PACK_GALLERY['cf_buggy']
+        if 'cf moto' in seg:
+            return _PACK_GALLERY['cf_moto']
+        if 'zforce' in seg:
+            return _PACK_GALLERY['zforce']
+        return None
+
+    path = pick(segment) or pick(full)
+    return path or 'images/card.png'
 
 
 @admin.register(Booking)
@@ -70,7 +102,7 @@ class BookingAdmin(admin.ModelAdmin):
 
     def pack_thumb(self, obj):
         from django.templatetags.static import static
-        path = _pack_image_url(obj.pack_name)
+        path = _pack_image_url(obj.pack_name, obj.addons)
         url = static(path) if path else ''
         if url:
             return format_html(

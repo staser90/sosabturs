@@ -71,7 +71,7 @@
         <span>{% trans "Total:" %}</span>
         <span id="cart-total-price" class="text-orange-500">€0.00</span>
       </div>
-      <p class="text-sm text-gray-400 mt-2">{% trans "* Fato de proteção opcional (+10€) — só adiciona ao total se selecionar" %}</p>
+      <p class="text-sm text-gray-400 mt-2">{% trans "* Fato de proteção opcional (10€ cada) — só adiciona ao total se escolher quantidade > 0" %}</p>
     </div>
     <button id="checkout-btn" class="w-full bg-orange-500 py-3 rounded hover:bg-orange-600 transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
       {% trans "Finalizar Reserva" %}
@@ -104,10 +104,16 @@
           <option value="4">4 Horas</option>
         </select>
       </div>
-      <label class="mb-4 inline-flex items-center gap-2 text-sm text-gray-300 select-none">
-        <input type="checkbox" class="pack-protection-suit h-4 w-4 accent-orange-500" data-pack="zforce-4">
-        <span>{% trans "Adicionar fato de proteção" %} (+10€)</span>
-      </label>
+      <div class="mb-4 flex items-center justify-between gap-3">
+        <label class="text-sm text-gray-300 select-none">{% trans "Fato de proteção (opcional)" %}</label>
+        <select class="pack-protection-suit-qty w-28 p-2 rounded bg-slate-800 border border-slate-700" data-pack="zforce-4" aria-label="{% trans 'Quantidade de fato de proteção' %}">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+      </div>
       <div class="text-center mb-4 flex-grow">
         <p class="text-2xl font-bold text-orange-400">
           <span class="pack-price" data-pack="zforce-4" data-passengers="3" data-duration="2">190€</span>
@@ -136,10 +142,16 @@
           <option value="4">4 Horas</option>
         </select>
       </div>
-      <label class="mb-4 inline-flex items-center gap-2 text-sm text-gray-300 select-none">
-        <input type="checkbox" class="pack-protection-suit h-4 w-4 accent-orange-500" data-pack="zforce">
-        <span>{% trans "Adicionar fato de proteção" %} (+10€)</span>
-      </label>
+      <div class="mb-4 flex items-center justify-between gap-3">
+        <label class="text-sm text-gray-300 select-none">{% trans "Fato de proteção (opcional)" %}</label>
+        <select class="pack-protection-suit-qty w-28 p-2 rounded bg-slate-800 border border-slate-700" data-pack="zforce" aria-label="{% trans 'Quantidade de fato de proteção' %}">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+      </div>
       <div class="text-center mb-4 flex-grow">
         <p class="text-2xl font-bold text-orange-400">
           <span class="pack-price" data-pack="zforce" data-duration="2">135€</span>
@@ -168,10 +180,16 @@
           <option value="4">4 Horas</option>
         </select>
       </div>
-      <label class="mb-4 inline-flex items-center gap-2 text-sm text-gray-300 select-none">
-        <input type="checkbox" class="pack-protection-suit h-4 w-4 accent-orange-500" data-pack="cf-moto">
-        <span>{% trans "Adicionar fato de proteção" %} (+10€)</span>
-      </label>
+      <div class="mb-4 flex items-center justify-between gap-3">
+        <label class="text-sm text-gray-300 select-none">{% trans "Fato de proteção (opcional)" %}</label>
+        <select class="pack-protection-suit-qty w-28 p-2 rounded bg-slate-800 border border-slate-700" data-pack="cf-moto" aria-label="{% trans 'Quantidade de fato de proteção' %}">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+      </div>
       <div class="text-center mb-4 flex-grow">
         <p class="text-2xl font-bold text-orange-400">
           <span class="pack-price" data-pack="cf-moto" data-duration="2">100€</span>
@@ -200,10 +218,16 @@
           <option value="4">4 Horas</option>
         </select>
       </div>
-      <label class="mb-4 inline-flex items-center gap-2 text-sm text-gray-300 select-none">
-        <input type="checkbox" class="pack-protection-suit h-4 w-4 accent-orange-500" data-pack="cf-buggy">
-        <span>{% trans "Adicionar fato de proteção" %} (+10€)</span>
-      </label>
+      <div class="mb-4 flex items-center justify-between gap-3">
+        <label class="text-sm text-gray-300 select-none">{% trans "Fato de proteção (opcional)" %}</label>
+        <select class="pack-protection-suit-qty w-28 p-2 rounded bg-slate-800 border border-slate-700" data-pack="cf-buggy" aria-label="{% trans 'Quantidade de fato de proteção' %}">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+      </div>
       <div class="text-center mb-4 flex-grow">
         <p class="text-2xl font-bold text-orange-400">
           <span class="pack-price" data-pack="cf-buggy" data-duration="2">110€</span>
@@ -254,8 +278,19 @@
       basePrice = PACK_PRICES[pack][duration] || 0;
     }
 
-    const suitChecked = !!card.querySelector('.pack-protection-suit')?.checked;
-    const suitPrice = suitChecked ? PROTECTION_SUIT_PRICE : 0;
+    const qtyEl = card.querySelector('.pack-protection-suit-qty');
+    let suitQty = qtyEl ? parseInt(qtyEl.value || '0', 10) : 0;
+    if (Number.isNaN(suitQty) || suitQty < 0) suitQty = 0;
+
+    // Se o pack tiver "Número de Pessoas", limitar qty ao nº de pessoas
+    if (pack === 'zforce-4') {
+      const pax = passengers ? parseInt(passengers, 10) : 0;
+      if (pax > 0 && suitQty > pax) {
+        suitQty = pax;
+        if (qtyEl) qtyEl.value = String(pax);
+      }
+    }
+    const suitPrice = suitQty * PROTECTION_SUIT_PRICE;
     const totalPrice = basePrice + suitPrice;
     
     const priceElement = card.querySelector('.pack-price');
@@ -293,7 +328,10 @@
         cartItems.innerHTML = cart.map(item => {
           total += item.price;
           const passengersText = item.passengers ? ` • ${item.passengers} pessoas` : '';
-          const suitText = item.protectionSuitPrice ? ` + {% trans "Fato de proteção" %}: €${Number(item.protectionSuitPrice || 0).toFixed(2)}` : ` + {% trans "Fato de proteção" %}: €0.00`;
+          const qty = Number(item.protectionSuitQty || 0) || 0;
+          const suitText = qty > 0
+            ? ` + {% trans "Fato de proteção" %}: ${qty} × €${(item.wetsuitUnitPrice || 10).toFixed ? (item.wetsuitUnitPrice || 10).toFixed(2) : '10.00'} = €${Number(item.protectionSuitPrice || 0).toFixed(2)}`
+            : ` + {% trans "Fato de proteção" %}: 0 = €0.00`;
           return `
             <div class="bg-slate-800 p-4 rounded-lg">
               <div class="flex justify-between items-start mb-2">
@@ -344,8 +382,8 @@
       });
     });
 
-    // Atualizar preços quando o cliente seleciona o fato de proteção
-    document.querySelectorAll('.pack-protection-suit').forEach(cb => {
+    // Atualizar preços quando o cliente escolhe quantidade de fato de proteção
+    document.querySelectorAll('.pack-protection-suit-qty').forEach(cb => {
       cb.addEventListener('change', function() {
         const card = this.closest('.bg-slate-900');
         const select = card && (card.querySelector('.pack-duration') || card.querySelector('.pack-passengers'));
@@ -384,8 +422,10 @@
           return;
         }
         
-        const suitChecked = !!card.querySelector('.pack-protection-suit')?.checked;
-        const protectionSuitPrice = suitChecked ? PROTECTION_SUIT_PRICE : 0;
+        const qtyEl = card.querySelector('.pack-protection-suit-qty');
+        let protectionSuitQty = qtyEl ? parseInt(qtyEl.value || '0', 10) : 0;
+        if (Number.isNaN(protectionSuitQty) || protectionSuitQty < 0) protectionSuitQty = 0;
+        const protectionSuitPrice = protectionSuitQty * PROTECTION_SUIT_PRICE;
 
         // Calcular preço base a partir da tabela (mais seguro do que ler do texto)
         let basePrice = 0;
@@ -404,6 +444,8 @@
           duration: duration + 'h',
           passengers: passengers,
           basePrice: basePrice,
+          protectionSuitQty: protectionSuitQty,
+          wetsuitUnitPrice: PROTECTION_SUIT_PRICE,
           protectionSuitPrice: protectionSuitPrice,
           price: totalPrice
         };
@@ -457,6 +499,22 @@
     updateCartUI();
     document.querySelectorAll('.pack-duration, .pack-passengers').forEach(select => {
       updatePackPrice(select);
+    });
+
+    // Ajustar o máximo do fato de proteção quando muda o nº de pessoas (zforce-4)
+    document.querySelectorAll('.pack-passengers').forEach(select => {
+      select.addEventListener('change', function() {
+        const card = this.closest('.bg-slate-900');
+        const qtyEl = card && card.querySelector('.pack-protection-suit-qty');
+        if (qtyEl) {
+          const pax = parseInt(this.value || '0', 10);
+          if (!Number.isNaN(pax) && pax > 0) {
+            // Se já tinha mais fatos do que pax, reduzir
+            const current = parseInt(qtyEl.value || '0', 10) || 0;
+            if (current > pax) qtyEl.value = String(pax);
+          }
+        }
+      });
     });
   });
 </script>

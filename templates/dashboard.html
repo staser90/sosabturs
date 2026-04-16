@@ -100,7 +100,7 @@
         var isCancelled = (status === 'cancelled' || status === 'Cancelada');
         var subject = encodeURIComponent('Pedido de cancelamento - Reserva #' + id);
         var body = encodeURIComponent('Bom dia,\n\nPeço o cancelamento da seguinte reserva:\n\nN.º da reserva: #' + id + '\nPack: ' + pack + '\nData do tour: ' + dateDisplay + '\n\nObrigado.');
-        var cancelLink = isCancelled ? '' : '<a href="mailto:sosabtours@gmail.com?subject=' + subject + '&body=' + body + '" class="reserva-cancel-email flex w-full sm:w-auto min-h-[2.75rem] items-center justify-center px-3 py-2 rounded bg-slate-600 hover:bg-slate-500 text-white text-sm text-center leading-snug">{% trans "Solicitar cancelamento (email)" %}</a>';
+        var cancelLink = isCancelled ? '' : '<a href="mailto:toursosab@gmail.com?subject=' + subject + '&body=' + body + '" class="reserva-cancel-email flex w-full sm:w-auto min-h-[2.75rem] items-center justify-center px-3 py-2 rounded bg-slate-600 hover:bg-slate-500 text-white text-sm text-center leading-snug">{% trans "Solicitar cancelamento (email)" %}</a>';
         return '<div class="reserva-item bg-slate-900 p-4 rounded-xl flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-start sm:gap-4 w-full min-w-0 max-w-full" data-booking-id="' + id + '">' +
           '<div class="min-w-0 w-full sm:flex-1 sm:min-w-0">' +
             '<div class="font-semibold text-orange-500 break-words">' + esc(pack) + '</div>' +

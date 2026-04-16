@@ -39,6 +39,9 @@ msgstr "Tableau de bord"
 msgid "Sair"
 msgstr "Déconnexion"
 
+msgid "Sobre"
+msgstr "À propos"
+
 msgid "Reservar Tour"
 msgstr "Réserver un tour"
 

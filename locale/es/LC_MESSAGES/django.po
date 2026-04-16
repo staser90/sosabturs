@@ -39,6 +39,9 @@ msgstr "Panel"
 msgid "Sair"
 msgstr "Salir"
 
+msgid "Sobre"
+msgstr "Acerca de"
+
 msgid "Reservar Tour"
 msgstr "Reservar Tour"
 
