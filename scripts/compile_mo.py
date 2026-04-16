@@ -48,9 +48,9 @@ def parse_po(path: Path) -> dict[str, str]:
             return
         msgid = "".join(msgid_parts)
         msgstr = "".join(msgstr_parts)
-        # Ignore header entry (empty msgid)
-        if msgid:
-            entries[msgid] = msgstr
+        # Keep header entry (empty msgid) to preserve charset metadata (UTF-8).
+        # Without it, Python gettext defaults to ASCII and may crash on accents.
+        entries[msgid] = msgstr
         msgid_parts = msgstr_parts = state = None
 
     for raw in path.read_text(encoding="utf-8").splitlines():

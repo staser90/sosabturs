@@ -194,3 +194,709 @@ msgstr "Reviews"
 
 msgid "Mensagens de contacto"
 msgstr "Contact messages"
+
+msgid "Escolha o seu pack"
+msgstr "Choose your pack"
+
+msgid "Número de pessoas"
+msgstr "Number of people"
+
+msgid "Duração"
+msgstr "Duration"
+
+msgid "2 horas"
+msgstr "2 hours"
+
+msgid "3 horas"
+msgstr "3 hours"
+
+msgid "4 horas"
+msgstr "4 hours"
+
+msgid "Pack"
+msgstr "Pack"
+
+msgid "Fato de proteção"
+msgstr "Protective suit"
+
+msgid "A definir"
+msgstr "To be defined"
+
+msgid "Data do tour"
+msgstr "Tour date"
+
+msgid "Pedido de cancelamento"
+msgstr "Cancellation request"
+
+msgid "Bom dia"
+msgstr "Good morning"
+
+msgid "Peço o cancelamento da seguinte reserva"
+msgstr "I request the cancellation of the following booking"
+
+msgid "N.º da reserva"
+msgstr "Booking number"
+
+msgid "Obrigado"
+msgstr "Thank you"
+
+msgid "SO SAB — Empresa de Turismo na Ilha do Sal"
+msgstr "SO SAB — Tourism Company on Sal Island"
+
+msgid "Organizamos experiências autênticas na Ilha do Sal: Volta à Ilha, excursões, transfers e serviço de táxi, sempre com foco em segurança, pontualidade e boa disposição."
+msgstr "We organize authentic experiences on Sal Island: Island Tours, excursions, transfers and taxi service, always focused on safety, punctuality and good vibes."
+
+msgid "Ver Packs"
+msgstr "View Packs"
+
+msgid "Falar connosco"
+msgstr "Talk to us"
+
+msgid "Base"
+msgstr "Base"
+
+msgid "Santa Maria — Ilha do Sal"
+msgstr "Santa Maria — Sal Island"
+
+msgid "Transfers & Táxi"
+msgstr "Transfers & Taxi"
+
+msgid "Aeroporto • Hotel • Passeios"
+msgstr "Airport • Hotel • Tours"
+
+msgid "Volta à Ilha do Sal"
+msgstr "Sal Island Tour"
+
+msgid "O clássico imperdível: paisagens, paragens fotográficas e os melhores pontos da ilha, com ritmo confortável e atenção ao grupo."
+msgstr "The must-do classic: landscapes, photo stops and the island’s best spots, with a comfortable pace and full attention to the group."
+
+msgid "Excursões, quad e buggy"
+msgstr "Excursions, quad & buggy"
+
+msgid "Tours guiados e experiências com aventura. Equipamento e instruções incluídos para aproveitar com confiança."
+msgstr "Guided tours and adventure experiences. Equipment and instructions included so you can enjoy with confidence."
+
+msgid "Serviços extra"
+msgstr "Extra services"
+
+msgid "Transfers privados e partilhados"
+msgstr "Private and shared transfers"
+
+msgid "Serviço de táxi"
+msgstr "Taxi service"
+
+msgid "Impressões (A4) e apoio ao cliente"
+msgstr "Prints (A4) and customer support"
+
+msgid "Porquê escolher a SO SAB?"
+msgstr "Why choose SO SAB?"
+
+msgid "Pontualidade"
+msgstr "Punctuality"
+
+msgid "chegamos a horas e combinamos tudo com clareza."
+msgstr "we arrive on time and keep everything clear."
+
+msgid "Segurança"
+msgstr "Safety"
+
+msgid "atenção ao percurso e ao bem‑estar de todos."
+msgstr "attention to the route and everyone’s well-being."
+
+msgid "Experiência local"
+msgstr "Local experience"
+
+msgid "dicas e paragens que fazem a diferença."
+msgstr "tips and stops that make the difference."
+
+msgid "A carregar..."
+msgstr "Loading..."
+
+msgid "Van"
+msgstr "Van"
+
+msgid "Minibus"
+msgstr "Minibus"
+
+msgid "Autocarro"
+msgstr "Bus"
+
+msgid "SUV"
+msgstr "SUV"
+
+msgid "Taxi"
+msgstr "Taxi"
+
+msgid "Reserva enviada com sucesso!"
+msgstr "Booking sent successfully!"
+
+msgid "Recebemos o seu pedido de reserva. Vamos confirmar consigo o mais breve possível."
+msgstr "We received your booking request. We'll confirm with you as soon as possible."
+
+msgid "* Fato de proteção opcional (10€ cada) — só adiciona ao total se escolher quantidade > 0"
+msgstr "* Optional protective suit (€10 each) — only adds to the total if you choose qty > 0"
+
+msgid "Remover"
+msgstr "Remove"
+
+msgid "Item removido do carrinho"
+msgstr "Item removed from cart"
+
+msgid "pessoas"
+msgstr "people"
+
+msgid "Confirmar Reserva"
+msgstr "Confirm booking"
+
+msgid "A enviar..."
+msgstr "Sending..."
+
+msgid "Erro ao enviar reserva."
+msgstr "Couldn't send booking."
+
+msgid "Nova reserva"
+msgstr "New booking"
+
+msgid "Nova avaliação"
+msgstr "New review"
+
+msgid "Nova mensagem"
+msgstr "New message"
+
+msgid "Editar"
+msgstr "Edit"
+
+msgid "Guardar"
+msgstr "Save"
+
+msgid "Cancelar"
+msgstr "Cancel"
+
+msgid "Apagar"
+msgstr "Delete"
+
+msgid "Ações"
+msgstr "Actions"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Preço"
+msgstr "Price"
+
+msgid "Data"
+msgstr "Date"
+
+msgid "Editar reserva"
+msgstr "Edit booking"
+
+msgid "Editar avaliação"
+msgstr "Edit review"
+
+msgid "Editar mensagem"
+msgstr "Edit message"
+
+msgid "esta reserva"
+msgstr "this booking"
+
+msgid "esta avaliação"
+msgstr "this review"
+
+msgid "esta mensagem"
+msgstr "this message"
+
+msgid "Tem a certeza que deseja apagar?"
+msgstr "Are you sure you want to delete?"
+
+msgid "Tem a certeza que deseja apagar"
+msgstr "Are you sure you want to delete"
+
+msgid "Nenhuma reserva."
+msgstr "No bookings."
+
+msgid "Nenhuma avaliação."
+msgstr "No reviews."
+
+msgid "Nenhuma mensagem."
+msgstr "No messages."
+
+msgid "Erro ao carregar."
+msgstr "Error loading."
+
+msgid "Erro ao apagar."
+msgstr "Error deleting."
+
+msgid "Nome do pack"
+msgstr "Pack name"
+
+msgid "Data reserva"
+msgstr "Booking date"
+
+msgid "Extras"
+msgstr "Extras"
+
+msgid "Pendente"
+msgstr "Pending"
+
+msgid "Confirmada"
+msgstr "Confirmed"
+
+msgid "Cancelada"
+msgstr "Cancelled"
+
+msgid "Concluída"
+msgstr "Completed"
+
+msgid "Rating"
+msgstr "Rating"
+
+msgid "Aprovada"
+msgstr "Approved"
+
+msgid "Comentário"
+msgstr "Comment"
+
+msgid "Sim"
+msgstr "Yes"
+
+msgid "Não"
+msgstr "No"
+
+msgid "Erro ao entrar. Tente novamente."
+msgstr "Login failed. Please try again."
+
+msgid "Erro de ligação. Tente novamente."
+msgstr "Connection error. Please try again."
+
+msgid "Erro ao carregar imagens"
+msgstr "Error loading images"
+
+msgid "Nenhuma imagem encontrada na galeria."
+msgstr "No images found in the gallery."
+
+msgid "Foto"
+msgstr "Photo"
+
+msgid "Erro: Card não encontrado"
+msgstr "Error: Card not found"
+
+msgid "Erro: Preço não encontrado"
+msgstr "Error: Price not found"
+
+msgid "Recuperação de senha"
+msgstr "Password reset"
+
+msgid "Recuperar senha"
+msgstr "Recover password"
+
+msgid "Introduza o seu email e enviaremos um link para redefinir a senha."
+msgstr "Enter your email and we’ll send you a link to reset your password."
+
+msgid "seu@email.com"
+msgstr "your@email.com"
+
+msgid "Enviar link de recuperação"
+msgstr "Send reset link"
+
+msgid "Voltar ao login"
+msgstr "Back to login"
+
+msgid "Email enviado"
+msgstr "Email sent"
+
+msgid "Se existir uma conta com o email que indicou, receberá em breve um link para redefinir a senha."
+msgstr "If an account exists for the email you provided, you will receive a reset link shortly."
+
+msgid "Verifique também a pasta de spam."
+msgstr "Also check your spam folder."
+
+msgid "Nova senha"
+msgstr "New password"
+
+msgid "Definir nova senha"
+msgstr "Set a new password"
+
+msgid "Confirmar nova senha"
+msgstr "Confirm new password"
+
+msgid "Guardar nova senha"
+msgstr "Save new password"
+
+msgid "Este link de recuperação não é válido ou já foi utilizado. Peça um novo link."
+msgstr "This reset link is invalid or has already been used. Request a new one."
+
+msgid "Pedir novo link"
+msgstr "Request new link"
+
+msgid "Para definir uma nova senha, aceda ao link abaixo:"
+msgstr "To set a new password, open the link below:"
+
+msgid "Se não pediu esta alteração, pode ignorar este email."
+msgstr "If you didn’t request this change, you can ignore this email."
+
+msgid "4 passageiros"
+msgstr "4 passengers"
+
+msgid "Até 8 passageiros"
+msgstr "Up to 8 passengers"
+
+msgid "Cliente"
+msgstr "Customer"
+
+msgid "Confirmar senha"
+msgstr "Confirm password"
+
+msgid "Criar conta"
+msgstr "Create account"
+
+msgid "Dados da conta"
+msgstr "Account details"
+
+msgid "Data do tour (opcional)"
+msgstr "Tour date (optional)"
+
+msgid "Eliminar"
+msgstr "Delete"
+
+msgid "Erro ao abrir recibo."
+msgstr "Error opening receipt."
+
+msgid "Erro ao carregar reservas."
+msgstr "Error loading bookings."
+
+msgid "Erro ao guardar."
+msgstr "Error saving."
+
+msgid "Erro ao registar. Tente novamente."
+msgstr "Registration error. Please try again."
+
+msgid "Erro de ligação."
+msgstr "Connection error."
+
+msgid "Erro de rede. Tente novamente."
+msgstr "Network error. Please try again."
+
+msgid "Escreva a sua mensagem..."
+msgstr "Write your message..."
+
+msgid "Ex: Reserva, Informação..."
+msgstr "E.g.: Booking, Information..."
+
+msgid "Fato de proteção (opcional)"
+msgstr "Protective suit (optional)"
+
+msgid "Fechar"
+msgstr "Close"
+
+msgid "Grupos grandes"
+msgstr "Large groups"
+
+msgid "Grupos médios"
+msgstr "Medium groups"
+
+msgid "Guardar alterações"
+msgstr "Save changes"
+
+msgid "Imprimir"
+msgstr "Print"
+
+msgid "Menu"
+msgstr "Menu"
+
+msgid "Nova palavra-passe"
+msgstr "New password"
+
+msgid "Não foi possível alterar a palavra-passe."
+msgstr "Couldn't change password."
+
+msgid "Não foi possível carregar o perfil."
+msgstr "Couldn't load profile."
+
+msgid "Não tem conta?"
+msgstr "Don't have an account?"
+
+msgid "O meu perfil"
+msgstr "My profile"
+
+msgid "O seu nome"
+msgstr "Your name"
+
+msgid "Palavra-passe alterada com sucesso."
+msgstr "Password changed successfully."
+
+msgid "Palavra-passe atual"
+msgstr "Current password"
+
+msgid "Pedir orçamento"
+msgstr "Request a quote"
+
+msgid "Perfil"
+msgstr "Profile"
+
+msgid "Perfil atualizado com sucesso."
+msgstr "Profile updated successfully."
+
+msgid "Quantidade de fato de proteção"
+msgstr "Protective suit quantity"
+
+msgid "Registar"
+msgstr "Register"
+
+msgid "Registe-se"
+msgstr "Sign up"
+
+msgid "Registo"
+msgstr "Registration"
+
+msgid "Reserva"
+msgstr "Booking"
+
+msgid "Reservar agora"
+msgstr "Book now"
+
+msgid "Reservar um tour"
+msgstr "Book a tour"
+
+msgid "Senha alterada"
+msgstr "Password changed"
+
+msgid "Solicitar cancelamento (email)"
+msgstr "Request cancellation (email)"
+
+msgid "Tem de iniciar sessão para finalizar a reserva."
+msgstr "You must be logged in to complete the booking."
+
+msgid "Tem de iniciar sessão para ver as suas reservas."
+msgstr "You must be logged in to see your bookings."
+
+msgid "Tem de iniciar sessão para ver o seu perfil."
+msgstr "You must be logged in to view your profile."
+
+msgid "Transfer SO SAB"
+msgstr "SO SAB Transfer"
+
+msgid "Transfer privado"
+msgstr "Private transfer"
+
+msgid "Utilizador"
+msgstr "User"
+
+msgid "Utilizador ou email"
+msgstr "Username or email"
+
+msgid "Ver Transfers"
+msgstr "View transfers"
+
+msgid "Ver catálogo"
+msgstr "View catalogue"
+
+msgid "opcional"
+msgstr "optional"
+
+# blocktrans strings with variables
+msgid "A equipa {{ site_name }}"
+msgstr "The {{ site_name }} team"
+
+msgid "A sua senha foi redefinida com sucesso. Pode entrar com a nova senha."
+msgstr "Your password has been reset successfully. You can sign in with your new password."
+
+msgid "Ainda não tem reservas."
+msgstr "You don't have any bookings yet."
+
+msgid "As minhas reservas"
+msgstr "My bookings"
+
+msgid "Alterar palavra-passe"
+msgstr "Change password"
+
+msgid "O seu nome de utilizador (caso tenha esquecido): {{ username }}"
+msgstr "Your username (in case you forgot): {{ username }}"
+
+msgid "Obrigado,"
+msgstr "Thank you,"
+
+msgid "Recebeu este email porque foi pedida a recuperação de senha da sua conta em {{ site_name }}."
+msgstr "You received this email because a password reset was requested for your account at {{ site_name }}."
+
+msgid "Serviço de transfer do aeroporto e excursões na Ilha do Sal. Contacte-nos para reservar."
+msgstr "Airport transfer service and excursions on Sal Island. Contact us to book."
+
+msgid "Nova reserva"
+msgstr "New booking"
+
+msgid "Nova avaliação"
+msgstr "New review"
+
+msgid "Nova mensagem"
+msgstr "New message"
+
+msgid "Editar"
+msgstr "Edit"
+
+msgid "Guardar"
+msgstr "Save"
+
+msgid "Cancelar"
+msgstr "Cancel"
+
+msgid "Apagar"
+msgstr "Delete"
+
+msgid "Ações"
+msgstr "Actions"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Preço"
+msgstr "Price"
+
+msgid "Data"
+msgstr "Date"
+
+msgid "Editar reserva"
+msgstr "Edit booking"
+
+msgid "Editar avaliação"
+msgstr "Edit review"
+
+msgid "Editar mensagem"
+msgstr "Edit message"
+
+msgid "esta reserva"
+msgstr "this booking"
+
+msgid "esta avaliação"
+msgstr "this review"
+
+msgid "esta mensagem"
+msgstr "this message"
+
+msgid "Tem a certeza que deseja apagar?"
+msgstr "Are you sure you want to delete?"
+
+msgid "Tem a certeza que deseja apagar"
+msgstr "Are you sure you want to delete"
+
+msgid "Nenhuma reserva."
+msgstr "No bookings."
+
+msgid "Nenhuma avaliação."
+msgstr "No reviews."
+
+msgid "Nenhuma mensagem."
+msgstr "No messages."
+
+msgid "Erro ao carregar."
+msgstr "Error loading."
+
+msgid "Erro ao apagar."
+msgstr "Error deleting."
+
+msgid "Nome do pack"
+msgstr "Pack name"
+
+msgid "Data reserva"
+msgstr "Booking date"
+
+msgid "Extras"
+msgstr "Extras"
+
+msgid "Pendente"
+msgstr "Pending"
+
+msgid "Confirmada"
+msgstr "Confirmed"
+
+msgid "Cancelada"
+msgstr "Cancelled"
+
+msgid "Concluída"
+msgstr "Completed"
+
+msgid "Rating"
+msgstr "Rating"
+
+msgid "Aprovada"
+msgstr "Approved"
+
+msgid "Comentário"
+msgstr "Comment"
+
+msgid "Sim"
+msgstr "Yes"
+
+msgid "Não"
+msgstr "No"
+
+msgid "Erro ao entrar. Tente novamente."
+msgstr "Login failed. Please try again."
+
+msgid "Erro de ligação. Tente novamente."
+msgstr "Connection error. Please try again."
+
+msgid "Erro ao carregar imagens"
+msgstr "Error loading images"
+
+msgid "Nenhuma imagem encontrada na galeria."
+msgstr "No images found in the gallery."
+
+msgid "Foto"
+msgstr "Photo"
+
+msgid "Erro: Card não encontrado"
+msgstr "Error: Card not found"
+
+msgid "Erro: Preço não encontrado"
+msgstr "Error: Price not found"
+
+msgid "Recuperação de senha"
+msgstr "Password reset"
+
+msgid "Recuperar senha"
+msgstr "Recover password"
+
+msgid "Introduza o seu email e enviaremos um link para redefinir a senha."
+msgstr "Enter your email and we’ll send you a link to reset your password."
+
+msgid "seu@email.com"
+msgstr "your@email.com"
+
+msgid "Enviar link de recuperação"
+msgstr "Send reset link"
+
+msgid "Voltar ao login"
+msgstr "Back to login"
+
+msgid "Email enviado"
+msgstr "Email sent"
+
+msgid "Se existir uma conta com o email que indicou, receberá em breve um link para redefinir a senha."
+msgstr "If an account exists for the email you provided, you will receive a reset link shortly."
+
+msgid "Verifique também a pasta de spam."
+msgstr "Also check your spam folder."
+
+msgid "Nova senha"
+msgstr "New password"
+
+msgid "Definir nova senha"
+msgstr "Set a new password"
+
+msgid "Confirmar nova senha"
+msgstr "Confirm new password"
+
+msgid "Guardar nova senha"
+msgstr "Save new password"
+
+msgid "Este link de recuperação não é válido ou já foi utilizado. Peça um novo link."
+msgstr "This reset link is invalid or has already been used. Request a new one."
+
+msgid "Pedir novo link"
+msgstr "Request new link"
+
+msgid "Para definir uma nova senha, aceda ao link abaixo:"
+msgstr "To set a new password, open the link below:"
+
+msgid "Se não pediu esta alteração, pode ignorar este email."
+msgstr "If you didn’t request this change, you can ignore this email."

@@ -1,5 +1,4 @@
 {% load static %}{% load i18n %}
-{% get_current_language as CURRENT_LANG %}
 {# variant: home | catalog | login | register | dashboard | profile | sobre | contact | transfers | galeria | standard | minimal #}
 {# z-index abaixo do header (z-50): se estiver acima, cobre o painel e os toques vão ao backdrop em vez dos links. #}
 <div id="nav-backdrop" class="fixed inset-0 z-40 bg-black/50 transition-opacity duration-200 md:hidden hidden" aria-hidden="true"></div>
@@ -33,7 +32,7 @@
           <a href="{% url 'catalogo' %}" class="rounded px-2 py-2 hover:bg-white/5 md:py-1 {% if variant == 'catalog' %}text-orange-400 font-semibold{% endif %}">{% trans "Packs" %}</a>
           <a href="{% url 'transfers' %}" class="rounded px-2 py-2 hover:bg-white/5 md:py-1 {% if variant == 'transfers' %}text-orange-400 font-semibold{% endif %}">{% trans "Transfer & Excursões" %}</a>
           <a href="{% url 'sobre' %}" class="rounded px-2 py-2 hover:bg-white/5 md:py-1 {% if variant == 'sobre' %}text-orange-400 font-semibold{% endif %}">
-            {% if CURRENT_LANG == 'en' %}About{% elif CURRENT_LANG == 'es' %}Acerca de{% elif CURRENT_LANG == 'fr' %}À propos{% elif CURRENT_LANG == 'it' %}Chi siamo{% else %}{% trans "Sobre" %}{% endif %}
+            {% trans "Sobre" %}
           </a>
           <a href="{% url 'galeria' %}" class="rounded px-2 py-2 hover:bg-white/5 md:py-1">{% trans "Galeria" %}</a>
           <a href="{% url 'contacto' %}" class="rounded px-2 py-2 hover:bg-white/5 md:py-1 {% if variant == 'contact' %}text-orange-400 font-semibold{% endif %}">{% trans "Contacto" %}</a>

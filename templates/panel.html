@@ -33,12 +33,12 @@
   <!-- Secção Reservas -->
   <div id="section-bookings" class="tab-content">
     <div class="flex justify-between items-center mb-4">
-      <h2 class="text-xl font-bold">Reservas</h2>
-      <button type="button" id="btn-new-booking" class="bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded text-sm">Nova reserva</button>
+      <h2 class="text-xl font-bold">{% trans "Reservas" %}</h2>
+      <button type="button" id="btn-new-booking" class="bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded text-sm">{% trans "Nova reserva" %}</button>
     </div>
     <div class="bg-slate-800 rounded-xl overflow-hidden">
       <div id="bookings-table-wrap" class="overflow-x-auto">
-        <p class="p-4 text-gray-400">A carregar...</p>
+        <p class="p-4 text-gray-400">{% trans "A carregar..." %}</p>
       </div>
     </div>
   </div>
@@ -46,12 +46,12 @@
   <!-- Secção Avaliações -->
   <div id="section-reviews" class="tab-content hidden">
     <div class="flex justify-between items-center mb-4">
-      <h2 class="text-xl font-bold">Avaliações</h2>
-      <button type="button" id="btn-new-review" class="bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded text-sm">Nova avaliação</button>
+      <h2 class="text-xl font-bold">{% trans "Avaliações" %}</h2>
+      <button type="button" id="btn-new-review" class="bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded text-sm">{% trans "Nova avaliação" %}</button>
     </div>
     <div class="bg-slate-800 rounded-xl overflow-hidden">
       <div id="reviews-table-wrap" class="overflow-x-auto">
-        <p class="p-4 text-gray-400">A carregar...</p>
+        <p class="p-4 text-gray-400">{% trans "A carregar..." %}</p>
       </div>
     </div>
   </div>
@@ -59,12 +59,12 @@
   <!-- Secção Mensagens -->
   <div id="section-messages" class="tab-content hidden">
     <div class="flex justify-between items-center mb-4">
-      <h2 class="text-xl font-bold">Mensagens de contacto</h2>
-      <button type="button" id="btn-new-message" class="bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded text-sm">Nova mensagem</button>
+      <h2 class="text-xl font-bold">{% trans "Mensagens de contacto" %}</h2>
+      <button type="button" id="btn-new-message" class="bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded text-sm">{% trans "Nova mensagem" %}</button>
     </div>
     <div class="bg-slate-800 rounded-xl overflow-hidden">
       <div id="messages-table-wrap" class="overflow-x-auto">
-        <p class="p-4 text-gray-400">A carregar...</p>
+        <p class="p-4 text-gray-400">{% trans "A carregar..." %}</p>
       </div>
     </div>
   </div>
@@ -74,11 +74,11 @@
 <div id="modal-form" class="fixed inset-0 z-50 hidden items-center justify-center modal-backdrop" style="display: none;">
   <div class="bg-slate-800 rounded-xl shadow-xl max-w-lg w-full mx-4 max-h-[90vh] overflow-y-auto">
     <div class="p-6">
-      <h3 id="modal-form-title" class="text-xl font-bold mb-4">Editar</h3>
+      <h3 id="modal-form-title" class="text-xl font-bold mb-4">{% trans "Editar" %}</h3>
       <form id="form-edit" class="space-y-4"></form>
       <div class="flex gap-2 mt-6">
-        <button type="button" id="modal-form-submit" class="bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded">Guardar</button>
-        <button type="button" id="modal-form-cancel" class="bg-slate-600 hover:bg-slate-500 px-4 py-2 rounded">Cancelar</button>
+        <button type="button" id="modal-form-submit" class="bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded">{% trans "Guardar" %}</button>
+        <button type="button" id="modal-form-cancel" class="bg-slate-600 hover:bg-slate-500 px-4 py-2 rounded">{% trans "Cancelar" %}</button>
       </div>
     </div>
   </div>
@@ -87,10 +87,10 @@
 <!-- Modal confirmar apagar -->
 <div id="modal-delete" class="fixed inset-0 z-50 hidden items-center justify-center modal-backdrop" style="display: none;">
   <div class="bg-slate-800 rounded-xl shadow-xl max-w-sm w-full mx-4 p-6">
-    <p id="modal-delete-text" class="mb-6">Tem a certeza que deseja apagar?</p>
+    <p id="modal-delete-text" class="mb-6">{% trans "Tem a certeza que deseja apagar?" %}</p>
     <div class="flex gap-2">
-      <button type="button" id="modal-delete-confirm" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded">Apagar</button>
-      <button type="button" id="modal-delete-cancel" class="bg-slate-600 hover:bg-slate-500 px-4 py-2 rounded">Cancelar</button>
+      <button type="button" id="modal-delete-confirm" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded">{% trans "Apagar" %}</button>
+      <button type="button" id="modal-delete-cancel" class="bg-slate-600 hover:bg-slate-500 px-4 py-2 rounded">{% trans "Cancelar" %}</button>
     </div>
   </div>
 </div>
@@ -98,6 +98,44 @@
 <script>
   const API = '/api/panel';
   const getCookie = (name) => document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'))?.[2] || '';
+  const T = {
+    loading: '{% trans "A carregar..." %}',
+    none_booking: '{% trans "Nenhuma reserva." %}',
+    none_review: '{% trans "Nenhuma avaliação." %}',
+    none_message: '{% trans "Nenhuma mensagem." %}',
+    err_load: '{% trans "Erro ao carregar." %}',
+    err_delete: '{% trans "Erro ao apagar." %}',
+    new_booking: '{% trans "Nova reserva" %}',
+    edit_booking: '{% trans "Editar reserva" %}',
+    this_booking: '{% trans "esta reserva" %}',
+    client: '{% trans "Cliente" %}',
+    pack: '{% trans "Pack" %}',
+    price: '{% trans "Preço" %}',
+    date: '{% trans "Data" %}',
+    status: '{% trans "Status" %}',
+    actions: '{% trans "Ações" %}',
+    edit: '{% trans "Editar" %}',
+    delete: '{% trans "Apagar" %}',
+    pack_placeholder: '{% trans "Nome do pack" %}',
+    booking_date: '{% trans "Data reserva" %}',
+    extras: '{% trans "Extras" %}',
+    pending: '{% trans "Pendente" %}',
+    confirmed: '{% trans "Confirmada" %}',
+    cancelled: '{% trans "Cancelada" %}',
+    completed: '{% trans "Concluída" %}',
+    new_review: '{% trans "Nova avaliação" %}',
+    edit_review: '{% trans "Editar avaliação" %}',
+    this_review: '{% trans "esta avaliação" %}',
+    rating: '{% trans "Rating" %}',
+    approved: '{% trans "Aprovada" %}',
+    new_message: '{% trans "Nova mensagem" %}',
+    edit_message: '{% trans "Editar mensagem" %}',
+    this_message: '{% trans "esta mensagem" %}',
+    name: '{% trans "Nome" %}',
+    email: '{% trans "Email" %}',
+    subject: '{% trans "Assunto" %}',
+    message: '{% trans "Mensagem" %}',
+  };
 
   function api(method, url, body = null) {
     const opts = {
@@ -131,11 +169,11 @@
   // --- Reservas ---
   function renderBookings(list) {
     const wrap = document.getElementById('bookings-table-wrap');
-    if (!list.length) { wrap.innerHTML = '<p class="p-4 text-gray-400">Nenhuma reserva.</p>'; return; }
+    if (!list.length) { wrap.innerHTML = `<p class="p-4 text-gray-400">${T.none_booking}</p>`; return; }
     wrap.innerHTML = `
       <table class="w-full text-left text-sm">
         <thead><tr class="border-b border-slate-700 text-gray-400">
-          <th class="p-3">ID</th><th class="p-3">Cliente</th><th class="p-3">Pack</th><th class="p-3">Preço</th><th class="p-3">Data</th><th class="p-3">Status</th><th class="p-3 w-24">Ações</th>
+          <th class="p-3">ID</th><th class="p-3">${T.client}</th><th class="p-3">${T.pack}</th><th class="p-3">${T.price}</th><th class="p-3">${T.date}</th><th class="p-3">${T.status}</th><th class="p-3 w-24">${T.actions}</th>
         </tr></thead>
         <tbody>
           ${list.map(b => `
@@ -147,21 +185,21 @@
               <td class="p-3">${dateStr(b.booking_date)}</td>
               <td class="p-3">${b.status || '—'}</td>
               <td class="p-3">
-                <button type="button" class="edit-booking text-orange-400 hover:underline mr-2" data-id="${b.id}">Editar</button>
-                <button type="button" class="delete-booking text-red-400 hover:underline" data-id="${b.id}">Apagar</button>
+                <button type="button" class="edit-booking text-orange-400 hover:underline mr-2" data-id="${b.id}">${T.edit}</button>
+                <button type="button" class="delete-booking text-red-400 hover:underline" data-id="${b.id}">${T.delete}</button>
               </td>
             </tr>
           `).join('')}
         </tbody>
       </table>`;
     wrap.querySelectorAll('.edit-booking').forEach(el => el.addEventListener('click', () => openFormBooking(Number(el.dataset.id))));
-    wrap.querySelectorAll('.delete-booking').forEach(el => el.addEventListener('click', () => openDelete('booking', Number(el.dataset.id), 'esta reserva')));
+    wrap.querySelectorAll('.delete-booking').forEach(el => el.addEventListener('click', () => openDelete('booking', Number(el.dataset.id), T.this_booking)));
   }
 
   function loadBookings() {
     api('GET', '/bookings/').then(({ ok, data }) => {
       if (ok) renderBookings(Array.isArray(data) ? data : []);
-      else document.getElementById('bookings-table-wrap').innerHTML = '<p class="p-4 text-red-400">Erro ao carregar.</p>';
+      else document.getElementById('bookings-table-wrap').innerHTML = `<p class="p-4 text-red-400">${T.err_load}</p>`;
     });
   }
 
@@ -172,16 +210,16 @@
     const isNew = id == null;
     const title = document.getElementById('modal-form-title');
     const form = document.getElementById('form-edit');
-    title.textContent = isNew ? 'Nova reserva' : 'Editar reserva';
+    title.textContent = isNew ? T.new_booking : T.edit_booking;
     const userOpts = usersList.map(u => `<option value="${u.id}">${u.email}</option>`).join('');
     form.innerHTML = `
       <input type="hidden" name="id" value="${id || ''}">
-      <div><label class="block text-sm text-gray-400 mb-1">Cliente *</label><select name="user" required class="w-full p-2 rounded bg-slate-700 border border-slate-600">${userOpts}</select></div>
-      <div><label class="block text-sm text-gray-400 mb-1">Pack *</label><input type="text" name="pack_name" required class="w-full p-2 rounded bg-slate-700 border border-slate-600" placeholder="Nome do pack"></div>
-      <div><label class="block text-sm text-gray-400 mb-1">Preço (€) *</label><input type="number" name="pack_price" step="0.01" required class="w-full p-2 rounded bg-slate-700 border border-slate-600"></div>
-      <div><label class="block text-sm text-gray-400 mb-1">Data reserva</label><input type="date" name="booking_date" class="w-full p-2 rounded bg-slate-700 border border-slate-600"></div>
-      <div><label class="block text-sm text-gray-400 mb-1">Extras</label><input type="text" name="addons" class="w-full p-2 rounded bg-slate-700 border border-slate-600"></div>
-      <div><label class="block text-sm text-gray-400 mb-1">Status *</label><select name="status" class="w-full p-2 rounded bg-slate-700 border border-slate-600"><option value="pending">Pendente</option><option value="confirmed">Confirmada</option><option value="cancelled">Cancelada</option><option value="completed">Concluída</option></select></div>
+      <div><label class="block text-sm text-gray-400 mb-1">${T.client} *</label><select name="user" required class="w-full p-2 rounded bg-slate-700 border border-slate-600">${userOpts}</select></div>
+      <div><label class="block text-sm text-gray-400 mb-1">${T.pack} *</label><input type="text" name="pack_name" required class="w-full p-2 rounded bg-slate-700 border border-slate-600" placeholder="${T.pack_placeholder}"></div>
+      <div><label class="block text-sm text-gray-400 mb-1">${T.price} (€) *</label><input type="number" name="pack_price" step="0.01" required class="w-full p-2 rounded bg-slate-700 border border-slate-600"></div>
+      <div><label class="block text-sm text-gray-400 mb-1">${T.booking_date}</label><input type="date" name="booking_date" class="w-full p-2 rounded bg-slate-700 border border-slate-600"></div>
+      <div><label class="block text-sm text-gray-400 mb-1">${T.extras}</label><input type="text" name="addons" class="w-full p-2 rounded bg-slate-700 border border-slate-600"></div>
+      <div><label class="block text-sm text-gray-400 mb-1">${T.status} *</label><select name="status" class="w-full p-2 rounded bg-slate-700 border border-slate-600"><option value="pending">${T.pending}</option><option value="confirmed">${T.confirmed}</option><option value="cancelled">${T.cancelled}</option><option value="completed">${T.completed}</option></select></div>
     `;
     if (isNew) {
       form.querySelector('[name="user"]').value = usersList[0]?.id || '';
@@ -227,11 +265,11 @@
   // --- Avaliações ---
   function renderReviews(list) {
     const wrap = document.getElementById('reviews-table-wrap');
-    if (!list.length) { wrap.innerHTML = '<p class="p-4 text-gray-400">Nenhuma avaliação.</p>'; return; }
+    if (!list.length) { wrap.innerHTML = `<p class="p-4 text-gray-400">${T.none_review}</p>`; return; }
     wrap.innerHTML = `
       <table class="w-full text-left text-sm">
         <thead><tr class="border-b border-slate-700 text-gray-400">
-          <th class="p-3">ID</th><th class="p-3">Cliente</th><th class="p-3">Pack</th><th class="p-3">Rating</th><th class="p-3">Aprovada</th><th class="p-3 w-24">Ações</th>
+          <th class="p-3">ID</th><th class="p-3">${T.client}</th><th class="p-3">${T.pack}</th><th class="p-3">${T.rating}</th><th class="p-3">${T.approved}</th><th class="p-3 w-24">${T.actions}</th>
         </tr></thead>
         <tbody>
           ${list.map(r => `
@@ -240,37 +278,37 @@
               <td class="p-3">${r.user_email || '—'}</td>
               <td class="p-3">${r.pack_name || '—'}</td>
               <td class="p-3">${r.rating ?? '—'}</td>
-              <td class="p-3">${r.is_approved ? 'Sim' : 'Não'}</td>
+              <td class="p-3">${r.is_approved ? '{% trans "Sim" %}' : '{% trans "Não" %}'}</td>
               <td class="p-3">
-                <button type="button" class="edit-review text-orange-400 hover:underline mr-2" data-id="${r.id}">Editar</button>
-                <button type="button" class="delete-review text-red-400 hover:underline" data-id="${r.id}">Apagar</button>
+                <button type="button" class="edit-review text-orange-400 hover:underline mr-2" data-id="${r.id}">${T.edit}</button>
+                <button type="button" class="delete-review text-red-400 hover:underline" data-id="${r.id}">${T.delete}</button>
               </td>
             </tr>
           `).join('')}
         </tbody>
       </table>`;
     wrap.querySelectorAll('.edit-review').forEach(el => el.addEventListener('click', () => openFormReview(Number(el.dataset.id))));
-    wrap.querySelectorAll('.delete-review').forEach(el => el.addEventListener('click', () => openDelete('review', Number(el.dataset.id), 'esta avaliação')));
+    wrap.querySelectorAll('.delete-review').forEach(el => el.addEventListener('click', () => openDelete('review', Number(el.dataset.id), T.this_review)));
   }
 
   function loadReviews() {
     api('GET', '/reviews/').then(({ ok, data }) => {
       if (ok) renderReviews(Array.isArray(data) ? data : []);
-      else document.getElementById('reviews-table-wrap').innerHTML = '<p class="p-4 text-red-400">Erro ao carregar.</p>';
+      else document.getElementById('reviews-table-wrap').innerHTML = `<p class="p-4 text-red-400">${T.err_load}</p>`;
     });
   }
 
   function openFormReview(id = null) {
     const isNew = id == null;
     const form = document.getElementById('form-edit');
-    document.getElementById('modal-form-title').textContent = isNew ? 'Nova avaliação' : 'Editar avaliação';
+    document.getElementById('modal-form-title').textContent = isNew ? T.new_review : T.edit_review;
     const userOpts = usersList.map(u => `<option value="${u.id}">${u.email}</option>`).join('');
     form.innerHTML = `
-      <div><label class="block text-sm text-gray-400 mb-1">Cliente *</label><select name="user" required class="w-full p-2 rounded bg-slate-700 border border-slate-600">${userOpts}</select></div>
-      <div><label class="block text-sm text-gray-400 mb-1">Pack *</label><input type="text" name="pack_name" required class="w-full p-2 rounded bg-slate-700 border border-slate-600"></div>
-      <div><label class="block text-sm text-gray-400 mb-1">Rating (1-5) *</label><input type="number" name="rating" min="1" max="5" required class="w-full p-2 rounded bg-slate-700 border border-slate-600"></div>
-      <div><label class="block text-sm text-gray-400 mb-1">Comentário</label><textarea name="comment" rows="2" class="w-full p-2 rounded bg-slate-700 border border-slate-600"></textarea></div>
-      <div><label class="block text-sm text-gray-400 mb-1"><input type="checkbox" name="is_approved" class="mr-2">Aprovada</label></div>
+      <div><label class="block text-sm text-gray-400 mb-1">${T.client} *</label><select name="user" required class="w-full p-2 rounded bg-slate-700 border border-slate-600">${userOpts}</select></div>
+      <div><label class="block text-sm text-gray-400 mb-1">${T.pack} *</label><input type="text" name="pack_name" required class="w-full p-2 rounded bg-slate-700 border border-slate-600"></div>
+      <div><label class="block text-sm text-gray-400 mb-1">${T.rating} (1-5) *</label><input type="number" name="rating" min="1" max="5" required class="w-full p-2 rounded bg-slate-700 border border-slate-600"></div>
+      <div><label class="block text-sm text-gray-400 mb-1">{% trans "Comentário" %}</label><textarea name="comment" rows="2" class="w-full p-2 rounded bg-slate-700 border border-slate-600"></textarea></div>
+      <div><label class="block text-sm text-gray-400 mb-1"><input type="checkbox" name="is_approved" class="mr-2">${T.approved}</label></div>
     `;
     if (isNew) {
       form.querySelector('[name="user"]').value = usersList[0]?.id || '';
@@ -314,11 +352,11 @@
   // --- Mensagens ---
   function renderMessages(list) {
     const wrap = document.getElementById('messages-table-wrap');
-    if (!list.length) { wrap.innerHTML = '<p class="p-4 text-gray-400">Nenhuma mensagem.</p>'; return; }
+    if (!list.length) { wrap.innerHTML = `<p class="p-4 text-gray-400">${T.none_message}</p>`; return; }
     wrap.innerHTML = `
       <table class="w-full text-left text-sm">
         <thead><tr class="border-b border-slate-700 text-gray-400">
-          <th class="p-3">ID</th><th class="p-3">Nome</th><th class="p-3">Email</th><th class="p-3">Assunto</th><th class="p-3">Data</th><th class="p-3 w-24">Ações</th>
+          <th class="p-3">ID</th><th class="p-3">${T.name}</th><th class="p-3">${T.email}</th><th class="p-3">${T.subject}</th><th class="p-3">${T.date}</th><th class="p-3 w-24">${T.actions}</th>
         </tr></thead>
         <tbody>
           ${list.map(m => `
@@ -329,33 +367,33 @@
               <td class="p-3">${(m.subject || '').slice(0, 30)}${(m.subject || '').length > 30 ? '…' : ''}</td>
               <td class="p-3">${dateStr(m.created_at)}</td>
               <td class="p-3">
-                <button type="button" class="edit-message text-orange-400 hover:underline mr-2" data-id="${m.id}">Editar</button>
-                <button type="button" class="delete-message text-red-400 hover:underline" data-id="${m.id}">Apagar</button>
+                <button type="button" class="edit-message text-orange-400 hover:underline mr-2" data-id="${m.id}">${T.edit}</button>
+                <button type="button" class="delete-message text-red-400 hover:underline" data-id="${m.id}">${T.delete}</button>
               </td>
             </tr>
           `).join('')}
         </tbody>
       </table>`;
     wrap.querySelectorAll('.edit-message').forEach(el => el.addEventListener('click', () => openFormMessage(Number(el.dataset.id))));
-    wrap.querySelectorAll('.delete-message').forEach(el => el.addEventListener('click', () => openDelete('message', Number(el.dataset.id), 'esta mensagem')));
+    wrap.querySelectorAll('.delete-message').forEach(el => el.addEventListener('click', () => openDelete('message', Number(el.dataset.id), T.this_message)));
   }
 
   function loadMessages() {
     api('GET', '/messages/').then(({ ok, data }) => {
       if (ok) renderMessages(Array.isArray(data) ? data : []);
-      else document.getElementById('messages-table-wrap').innerHTML = '<p class="p-4 text-red-400">Erro ao carregar.</p>';
+      else document.getElementById('messages-table-wrap').innerHTML = `<p class="p-4 text-red-400">${T.err_load}</p>`;
     });
   }
 
   function openFormMessage(id = null) {
     const isNew = id == null;
     const form = document.getElementById('form-edit');
-    document.getElementById('modal-form-title').textContent = isNew ? 'Nova mensagem' : 'Editar mensagem';
+    document.getElementById('modal-form-title').textContent = isNew ? T.new_message : T.edit_message;
     form.innerHTML = `
-      <div><label class="block text-sm text-gray-400 mb-1">Nome *</label><input type="text" name="name" required class="w-full p-2 rounded bg-slate-700 border border-slate-600"></div>
-      <div><label class="block text-sm text-gray-400 mb-1">Email *</label><input type="email" name="email" required class="w-full p-2 rounded bg-slate-700 border border-slate-600"></div>
-      <div><label class="block text-sm text-gray-400 mb-1">Assunto</label><input type="text" name="subject" class="w-full p-2 rounded bg-slate-700 border border-slate-600"></div>
-      <div><label class="block text-sm text-gray-400 mb-1">Mensagem *</label><textarea name="message" rows="4" required class="w-full p-2 rounded bg-slate-700 border border-slate-600"></textarea></div>
+      <div><label class="block text-sm text-gray-400 mb-1">${T.name} *</label><input type="text" name="name" required class="w-full p-2 rounded bg-slate-700 border border-slate-600"></div>
+      <div><label class="block text-sm text-gray-400 mb-1">${T.email} *</label><input type="email" name="email" required class="w-full p-2 rounded bg-slate-700 border border-slate-600"></div>
+      <div><label class="block text-sm text-gray-400 mb-1">${T.subject}</label><input type="text" name="subject" class="w-full p-2 rounded bg-slate-700 border border-slate-600"></div>
+      <div><label class="block text-sm text-gray-400 mb-1">${T.message} *</label><textarea name="message" rows="4" required class="w-full p-2 rounded bg-slate-700 border border-slate-600"></textarea></div>
     `;
     if (isNew) {
       document.getElementById('modal-form').style.display = 'flex';
@@ -396,7 +434,7 @@
   // --- Apagar ---
   let deleteResolve = null;
   function openDelete(type, id, label) {
-    document.getElementById('modal-delete-text').textContent = 'Tem a certeza que deseja apagar ' + label + '?';
+    document.getElementById('modal-delete-text').textContent = '{% trans "Tem a certeza que deseja apagar" %} ' + label + '?';
     document.getElementById('modal-delete').style.display = 'flex';
     document.getElementById('modal-delete').classList.remove('hidden');
     deleteResolve = { type, id };
@@ -411,7 +449,7 @@
         if (type === 'booking') loadBookings();
         else if (type === 'review') loadReviews();
         else loadMessages();
-      } else alert('Erro ao apagar.');
+      } else alert(T.err_delete);
       document.getElementById('modal-delete').style.display = 'none';
       document.getElementById('modal-delete').classList.add('hidden');
       deleteResolve = null;

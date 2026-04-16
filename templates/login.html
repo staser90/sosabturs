@@ -77,10 +77,10 @@ document.getElementById('login-form').addEventListener('submit', async function(
       window.location.href = '/';
       return;
     }
-    err.textContent = data.error || data.detail || 'Erro ao entrar. Tente novamente.';
+    err.textContent = data.error || data.detail || '{% trans "Erro ao entrar. Tente novamente." %}';
     err.classList.remove('hidden');
   } catch (x) {
-    err.textContent = 'Erro de ligação. Tente novamente.';
+    err.textContent = '{% trans "Erro de ligação. Tente novamente." %}';
     err.classList.remove('hidden');
   }
   btn.disabled = false;

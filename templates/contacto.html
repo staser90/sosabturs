@@ -56,27 +56,27 @@
           <input type="text" name="name" id="id_name" required
                  value="{{ form_data.name|default:'' }}"
                  class="w-full p-3 rounded bg-slate-800 border border-slate-700 focus:border-orange-500 focus:outline-none"
-                 placeholder="O seu nome">
+                 placeholder="{% trans "O seu nome" %}">
         </div>
         <div>
           <label for="id_email" class="block mb-2 text-sm text-gray-400">{% trans "Email" %} *</label>
           <input type="email" name="email" id="id_email" required
                  value="{{ form_data.email|default:'' }}"
                  class="w-full p-3 rounded bg-slate-800 border border-slate-700 focus:border-orange-500 focus:outline-none"
-                 placeholder="seu@email.com">
+                 placeholder="{% trans "seu@email.com" %}">
         </div>
         <div>
           <label for="id_subject" class="block mb-2 text-sm text-gray-400">{% trans "Assunto" %}</label>
           <input type="text" name="subject" id="id_subject"
                  value="{{ form_data.subject|default:'' }}"
                  class="w-full p-3 rounded bg-slate-800 border border-slate-700 focus:border-orange-500 focus:outline-none"
-                 placeholder="Ex: Reserva, Informação...">
+                 placeholder="{% trans "Ex: Reserva, Informação..." %}">
         </div>
         <div>
           <label for="id_message" class="block mb-2 text-sm text-gray-400">{% trans "Mensagem" %} *</label>
           <textarea name="message" id="id_message" rows="4" required
                     class="w-full p-3 rounded bg-slate-800 border border-slate-700 focus:border-orange-500 focus:outline-none resize-none"
-                    placeholder="Escreva a sua mensagem...">{{ form_data.message|default:'' }}</textarea>
+                    placeholder="{% trans "Escreva a sua mensagem..." %}">{{ form_data.message|default:'' }}</textarea>
         </div>
         <button type="submit" class="w-full bg-orange-500 py-3 rounded hover:bg-orange-600 transition font-bold">
           {% trans "Enviar mensagem" %}

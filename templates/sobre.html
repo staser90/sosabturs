@@ -1,11 +1,10 @@
 {% load static %}{% load i18n %}
-{% get_current_language as CURRENT_LANG %}
 <!DOCTYPE html>
 <html lang="{{ request.LANGUAGE_CODE|default:'pt' }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% if CURRENT_LANG == 'en' %}About{% elif CURRENT_LANG == 'es' %}Acerca de{% elif CURRENT_LANG == 'fr' %}À propos{% elif CURRENT_LANG == 'it' %}Chi siamo{% else %}{% trans "Sobre" %}{% endif %} - SO SAB</title>
+  <title>{% trans "Sobre" %} - SO SAB</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="{% static 'base.css' %}">
   <link rel="stylesheet" href="{% static 'css/whatsapp-widget.css' %}">

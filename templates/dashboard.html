@@ -41,6 +41,16 @@
   var loading = document.getElementById('reservas-loading');
   var list = document.getElementById('reservas-list');
   var empty = document.getElementById('reservas-empty');
+  var tbdLabel = '{% trans "A definir" %}';
+  var tourDateLabel = '{% trans "Data do tour" %}';
+  var cancelSubjectPrefix = '{% trans "Pedido de cancelamento" %}';
+  var cancelGreeting = '{% trans "Bom dia" %}';
+  var cancelRequestLine = '{% trans "Peço o cancelamento da seguinte reserva" %}';
+  var bookingNumberLabel = '{% trans "N.º da reserva" %}';
+  var packLabel = '{% trans "Pack" %}';
+  var thanksLabel = '{% trans "Obrigado" %}';
+  var statusCancelledLabel = '{% trans "Cancelada" %}';
+  var statusConfirmedLabel = '{% trans "Confirmada" %}';
 
   if (!token) {
     loginRequired.classList.remove('hidden');
@@ -69,7 +79,7 @@
         content.classList.add('hidden');
         return;
       }
-      throw new Error('Erro ao carregar');
+      throw new Error('{% trans "Erro ao carregar." %}');
     }
     return r.json();
   })
@@ -92,19 +102,19 @@
       list.innerHTML = results.map(function(b) {
         var id = b.id;
         var dateStr = b.booking_date || b.date || null;
-        var dateDisplay = dateStr ? (String(dateStr).length >= 10 ? dateStr.split('-').reverse().join('/') : dateStr) : 'A definir';
+        var dateDisplay = dateStr ? (String(dateStr).length >= 10 ? dateStr.split('-').reverse().join('/') : dateStr) : tbdLabel;
         var pack = (b.pack_name || b.pack || '-').replace(/\bnull\b/gi, '').replace(/\s+/g, ' ').trim() || '-';
         var total = b.total_amount != null ? (b.total_amount + ' €') : (b.amount != null ? b.amount + ' €' : (b.pack_price != null ? b.pack_price + ' €' : '-'));
         var status = b.status || b.payment_status || '';
-        var statusLabel = (status === 'cancelled' || status === 'Cancelada') ? 'Cancelada' : (status === 'confirmed' || status === 'Confirmada') ? 'Confirmada' : status;
-        var isCancelled = (status === 'cancelled' || status === 'Cancelada');
-        var subject = encodeURIComponent('Pedido de cancelamento - Reserva #' + id);
-        var body = encodeURIComponent('Bom dia,\n\nPeço o cancelamento da seguinte reserva:\n\nN.º da reserva: #' + id + '\nPack: ' + pack + '\nData do tour: ' + dateDisplay + '\n\nObrigado.');
+        var statusLabel = (status === 'cancelled' || status === statusCancelledLabel) ? statusCancelledLabel : (status === 'confirmed' || status === statusConfirmedLabel) ? statusConfirmedLabel : status;
+        var isCancelled = (status === 'cancelled' || status === statusCancelledLabel);
+        var subject = encodeURIComponent(cancelSubjectPrefix + ' - ' + bookingNumberLabel + ' #' + id);
+        var body = encodeURIComponent(cancelGreeting + ',\n\n' + cancelRequestLine + ':\n\n' + bookingNumberLabel + ': #' + id + '\n' + packLabel + ': ' + pack + '\n' + tourDateLabel + ': ' + dateDisplay + '\n\n' + thanksLabel + '.');
         var cancelLink = isCancelled ? '' : '<a href="mailto:toursosab@gmail.com?subject=' + subject + '&body=' + body + '" class="reserva-cancel-email flex w-full sm:w-auto min-h-[2.75rem] items-center justify-center px-3 py-2 rounded bg-slate-600 hover:bg-slate-500 text-white text-sm text-center leading-snug">{% trans "Solicitar cancelamento (email)" %}</a>';
         return '<div class="reserva-item bg-slate-900 p-4 rounded-xl flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-start sm:gap-4 w-full min-w-0 max-w-full" data-booking-id="' + id + '">' +
           '<div class="min-w-0 w-full sm:flex-1 sm:min-w-0">' +
             '<div class="font-semibold text-orange-500 break-words">' + esc(pack) + '</div>' +
-            '<div class="text-sm text-gray-400 mt-1">Data do tour: ' + esc(dateDisplay) + '</div>' +
+            '<div class="text-sm text-gray-400 mt-1">' + esc(tourDateLabel) + ': ' + esc(dateDisplay) + '</div>' +
           '</div>' +
           '<div class="w-full min-w-0 flex flex-col gap-3 sm:w-auto sm:shrink-0 sm:items-end">' +
             '<div class="sm:text-right">' +
@@ -131,7 +141,7 @@
               w.document.close();
               w.focus();
             })
-            .catch(function() { alert('Erro ao abrir recibo.'); });
+            .catch(function() { alert('{% trans "Erro ao abrir recibo." %}'); });
         });
       });
       list.querySelectorAll('.reserva-delete-btn').forEach(function(btn) {

@@ -194,3 +194,528 @@ msgstr "Avis"
 
 msgid "Mensagens de contacto"
 msgstr "Messages de contact"
+
+msgid "Escolha o seu pack"
+msgstr "Choisissez votre pack"
+
+msgid "Número de pessoas"
+msgstr "Nombre de personnes"
+
+msgid "Duração"
+msgstr "Durée"
+
+msgid "2 horas"
+msgstr "2 heures"
+
+msgid "3 horas"
+msgstr "3 heures"
+
+msgid "4 horas"
+msgstr "4 heures"
+
+msgid "Pack"
+msgstr "Pack"
+
+msgid "Fato de proteção"
+msgstr "Combinaison de protection"
+
+msgid "A definir"
+msgstr "À définir"
+
+msgid "Data do tour"
+msgstr "Date du tour"
+
+msgid "Pedido de cancelamento"
+msgstr "Demande d’annulation"
+
+msgid "Bom dia"
+msgstr "Bonjour"
+
+msgid "Peço o cancelamento da seguinte reserva"
+msgstr "Je demande l’annulation de la réservation suivante"
+
+msgid "N.º da reserva"
+msgstr "N° de réservation"
+
+msgid "Obrigado"
+msgstr "Merci"
+
+msgid "SO SAB — Empresa de Turismo na Ilha do Sal"
+msgstr "SO SAB — Entreprise de tourisme sur l’île de Sal"
+
+msgid "Organizamos experiências autênticas na Ilha do Sal: Volta à Ilha, excursões, transfers e serviço de táxi, sempre com foco em segurança, pontualidade e boa disposição."
+msgstr "Nous organisons des expériences authentiques sur l’île de Sal : tour de l’île, excursions, transferts et service de taxi, avec un focus sur la sécurité, la ponctualité et la bonne humeur."
+
+msgid "Ver Packs"
+msgstr "Voir les packs"
+
+msgid "Falar connosco"
+msgstr "Nous contacter"
+
+msgid "Base"
+msgstr "Base"
+
+msgid "Santa Maria — Ilha do Sal"
+msgstr "Santa Maria — Île de Sal"
+
+msgid "Transfers & Táxi"
+msgstr "Transferts & Taxi"
+
+msgid "Aeroporto • Hotel • Passeios"
+msgstr "Aéroport • Hôtel • Excursions"
+
+msgid "Volta à Ilha do Sal"
+msgstr "Tour de l’île de Sal"
+
+msgid "O clássico imperdível: paisagens, paragens fotográficas e os melhores pontos da ilha, com ritmo confortável e atenção ao grupo."
+msgstr "Le grand classique incontournable : paysages, arrêts photo et meilleurs spots de l’île, à un rythme confortable avec une attention au groupe."
+
+msgid "Excursões, quad e buggy"
+msgstr "Excursions, quad & buggy"
+
+msgid "Tours guiados e experiências com aventura. Equipamento e instruções incluídos para aproveitar com confiança."
+msgstr "Tours guidés et expériences d’aventure. Équipement et instructions inclus pour en profiter en toute confiance."
+
+msgid "Serviços extra"
+msgstr "Services extra"
+
+msgid "Transfers privados e partilhados"
+msgstr "Transferts privés et partagés"
+
+msgid "Serviço de táxi"
+msgstr "Service de taxi"
+
+msgid "Impressões (A4) e apoio ao cliente"
+msgstr "Impressions (A4) et support client"
+
+msgid "Porquê escolher a SO SAB?"
+msgstr "Pourquoi choisir SO SAB ?"
+
+msgid "Pontualidade"
+msgstr "Ponctualité"
+
+msgid "chegamos a horas e combinamos tudo com clareza."
+msgstr "nous arrivons à l’heure et clarifions tout."
+
+msgid "Segurança"
+msgstr "Sécurité"
+
+msgid "atenção ao percurso e ao bem‑estar de todos."
+msgstr "attention au parcours et au bien‑être de tous."
+
+msgid "Experiência local"
+msgstr "Expérience locale"
+
+msgid "dicas e paragens que fazem a diferença."
+msgstr "des conseils et des arrêts qui font la différence."
+
+msgid "A carregar..."
+msgstr "Chargement..."
+
+msgid "Van"
+msgstr "Van"
+
+msgid "Minibus"
+msgstr "Minibus"
+
+msgid "Autocarro"
+msgstr "Autocar"
+
+msgid "SUV"
+msgstr "SUV"
+
+msgid "Taxi"
+msgstr "Taxi"
+
+msgid "Reserva enviada com sucesso!"
+msgstr "Réservation envoyée avec succès !"
+
+msgid "Recebemos o seu pedido de reserva. Vamos confirmar consigo o mais breve possível."
+msgstr "Nous avons bien reçu votre demande de réservation. Nous vous confirmerons dès que possible."
+
+msgid "* Fato de proteção opcional (10€ cada) — só adiciona ao total se escolher quantidade > 0"
+msgstr "* Combinaison de protection optionnelle (10€ chacune) — s’ajoute au total seulement si quantité > 0"
+
+msgid "Remover"
+msgstr "Retirer"
+
+msgid "Item removido do carrinho"
+msgstr "Article retiré du panier"
+
+msgid "pessoas"
+msgstr "personnes"
+
+msgid "Confirmar Reserva"
+msgstr "Confirmer la réservation"
+
+msgid "A enviar..."
+msgstr "Envoi..."
+
+msgid "Erro ao enviar reserva."
+msgstr "Impossible d’envoyer la réservation."
+
+msgid "Nova reserva"
+msgstr "Nouvelle réservation"
+
+msgid "Nova avaliação"
+msgstr "Nouvel avis"
+
+msgid "Nova mensagem"
+msgstr "Nouveau message"
+
+msgid "Editar"
+msgstr "Modifier"
+
+msgid "Guardar"
+msgstr "Enregistrer"
+
+msgid "Cancelar"
+msgstr "Annuler"
+
+msgid "Apagar"
+msgstr "Supprimer"
+
+msgid "Ações"
+msgstr "Actions"
+
+msgid "Status"
+msgstr "Statut"
+
+msgid "Preço"
+msgstr "Prix"
+
+msgid "Data"
+msgstr "Date"
+
+msgid "Editar reserva"
+msgstr "Modifier la réservation"
+
+msgid "Editar avaliação"
+msgstr "Modifier l’avis"
+
+msgid "Editar mensagem"
+msgstr "Modifier le message"
+
+msgid "esta reserva"
+msgstr "cette réservation"
+
+msgid "esta avaliação"
+msgstr "cet avis"
+
+msgid "esta mensagem"
+msgstr "ce message"
+
+msgid "Tem a certeza que deseja apagar?"
+msgstr "Êtes-vous sûr de vouloir supprimer ?"
+
+msgid "Tem a certeza que deseja apagar"
+msgstr "Êtes-vous sûr de vouloir supprimer"
+
+msgid "Nenhuma reserva."
+msgstr "Aucune réservation."
+
+msgid "Nenhuma avaliação."
+msgstr "Aucun avis."
+
+msgid "Nenhuma mensagem."
+msgstr "Aucun message."
+
+msgid "Erro ao carregar."
+msgstr "Erreur de chargement."
+
+msgid "Erro ao apagar."
+msgstr "Erreur lors de la suppression."
+
+msgid "Nome do pack"
+msgstr "Nom du pack"
+
+msgid "Data reserva"
+msgstr "Date de réservation"
+
+msgid "Extras"
+msgstr "Extras"
+
+msgid "Pendente"
+msgstr "En attente"
+
+msgid "Confirmada"
+msgstr "Confirmée"
+
+msgid "Cancelada"
+msgstr "Annulée"
+
+msgid "Concluída"
+msgstr "Terminée"
+
+msgid "Rating"
+msgstr "Note"
+
+msgid "Aprovada"
+msgstr "Approuvée"
+
+msgid "Comentário"
+msgstr "Commentaire"
+
+msgid "Sim"
+msgstr "Oui"
+
+msgid "Não"
+msgstr "Non"
+
+msgid "Erro ao entrar. Tente novamente."
+msgstr "Erreur de connexion. Veuillez réessayer."
+
+msgid "Erro de ligação. Tente novamente."
+msgstr "Erreur de connexion. Veuillez réessayer."
+
+msgid "Erro ao carregar imagens"
+msgstr "Erreur de chargement des images"
+
+msgid "Nenhuma imagem encontrada na galeria."
+msgstr "Aucune image trouvée dans la galerie."
+
+msgid "Foto"
+msgstr "Photo"
+
+msgid "Erro: Card não encontrado"
+msgstr "Erreur : carte introuvable"
+
+msgid "Erro: Preço não encontrado"
+msgstr "Erreur : prix introuvable"
+
+msgid "Recuperação de senha"
+msgstr "Réinitialisation du mot de passe"
+
+msgid "Recuperar senha"
+msgstr "Récupérer le mot de passe"
+
+msgid "Introduza o seu email e enviaremos um link para redefinir a senha."
+msgstr "Saisissez votre email et nous vous enverrons un lien pour réinitialiser le mot de passe."
+
+msgid "seu@email.com"
+msgstr "votre@email.com"
+
+msgid "Enviar link de recuperação"
+msgstr "Envoyer le lien de récupération"
+
+msgid "Voltar ao login"
+msgstr "Retour à la connexion"
+
+msgid "Email enviado"
+msgstr "Email envoyé"
+
+msgid "Se existir uma conta com o email que indicou, receberá em breve um link para redefinir a senha."
+msgstr "S’il existe un compte avec l’email indiqué, vous recevrez bientôt un lien pour réinitialiser le mot de passe."
+
+msgid "Verifique também a pasta de spam."
+msgstr "Vérifiez aussi le dossier spam."
+
+msgid "Nova senha"
+msgstr "Nouveau mot de passe"
+
+msgid "Definir nova senha"
+msgstr "Définir un nouveau mot de passe"
+
+msgid "Confirmar nova senha"
+msgstr "Confirmer le nouveau mot de passe"
+
+msgid "Guardar nova senha"
+msgstr "Enregistrer le nouveau mot de passe"
+
+msgid "Este link de recuperação não é válido ou já foi utilizado. Peça um novo link."
+msgstr "Ce lien de récupération n’est pas valide ou a déjà été utilisé. Demandez-en un nouveau."
+
+msgid "Pedir novo link"
+msgstr "Demander un nouveau lien"
+
+msgid "Para definir uma nova senha, aceda ao link abaixo:"
+msgstr "Pour définir un nouveau mot de passe, ouvrez le lien ci-dessous :"
+
+msgid "Se não pediu esta alteração, pode ignorar este email."
+msgstr "Si vous n’avez pas demandé ce changement, vous pouvez ignorer cet email."
+
+msgid "4 passageiros"
+msgstr "4 passagers"
+
+msgid "Até 8 passageiros"
+msgstr "Jusqu’à 8 passagers"
+
+msgid "Cliente"
+msgstr "Client"
+
+msgid "Confirmar senha"
+msgstr "Confirmer le mot de passe"
+
+msgid "Criar conta"
+msgstr "Créer un compte"
+
+msgid "Dados da conta"
+msgstr "Données du compte"
+
+msgid "Data do tour (opcional)"
+msgstr "Date du tour (optionnel)"
+
+msgid "Eliminar"
+msgstr "Supprimer"
+
+msgid "Erro ao abrir recibo."
+msgstr "Erreur lors de l’ouverture du reçu."
+
+msgid "Erro ao carregar reservas."
+msgstr "Erreur lors du chargement des réservations."
+
+msgid "Erro ao guardar."
+msgstr "Erreur lors de l’enregistrement."
+
+msgid "Erro ao registar. Tente novamente."
+msgstr "Erreur d’inscription. Veuillez réessayer."
+
+msgid "Erro de ligação."
+msgstr "Erreur de connexion."
+
+msgid "Erro de rede. Tente novamente."
+msgstr "Erreur réseau. Veuillez réessayer."
+
+msgid "Escreva a sua mensagem..."
+msgstr "Écrivez votre message..."
+
+msgid "Ex: Reserva, Informação..."
+msgstr "Ex. : Réservation, Information..."
+
+msgid "Fato de proteção (opcional)"
+msgstr "Combinaison de protection (optionnelle)"
+
+msgid "Fechar"
+msgstr "Fermer"
+
+msgid "Grupos grandes"
+msgstr "Grands groupes"
+
+msgid "Grupos médios"
+msgstr "Groupes moyens"
+
+msgid "Guardar alterações"
+msgstr "Enregistrer les modifications"
+
+msgid "Imprimir"
+msgstr "Imprimer"
+
+msgid "Menu"
+msgstr "Menu"
+
+msgid "Nova palavra-passe"
+msgstr "Nouveau mot de passe"
+
+msgid "Não foi possível alterar a palavra-passe."
+msgstr "Impossible de changer le mot de passe."
+
+msgid "Não foi possível carregar o perfil."
+msgstr "Impossible de charger le profil."
+
+msgid "Não tem conta?"
+msgstr "Vous n’avez pas de compte ?"
+
+msgid "O meu perfil"
+msgstr "Mon profil"
+
+msgid "O seu nome"
+msgstr "Votre nom"
+
+msgid "Palavra-passe alterada com sucesso."
+msgstr "Mot de passe changé avec succès."
+
+msgid "Palavra-passe atual"
+msgstr "Mot de passe actuel"
+
+msgid "Pedir orçamento"
+msgstr "Demander un devis"
+
+msgid "Perfil"
+msgstr "Profil"
+
+msgid "Perfil atualizado com sucesso."
+msgstr "Profil mis à jour avec succès."
+
+msgid "Quantidade de fato de proteção"
+msgstr "Quantité de combinaison de protection"
+
+msgid "Registar"
+msgstr "S’inscrire"
+
+msgid "Registe-se"
+msgstr "Inscrivez-vous"
+
+msgid "Registo"
+msgstr "Inscription"
+
+msgid "Reserva"
+msgstr "Réservation"
+
+msgid "Reservar agora"
+msgstr "Réserver maintenant"
+
+msgid "Reservar um tour"
+msgstr "Réserver un tour"
+
+msgid "Senha alterada"
+msgstr "Mot de passe modifié"
+
+msgid "Solicitar cancelamento (email)"
+msgstr "Demander l’annulation (email)"
+
+msgid "Tem de iniciar sessão para finalizar a reserva."
+msgstr "Vous devez vous connecter pour finaliser la réservation."
+
+msgid "Tem de iniciar sessão para ver as suas reservas."
+msgstr "Vous devez vous connecter pour voir vos réservations."
+
+msgid "Tem de iniciar sessão para ver o seu perfil."
+msgstr "Vous devez vous connecter pour voir votre profil."
+
+msgid "Transfer SO SAB"
+msgstr "Transfert SO SAB"
+
+msgid "Transfer privado"
+msgstr "Transfert privé"
+
+msgid "Utilizador"
+msgstr "Utilisateur"
+
+msgid "Utilizador ou email"
+msgstr "Nom d’utilisateur ou email"
+
+msgid "Ver Transfers"
+msgstr "Voir les transferts"
+
+msgid "Ver catálogo"
+msgstr "Voir le catalogue"
+
+msgid "opcional"
+msgstr "optionnel"
+
+msgid "A equipa {{ site_name }}"
+msgstr "L’équipe {{ site_name }}"
+
+msgid "A sua senha foi redefinida com sucesso. Pode entrar com a nova senha."
+msgstr "Votre mot de passe a été réinitialisé avec succès. Vous pouvez vous connecter avec le nouveau mot de passe."
+
+msgid "Ainda não tem reservas."
+msgstr "Vous n’avez pas encore de réservations."
+
+msgid "As minhas reservas"
+msgstr "Mes réservations"
+
+msgid "Alterar palavra-passe"
+msgstr "Changer le mot de passe"
+
+msgid "O seu nome de utilizador (caso tenha esquecido): {{ username }}"
+msgstr "Votre nom d’utilisateur (si vous l’avez oublié) : {{ username }}"
+
+msgid "Obrigado,"
+msgstr "Merci,"
+
+msgid "Recebeu este email porque foi pedida a recuperação de senha da sua conta em {{ site_name }}."
+msgstr "Vous avez reçu cet email car une réinitialisation du mot de passe a été demandée pour votre compte sur {{ site_name }}."
+
+msgid "Serviço de transfer do aeroporto e excursões na Ilha do Sal. Contacte-nos para reservar."
+msgstr "Service de transfert aéroport et excursions sur l’île de Sal. Contactez-nous pour réserver."

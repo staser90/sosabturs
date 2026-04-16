@@ -80,7 +80,7 @@
 </div>
 
 <section class="pt-32 px-6 pb-20">
-  <h2 class="text-3xl mb-10 text-center">Escolha o Seu Pack</h2>
+  <h2 class="text-3xl mb-10 text-center">{% trans "Escolha o seu pack" %}</h2>
 
   <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
     <!-- Zforce 4 1000cc -->
@@ -90,18 +90,18 @@
       </div>
       <h3 class="text-orange-500 text-xl font-bold mb-4 text-center">Zforce 4 1000cc</h3>
       <div class="mb-4">
-        <label class="block mb-2 text-sm text-gray-400">Número de Pessoas:</label>
+        <label class="block mb-2 text-sm text-gray-400">{% trans "Número de pessoas" %}:</label>
         <select class="pack-passengers w-full p-2 rounded bg-slate-800 border border-slate-700" data-pack="zforce-4">
           <option value="3">3 Pessoas</option>
           <option value="4">4 Pessoas</option>
         </select>
       </div>
       <div class="mb-4">
-        <label class="block mb-2 text-sm text-gray-400">Duração:</label>
+        <label class="block mb-2 text-sm text-gray-400">{% trans "Duração" %}:</label>
         <select class="pack-duration w-full p-2 rounded bg-slate-800 border border-slate-700" data-pack="zforce-4">
-          <option value="2">2 Horas</option>
-          <option value="3">3 Horas</option>
-          <option value="4">4 Horas</option>
+          <option value="2">{% trans "2 horas" %}</option>
+          <option value="3">{% trans "3 horas" %}</option>
+          <option value="4">{% trans "4 horas" %}</option>
         </select>
       </div>
       <div class="mb-4 flex items-center justify-between gap-3">
@@ -118,7 +118,7 @@
         <p class="text-2xl font-bold text-orange-400">
           <span class="pack-price" data-pack="zforce-4" data-passengers="3" data-duration="2">190€</span>
         </p>
-        <p class="text-xs text-gray-400 mt-1">Pack: <span class="pack-base-price">180€</span> + Fato proteção: 10€ ({% trans "opcional" %})</p>
+        <p class="text-xs text-gray-400 mt-1">{% trans "Pack" %}: <span class="pack-base-price">180€</span> + {% trans "Fato de proteção" %}: 10€ ({% trans "opcional" %})</p>
       </div>
       <button type="button" class="add-to-cart w-full bg-orange-500 px-5 py-2 rounded hover:bg-orange-600 transition mt-auto cursor-pointer" 
               data-pack="zforce-4" 
@@ -135,11 +135,11 @@
       </div>
       <h3 class="text-orange-500 text-xl font-bold mb-4 text-center">Zforce 1000cc</h3>
       <div class="mb-4">
-        <label class="block mb-2 text-sm text-gray-400">Duração:</label>
+        <label class="block mb-2 text-sm text-gray-400">{% trans "Duração" %}:</label>
         <select class="pack-duration w-full p-2 rounded bg-slate-800 border border-slate-700" data-pack="zforce">
-          <option value="2">2 Horas</option>
-          <option value="3">3 Horas</option>
-          <option value="4">4 Horas</option>
+          <option value="2">{% trans "2 horas" %}</option>
+          <option value="3">{% trans "3 horas" %}</option>
+          <option value="4">{% trans "4 horas" %}</option>
         </select>
       </div>
       <div class="mb-4 flex items-center justify-between gap-3">
@@ -156,7 +156,7 @@
         <p class="text-2xl font-bold text-orange-400">
           <span class="pack-price" data-pack="zforce" data-duration="2">135€</span>
         </p>
-        <p class="text-xs text-gray-400 mt-1">Pack: <span class="pack-base-price">125€</span> + Fato proteção: 10€ ({% trans "opcional" %})</p>
+        <p class="text-xs text-gray-400 mt-1">{% trans "Pack" %}: <span class="pack-base-price">125€</span> + {% trans "Fato de proteção" %}: 10€ ({% trans "opcional" %})</p>
       </div>
       <button type="button" class="add-to-cart w-full bg-orange-500 px-5 py-2 rounded hover:bg-orange-600 transition mt-auto cursor-pointer" 
               data-pack="zforce" 
@@ -173,11 +173,11 @@
       </div>
       <h3 class="text-orange-500 text-xl font-bold mb-4 text-center">CF Moto 550cc</h3>
       <div class="mb-4">
-        <label class="block mb-2 text-sm text-gray-400">Duração:</label>
+        <label class="block mb-2 text-sm text-gray-400">{% trans "Duração" %}:</label>
         <select class="pack-duration w-full p-2 rounded bg-slate-800 border border-slate-700" data-pack="cf-moto">
-          <option value="2">2 Horas</option>
-          <option value="3">3 Horas</option>
-          <option value="4">4 Horas</option>
+          <option value="2">{% trans "2 horas" %}</option>
+          <option value="3">{% trans "3 horas" %}</option>
+          <option value="4">{% trans "4 horas" %}</option>
         </select>
       </div>
       <div class="mb-4 flex items-center justify-between gap-3">
@@ -194,7 +194,7 @@
         <p class="text-2xl font-bold text-orange-400">
           <span class="pack-price" data-pack="cf-moto" data-duration="2">100€</span>
         </p>
-        <p class="text-xs text-gray-400 mt-1">Pack: <span class="pack-base-price">90€</span> + Fato proteção: 10€ ({% trans "opcional" %})</p>
+        <p class="text-xs text-gray-400 mt-1">{% trans "Pack" %}: <span class="pack-base-price">90€</span> + {% trans "Fato de proteção" %}: 10€ ({% trans "opcional" %})</p>
       </div>
       <button type="button" class="add-to-cart w-full bg-orange-500 px-5 py-2 rounded hover:bg-orange-600 transition mt-auto cursor-pointer" 
               data-pack="cf-moto" 
@@ -211,11 +211,11 @@
       </div>
       <h3 class="text-orange-500 text-xl font-bold mb-4 text-center">CF Buggy 550cc</h3>
       <div class="mb-4">
-        <label class="block mb-2 text-sm text-gray-400">Duração:</label>
+        <label class="block mb-2 text-sm text-gray-400">{% trans "Duração" %}:</label>
         <select class="pack-duration w-full p-2 rounded bg-slate-800 border border-slate-700" data-pack="cf-buggy">
-          <option value="2">2 Horas</option>
-          <option value="3">3 Horas</option>
-          <option value="4">4 Horas</option>
+          <option value="2">{% trans "2 horas" %}</option>
+          <option value="3">{% trans "3 horas" %}</option>
+          <option value="4">{% trans "4 horas" %}</option>
         </select>
       </div>
       <div class="mb-4 flex items-center justify-between gap-3">
@@ -232,7 +232,7 @@
         <p class="text-2xl font-bold text-orange-400">
           <span class="pack-price" data-pack="cf-buggy" data-duration="2">110€</span>
         </p>
-        <p class="text-xs text-gray-400 mt-1">Pack: <span class="pack-base-price">100€</span> + Fato proteção: 10€ ({% trans "opcional" %})</p>
+        <p class="text-xs text-gray-400 mt-1">{% trans "Pack" %}: <span class="pack-base-price">100€</span> + {% trans "Fato de proteção" %}: 10€ ({% trans "opcional" %})</p>
       </div>
       <button type="button" class="add-to-cart w-full bg-orange-500 px-5 py-2 rounded hover:bg-orange-600 transition mt-auto cursor-pointer" 
               data-pack="cf-buggy" 
@@ -319,7 +319,7 @@
     cartCount.textContent = cart.length;
 
     if (cart.length === 0) {
-      if (cartItems) cartItems.innerHTML = '<p class="text-gray-400 text-center">O carrinho está vazio</p>';
+      if (cartItems) cartItems.innerHTML = '<p class="text-gray-400 text-center">{% trans "O carrinho está vazio" %}</p>';
       if (checkoutBtn) checkoutBtn.disabled = true;
       if (cartTotal) cartTotal.textContent = '€0.00';
     } else {
@@ -327,7 +327,7 @@
       if (cartItems) {
         cartItems.innerHTML = cart.map(item => {
           total += item.price;
-          const passengersText = item.passengers ? ` • ${item.passengers} pessoas` : '';
+          const passengersText = item.passengers ? ` • ${item.passengers} {% trans "pessoas" %}` : '';
           const qty = Number(item.protectionSuitQty || 0) || 0;
           const suitText = qty > 0
             ? ` + {% trans "Fato de proteção" %}: ${qty} × €${(item.wetsuitUnitPrice || 10).toFixed ? (item.wetsuitUnitPrice || 10).toFixed(2) : '10.00'} = €${Number(item.protectionSuitPrice || 0).toFixed(2)}`
@@ -338,12 +338,12 @@
                 <div class="flex-1">
                   <h4 class="font-bold text-orange-500">${item.name}</h4>
                   <p class="text-sm text-gray-400">${item.duration}${passengersText}</p>
-                  <p class="text-sm text-gray-400">Pack: €${Number(item.basePrice || item.price || 0).toFixed(2)}${suitText}</p>
+                  <p class="text-sm text-gray-400">{% trans "Pack" %}: €${Number(item.basePrice || item.price || 0).toFixed(2)}${suitText}</p>
                 </div>
                 <div class="text-right ml-4">
                   <p class="font-bold">€${item.price.toFixed(2)}</p>
                   <button onclick="removeFromCart(${item.id})" class="text-red-400 hover:text-red-300 text-sm mt-2">
-                    Remover
+                    {% trans "Remover" %}
                   </button>
                 </div>
               </div>
@@ -361,7 +361,7 @@
     cart = cart.filter(item => item.id !== itemId);
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartUI();
-    showNotification('Item removido do carrinho');
+    showNotification('{% trans "Item removido do carrinho" %}');
   };
 
   // Notificação (função global)
@@ -408,7 +408,7 @@
         
         if (!card) {
           console.error('Card não encontrado');
-          alert('Erro: Card não encontrado');
+          alert('{% trans "Erro: Card não encontrado" %}');
           return;
         }
         
@@ -418,7 +418,7 @@
         
         if (!priceElement) {
           console.error('Elemento de preço não encontrado');
-          alert('Erro: Preço não encontrado');
+          alert('{% trans "Erro: Preço não encontrado" %}');
           return;
         }
         

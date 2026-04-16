@@ -196,6 +196,11 @@
 <script>
   let galleryImages = [];
   let currentImageIndex = 0;
+  const T = {
+    err_load_images: '{% trans "Erro ao carregar imagens" %}',
+    none_images: '{% trans "Nenhuma imagem encontrada na galeria." %}',
+    photo_alt: '{% trans "Foto" %}',
+  };
 
   // Carregar imagens da API
   async function loadGalleryImages() {
@@ -224,7 +229,7 @@
         renderGallery();
       }
     } catch (error) {
-      console.error('Erro ao carregar imagens:', error);
+      console.error(T.err_load_images + ':', error);
       // Fallback para imagens estáticas
       galleryImages = [
         '{% static "images/galeria/IMG_7402.JPG" %}',
@@ -249,7 +254,7 @@
     galleryGrid.innerHTML = ''; // Limpar
     
     if (galleryImages.length === 0) {
-      galleryGrid.innerHTML = '<p class="text-gray-400 text-center col-span-full">Nenhuma imagem encontrada na galeria.</p>';
+      galleryGrid.innerHTML = '<p class="text-gray-400 text-center col-span-full">' + T.none_images + '</p>';
       return;
     }
     
@@ -260,7 +265,7 @@
       
       const img = document.createElement('img');
       img.src = imageSrc;
-      img.alt = `Foto ${index + 1} - SO SAB`;
+      img.alt = `${T.photo_alt} ${index + 1} - SO SAB`;
       img.loading = 'lazy';
       img.onerror = function() {
         this.style.display = 'none';
