@@ -73,7 +73,9 @@ canvas {
   }
 
   .navbar h1,
-  .navbar h1 a {
+  .navbar h1 a,
+  .navbar .navbar-brand,
+  .navbar .navbar-brand a {
     font-size: 1.1rem !important;
     flex-shrink: 0;
   }
@@ -130,6 +132,7 @@ canvas {
     padding: 6rem 1rem 2.5rem !important;
   }
 
+  .hero h1,
   .hero h2 {
     padding-left: 0.25rem;
     padding-right: 0.25rem;

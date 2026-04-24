@@ -6,7 +6,8 @@
 <header class="navbar w-full">
   <div class="relative flex w-full flex-nowrap items-center justify-between gap-4 px-4 py-3 md:px-5">
     {% if variant == 'home' %}
-      <h1 class="shrink-0 text-lg font-bold text-orange-500 md:text-xl">SO SAB</h1>
+      {# Logo da marca: div para a homepage ter um único <h1> no conteúdo (SEO). #}
+      <div class="navbar-brand shrink-0 text-lg font-bold text-orange-500 md:text-xl">SO SAB</div>
     {% else %}
       <h1 class="shrink-0 text-lg font-bold text-orange-500 md:text-xl"><a href="{% url 'home' %}">SO SAB</a></h1>
     {% endif %}
